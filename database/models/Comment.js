@@ -15,7 +15,7 @@ const CommentSchema = connect.Schema({
     }
 })
 
-CategorySchema.methods.toJSON = function() {
+CommentSchema.methods.toJSON = function() {
     var commentObject = this.toObject()
     return {
         _id:     commentObject._id,
