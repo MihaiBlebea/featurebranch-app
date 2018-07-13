@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require('./../database/models/User')
+const { User } = require('./../database/models')
 const { auth } = require('./../middleware/auth')
 
 const router  = express.Router()
@@ -36,7 +36,7 @@ router.post('/login', (request, response)=> {
     })
 })
 
-router.get('/', auth, (request, response)=> {
+router.get('/', (request, response)=> {
     if(request.query.email !== null)
     {
         User.findOne({ email: request.query.email }).then((user)=> {

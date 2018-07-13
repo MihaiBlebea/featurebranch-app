@@ -68,6 +68,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.toJSON = function() {
     var userObject = this.toObject()
     return {
+        _id: userObject._id,
         first_name: userObject.first_name,
         last_name: userObject.last_name,
         email: userObject.email,
