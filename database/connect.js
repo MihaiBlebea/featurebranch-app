@@ -9,6 +9,8 @@ const database = config.get('mongo_database.database');
 mongoose.Promise = global.Promise;
 mongoose.plugin(paginate);
 
-mongoose.connect(url + '/' + database)
+mongoose.connect(url + '/' + database).catch((error)=> {
+    console.log(error)
+})
 
 module.exports = mongoose
