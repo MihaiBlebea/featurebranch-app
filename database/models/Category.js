@@ -24,6 +24,18 @@ const CategorySchema = connect.Schema({
     }]
 })
 
+CategorySchema.methods.toJSON = function() {
+    var categoryObject = this.toObject()
+    return {
+        _id:         categoryObject._id,
+        title:       categoryObject.title,
+        slug:        categoryObject.slug,
+        description: categoryObject.description,
+        main_image:  categoryObject.main_image,
+        posts:       categoryObject.posts
+    }
+}
+
 const Category = connect.model('Category', CategorySchema)
 
 module.exports = Category

@@ -15,6 +15,16 @@ const CommentSchema = connect.Schema({
     }
 })
 
+CategorySchema.methods.toJSON = function() {
+    var commentObject = this.toObject()
+    return {
+        _id:     commentObject._id,
+        title:   commentObject.title,
+        content: commentObject.content,
+        author:  commentObject.author,
+    }
+}
+
 const Comment = connect.model('Comment', CommentSchema)
 
 module.exports = Comment
