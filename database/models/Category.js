@@ -13,11 +13,15 @@ const CategorySchema = connect.Schema({
         type: String,
         required: true
     },
-    image: {
+    main_image: {
         type: connect.Schema.Types.ObjectId,
         ref: 'Image',
         required: true
-    }
+    },
+    posts: [{
+        type: connect.Schema.Types.ObjectId,
+        ref: 'Post'
+    }]
 })
 
 const Category = connect.model('Category', CategorySchema)

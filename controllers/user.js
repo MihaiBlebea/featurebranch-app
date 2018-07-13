@@ -6,14 +6,13 @@ const router  = express.Router()
 
 
 router.post('/signup', (request, response)=> {
-    var payload = {
+    User.create({
         first_name: request.body.first_name,
-        last_name: request.body.last_name,
-        phone: request.body.phone,
-        email: request.body.email,
-        password: request.body.password
-    }
-    User.create(payload).then((user)=> {
+        last_name:  request.body.last_name,
+        phone:      request.body.phone,
+        email:      request.body.email,
+        password:   request.body.password
+    }).then((user)=> {
         response.json({
             response: 'User was saved',
             model: user
@@ -31,7 +30,6 @@ router.post('/login', (request, response)=> {
             response.header('x-auth', token).json(user)
         })
     }).catch((error)=> {
-        console.log(error)
         response.status(400).send()
     })
 })

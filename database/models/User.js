@@ -136,6 +136,6 @@ UserSchema.methods.generateJWT = function() {
     })
 }
 
-var User = connect.model('User', UserSchema)
+const User = connect.model('User', UserSchema)
 
 module.exports = User

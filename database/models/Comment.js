@@ -1,4 +1,4 @@
-const connect = require('./../coonect')
+const connect = require('./../connect')
 
 const CommentSchema = connect.Schema({
     title: {

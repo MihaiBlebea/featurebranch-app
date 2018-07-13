@@ -11,9 +11,20 @@ const ImageSchema = connect.Schema({
     },
     url: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 })
+
+ImageSchema.methods.toJSON = function() {
+    var imageObject = this.toObject()
+    return {
+        _id:       imageObject._id,
+        name:      imageObject.name,
+        extension: imageObject.extension,
+        url:       imageObject.url
+    }
+}
 
 const Image = connect.model('Image', ImageSchema)
 
