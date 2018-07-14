@@ -6,19 +6,23 @@ const router  = express.Router()
 
 
 router.post('/signup', (request, response)=> {
-    User.create({
+    var payload = {
         first_name: request.body.first_name,
         last_name:  request.body.last_name,
         phone:      request.body.phone,
         email:      request.body.email,
         password:   request.body.password
-    }).then((user)=> {
+    }
+    var user = new User(payload)
+    user.save().then(()=> {
+        return user.generateJWT()
+    }).then((token)=> {
         response.json({
-            response: 'User was saved',
-            model: user
+            token: token,
+            user: user
         })
     }).catch((error)=> {
-        console.log(error)
+        response.json(error)
     })
 })
 

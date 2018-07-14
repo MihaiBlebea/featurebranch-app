@@ -90,6 +90,8 @@ UserSchema.statics.findByToken = function(token) {
         'tokens.access': 'auth'
     }).then((user)=> {
         return user
+    }).catch((error)=> {
+        console.log(error)
     })
 }
 
