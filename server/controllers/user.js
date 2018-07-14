@@ -17,10 +17,7 @@ router.post('/signup', (request, response)=> {
     user.save().then(()=> {
         return user.generateJWT()
     }).then((token)=> {
-        response.json({
-            token: token,
-            user: user
-        })
+        response.header('x-auth', token).json(user)
     }).catch((error)=> {
         response.json(error)
     })
@@ -31,10 +28,10 @@ router.post('/login', (request, response)=> {
     var password = request.body.password
     User.findByCredentials(email, password).then((user)=> {
         user.generateJWT().then((token)=> {
-            response.header('x-auth', token).json(user)
+            response.status(200).header('x-auth', token).json(user)
         })
     }).catch((error)=> {
-        response.status(400).send()
+        response.json(error)
     })
 })
 
