@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import { MainTitle, FormInput, Alert } from './../../Components'
 
 
@@ -11,7 +12,8 @@ class LoginPage extends React.Component
         this.state = {
             email: '',
             password: '',
-            errors: false
+            errors: false,
+            token: null
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -33,7 +35,7 @@ class LoginPage extends React.Component
             {
                 this.setState({ errors: false })
             }
-            localStorage.setItem('auth_token', result.headers['x-auth'])
+            this.props.onUserLogin(result.headers['x-auth'], 3600)
             this.props.history.push('/dashboard')
         }).catch((error)=> {
             this.setState({ errors: true })
@@ -78,4 +80,10 @@ class LoginPage extends React.Component
     }
 }
 
-export default LoginPage
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onUserLogin: (token, expire)=> dispatch({ type: 'USER_LOGIN', token: token, expireIn: expire})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginPage)

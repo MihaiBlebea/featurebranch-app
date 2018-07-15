@@ -10,19 +10,8 @@ import { HomePage,
          LoginPage,
          DashboardPage } from './Pages'
 
-class App extends React.Component {
-
-    constructor()
-    {
-        super()
-        this.state = {
-            auth: {
-                state: true,
-                token: null
-            }
-        }
-    }
-
+class App extends React.Component
+{
     render() {
         return (
             <Router>
