@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
+import * as Pages from './../../Pages'
 
-
-const PrivateRoute = ({ component: Component, ...rest })=> {
-  return (
-    <Route
-        { ...rest }
-        render={ (props) => { return (props.isAuth === true) ? <Component {...props} /> : <Redirect to='/login' /> }}
-    />
-  )
+const PrivateRoute = (props)=> {
+    if(props.isAuth === true)
+    {
+        return (
+            <Route path={ props.path } component={ Pages[props.component] } />
+        )
+    } else {
+        return <Redirect to='/login' />
+    }
 }
 
 const mapStateToProps = (state)=> {

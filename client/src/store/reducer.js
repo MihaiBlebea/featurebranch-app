@@ -1,3 +1,5 @@
+import { onUserLogin, onUserLogout } from './actions'
+
 const initState = {
     auth: {
         state: false,
@@ -5,34 +7,17 @@ const initState = {
     }
 }
 
-const reducer = (state = initState, action)=> {
-    if(action.type === 'USER_LOGIN')
-    {
-        const expDate = new Date(new Date().getTime() + action.expireIn * 1000)
-        localStorage.setItem('authToken', action.token)
-        localStorage.setItem('expDate', expDate)
-        return {
-            ...state,
-            auth: {
-                state: true,
-                token: action.token
-            }
-        }
-    }
 
-    if(action.type === 'USER_LOGOUT')
+const reducer = (state = initState, action)=> {
+    switch(action.type)
     {
-        localStorage.removeItem('authToken')
-        localStorage.removeItem('expDate')
-        return {
-            ...state,
-            auth: {
-                state: false,
-                token: null
-            }
-        }
+        case 'USER_LOGIN':
+            return onUserLogin(state, action)
+        case 'USER_LOGOUT':
+            return onUserLogout(state, action)
+        default:
+            return state
     }
-    return state
 }
 
 export default reducer
