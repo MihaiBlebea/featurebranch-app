@@ -1,29 +1,13 @@
-const onUserLogin = (state, action)=> {
-    const expDate = new Date(new Date().getTime() + action.expireIn * 1000)
-    localStorage.setItem('authToken', action.token)
-    localStorage.setItem('expDate', expDate)
+export const userLogin = (token, expireIn)=> {
     return {
-        ...state,
-        auth: {
-            state: true,
-            token: action.token
-        }
+        type: 'USER_LOGIN',
+        token: token,
+        expireIn: expireIn
     }
 }
 
-const onUserLogout = (state, action)=> {
-    localStorage.removeItem('authToken')
-    localStorage.removeItem('expDate')
+export const userLogout = ()=> {
     return {
-        ...state,
-        auth: {
-            state: false,
-            token: null
-        }
+        type: 'USER_LOGOUT'
     }
-}
-
-export {
-    onUserLogin,
-    onUserLogout
 }

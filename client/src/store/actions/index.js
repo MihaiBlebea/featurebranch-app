@@ -1,6 +1,6 @@
-import { onUserLogin, onUserLogout } from './auth'
+import { userLogin, userLogout } from './auth'
 
 export {
-    onUserLogin,
-    onUserLogout
+    userLogin,
+    userLogout
 }

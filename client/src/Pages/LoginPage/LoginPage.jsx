@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { MainTitle, FormInput, Alert } from './../../Components'
-
+import * as action from './../../store/actions'
 
 class LoginPage extends React.Component
 {
@@ -82,7 +82,7 @@ class LoginPage extends React.Component
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        onUserLogin: (token, expire)=> dispatch({ type: 'USER_LOGIN', token: token, expireIn: expire})
+        onUserLogin: (token, expire)=> dispatch(action.userLogin(token, expire))
     }
 }
 

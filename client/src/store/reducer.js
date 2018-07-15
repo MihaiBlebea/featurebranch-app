@@ -1,4 +1,4 @@
-import { onUserLogin, onUserLogout } from './actions'
+import { onUserLogin, onUserLogout } from './utility'
 
 const initState = {
     auth: {
@@ -6,7 +6,6 @@ const initState = {
         token: null
     }
 }
-
 
 const reducer = (state = initState, action)=> {
     switch(action.type)
