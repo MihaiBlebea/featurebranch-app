@@ -1,4 +1,6 @@
 import React from 'react'
+import { MainTitle } from './../../Components'
+
 
 class DashboardPage extends React.Component
 {
@@ -14,7 +16,7 @@ class DashboardPage extends React.Component
     {
         return (
             <div>
-                <h3>Dashboard Page</h3>
+                <MainTitle>Dashboard Page</MainTitle>
             </div>
         )
     }

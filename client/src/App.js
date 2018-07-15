@@ -1,16 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { DefaultContainer } from './Layouts'
-import { MainNavigation } from './Components'
+import { MainNavigation, PrivateRoute } from './Components'
 import { HomePage,
          BlogPage,
          AboutPage,
-         ContactPage, 
-         RegisterPage, 
-         LoginPage, 
+         ContactPage,
+         RegisterPage,
+         LoginPage,
          DashboardPage } from './Pages'
 
 class App extends React.Component {
+
+    constructor()
+    {
+        super()
+        this.state = {
+            auth: {
+                state: true,
+                token: null
+            }
+        }
+    }
+
     render() {
         return (
             <Router>
@@ -24,7 +36,7 @@ class App extends React.Component {
                         <Route path="/contact" component={ ContactPage } />
                         <Route path="/register" component={ RegisterPage } />
                         <Route path="/login" component={ LoginPage } />
-                        <Route path="/dashboard" component={ DashboardPage } />
+                        <PrivateRoute path="/dashboard" component={ DashboardPage } />
                     </DefaultContainer>
                 </div>
             </Router>

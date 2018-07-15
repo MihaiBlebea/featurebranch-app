@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { MainTitle, FormInput } from './../../Components'
+import { MainTitle, FormInput, Alert } from './../../Components'
 
 
 class LoginPage extends React.Component
@@ -11,10 +11,7 @@ class LoginPage extends React.Component
         this.state = {
             email: '',
             password: '',
-            errors: {
-                email: null,
-                password: null
-            }
+            errors: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -22,15 +19,7 @@ class LoginPage extends React.Component
 
     handleInputChange(event)
     {
-        let name = event.target.name
-        this.setState({ [name]: event.target.value }, ()=> {
-            if(name === 'passwordAgain' || name === 'password')
-            {
-                let errors = { ...this.state.errors }
-                errors.passwordAgain = (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
-                this.setState({ errors })
-            }
-        })
+        this.setState({ [event.target.name]: event.target.value })
     }
 
     handleFormSubmit()
@@ -40,20 +29,16 @@ class LoginPage extends React.Component
             password: this.state.password
         }
         axios.post(process.env.REACT_APP_API_ROOT + 'user/login', payload).then((result)=> {
-            console.log(result)
+            if(this.state.errors === true)
+            {
+                this.setState({ errors: false })
+            }
+            localStorage.setItem('auth_token', result.headers['x-auth'])
+            this.props.history.push('/dashboard')
         }).catch((error)=> {
+            this.setState({ errors: true })
             console.log(error)
         })
-    }
-
-    createErrorMessage(name)
-    {
-        if(this.state.errors[name] !== null)
-        {
-            return (
-                <div className="invalid-feedback">{ this.state.errors[name] }</div>
-            )
-        }
     }
 
     render()
@@ -63,20 +48,20 @@ class LoginPage extends React.Component
                 <MainTitle>Login Page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <div className="card shadow-sm">
+                        <Alert type='danger' display={ this.state.errors }>You have the wrong credentials</Alert>
+
+                        <div className="card shadow">
                             <div className="card-body">
                                 <FormInput label='Email'
                                            value={ this.state.email }
                                            name='email'
                                            type='email'
-                                           error={ this.state.errors.email }
                                            onInputChange={ (event)=> this.handleInputChange(event) } />
 
                                 <FormInput label={'Password'}
                                            value={ this.state.password }
                                            name={'password'}
                                            type='password'
-                                           error={ this.state.errors.password }
                                            onInputChange={ (event)=> this.handleInputChange(event) } />
 
                                 <div className="form-group">

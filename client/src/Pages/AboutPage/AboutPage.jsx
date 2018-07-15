@@ -1,9 +1,11 @@
 import React from 'react'
+import { MainTitle } from './../../Components'
+
 
 const AboutPage = ()=> {
     return (
         <div>
-            <h3>About Page</h3>
+            <MainTitle>About Page</MainTitle>
         </div>
     )
 }

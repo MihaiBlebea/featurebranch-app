@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { MainTitle, FormInput } from './../../Components'
+import { MainTitle, FormInput, Alert } from './../../Components'
 
 class RegisterPage extends React.Component
 {
@@ -71,14 +71,18 @@ class RegisterPage extends React.Component
         })
     }
 
-    createErrorMessage(name)
+    displayErrorBanner()
     {
-        if(this.state.errors[name] !== null)
+        let result = false
+        let errors = Object.values(this.state.errors)
+        for(let i = 0; i < errors.length; i++)
         {
-            return (
-                <div className="invalid-feedback">{ this.state.errors[name] }</div>
-            )
+            if(errors[i] !== null)
+            {
+                result = true
+            }
         }
+        return result
     }
 
     render()
@@ -88,9 +92,11 @@ class RegisterPage extends React.Component
                 <MainTitle>Register page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <div className="card shadow-sm">
+                        <Alert type='danger' display={ this.displayErrorBanner() }>Please fill all the required fields</Alert>
+
+                        <div className="card shadow">
                             <div className="card-body">
-                            
+
                                 <FormInput label='First name'
                                            value={ this.state.firstName }
                                            name='firstName'

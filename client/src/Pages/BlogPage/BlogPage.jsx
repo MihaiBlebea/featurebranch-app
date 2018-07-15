@@ -1,9 +1,11 @@
 import React from 'react'
+import { MainTitle } from './../../Components'
+
 
 const BlogPage = ()=> {
     return (
         <div>
-            <h3>Blog Page</h3>
+            <MainTitle>Blog Page</MainTitle>
         </div>
     )
 }

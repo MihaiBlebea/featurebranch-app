@@ -31,7 +31,7 @@ router.post('/login', (request, response)=> {
             response.status(200).header('x-auth', token).json(user)
         })
     }).catch((error)=> {
-        response.json(error)
+        response.status(401).json({ response: 'Credentials do not match' })
     })
 })
 
