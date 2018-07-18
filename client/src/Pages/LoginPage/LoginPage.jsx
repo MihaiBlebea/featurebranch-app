@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { MainTitle, FormInput, Alert } from './../../Components'
-import * as action from './../../store/actions'
+import { Redirect } from 'react-router-dom'
+import * as actions from './../../store/actions'
 
 class LoginPage extends React.Component
 {
@@ -11,9 +11,7 @@ class LoginPage extends React.Component
         super()
         this.state = {
             email: '',
-            password: '',
-            errors: false,
-            token: null
+            password: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -26,31 +24,17 @@ class LoginPage extends React.Component
 
     handleFormSubmit()
     {
-        let payload = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/login', payload).then((result)=> {
-            if(this.state.errors === true)
-            {
-                this.setState({ errors: false })
-            }
-            this.props.onUserLogin(result.headers['x-auth'], 3600)
-            this.props.history.push('/dashboard')
-        }).catch((error)=> {
-            this.setState({ errors: true })
-            console.log(error)
-        })
+        this.props.onUserLogin(this.state.email, this.state.password)
     }
 
-    render()
+    createLoginForm()
     {
         return (
             <div>
                 <MainTitle>Login Page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.state.errors }>You have the wrong credentials</Alert>
+                        <Alert type='danger' display={ this.props.error }>You have the wrong credentials</Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
@@ -78,12 +62,24 @@ class LoginPage extends React.Component
             </div>
         )
     }
+
+    render()
+    {
+        return (this.props.token !== null) ? <Redirect to='/dashboard' /> : this.createLoginForm()
+    }
+}
+
+const mapStateToProps = (state)=> {
+    return {
+        error: state.auth.error,
+        token: state.auth.token
+    }
 }
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        onUserLogin: (token, expire)=> dispatch(action.userLogin(token, expire))
+        onUserLogin: (email, password)=> dispatch(actions.userLogin(email, password))
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

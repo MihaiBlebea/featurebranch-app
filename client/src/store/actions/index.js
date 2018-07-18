@@ -1,6 +1,7 @@
-import { userLogin, userLogout } from './auth'
+import { userLogin, userLogout, authCheck } from './auth'
 
 export {
     userLogin,
-    userLogout
+    userLogout,
+    authCheck
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import thunk from 'redux-thunk'
+import dotenv from 'dotenv'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+
 import App from './App'
-import dotenv from 'dotenv'
 import registerServiceWorker from './registerServiceWorker'
 import reducer from './store/reducer'
 
@@ -23,7 +25,7 @@ const logger = (store)=> {
 }
 
 // init the redux store and apply middleware //
-const store = createStore(reducer, applyMiddleware(logger))
+const store = createStore(reducer, applyMiddleware(logger, thunk))
 
 // Wrap the App inside the Provider component and pass the store //
 const appWithStore = (

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import * as actions from './store/actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { DefaultContainer } from './Layouts'
 import { MainNavigation, PrivateRoute } from './Components'
@@ -12,6 +14,11 @@ import { HomePage,
 
 class App extends React.Component
 {
+    componentDidMount()
+    {
+        this.props.onAutoSignup()
+    }
+
     render() {
         return (
             <Router>
@@ -33,4 +40,10 @@ class App extends React.Component
     }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onAutoSignup: ()=> dispatch(actions.authCheck())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(App);
