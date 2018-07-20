@@ -26,6 +26,54 @@ class RegisterPage extends React.Component
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
+    formSchema()
+    {
+        return [
+            {
+                label: 'First name',
+                value: this.state.firstName,
+                name: 'firstName',
+                type: 'text',
+                error: this.state.errors.firstName
+            },
+            {
+                label: 'Last name',
+                value: this.state.lastName,
+                name: 'lastName',
+                type: 'text',
+                error: this.state.errors.lastName
+            },
+            {
+                label: 'Email',
+                value: this.state.email,
+                name: 'email',
+                type: 'email',
+                error: this.state.errors.email
+            },
+            {
+                label: 'Phone',
+                value: this.state.phone,
+                name: 'phone',
+                type: 'text',
+                error: ''
+            },
+            {
+                label: 'Password',
+                value: this.state.password,
+                name: 'password',
+                type: 'password',
+                error: this.state.errors.password
+            },
+            {
+                label: 'Confirm password',
+                value: this.state.passwordAgain,
+                name: 'passwordAgain',
+                type: 'password',
+                error: this.state.errors.passwordAgain
+            }
+        ]
+    }
+
     handleInputChange(event)
     {
         let name = event.target.name
@@ -85,6 +133,20 @@ class RegisterPage extends React.Component
         return result
     }
 
+    createFormInputs()
+    {
+        return this.formSchema().map((input, index)=> {
+            return (
+                <FormInput key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           error={ input.error }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
+            )
+        })
+    }
+
     render()
     {
         return (
@@ -97,46 +159,7 @@ class RegisterPage extends React.Component
                         <div className="card shadow">
                             <div className="card-body">
 
-                                <FormInput label='First name'
-                                           value={ this.state.firstName }
-                                           name='firstName'
-                                           error={ this.state.errors.firstName }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Last name'
-                                           value={ this.state.lastName }
-                                           name='lastName'
-                                           error={ this.state.errors.lastName }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Email'
-                                           value={ this.state.email }
-                                           name='email'
-                                           type='email'
-                                           error={ this.state.errors.email }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Phone number'
-                                           value={ this.state.phone }
-                                           name='phone'
-                                           error={ this.state.errors.phone }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <hr />
-
-                                <FormInput label='Choose password'
-                                           value={ this.state.password }
-                                           name='password'
-                                           type='password'
-                                           error={ this.state.errors.password }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Password again'
-                                           value={ this.state.passwordAgain }
-                                           name='passwordAgain'
-                                           type='password'
-                                           error={ this.state.errors.passwordAgain }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                                { this.createFormInputs() }
 
                                 <div className="form-group">
                                     <button type="submit"
