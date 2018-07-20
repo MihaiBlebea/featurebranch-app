@@ -1,7 +1,8 @@
 import React from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import { MainTitle, FormInput, Alert } from './../../Components'
-
+import { Redirect } from 'react-router-dom'
+import * as actions from './../../store/actions'
 
 class LoginPage extends React.Component
 {
@@ -10,11 +11,28 @@ class LoginPage extends React.Component
         super()
         this.state = {
             email: '',
-            password: '',
-            errors: false
+            password: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    formSchema()
+    {
+        return [
+            {
+                label: 'Email',
+                value: this.state.email,
+                name: 'email',
+                type: 'email'
+            },
+            {
+                label: 'Password',
+                value: this.state.password,
+                name: 'password',
+                type: 'password'
+            }
+        ]
     }
 
     handleInputChange(event)
@@ -24,45 +42,35 @@ class LoginPage extends React.Component
 
     handleFormSubmit()
     {
-        let payload = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/login', payload).then((result)=> {
-            if(this.state.errors === true)
-            {
-                this.setState({ errors: false })
-            }
-            localStorage.setItem('auth_token', result.headers['x-auth'])
-            this.props.history.push('/dashboard')
-        }).catch((error)=> {
-            this.setState({ errors: true })
-            console.log(error)
+        this.props.onUserLogin(this.state.email, this.state.password)
+    }
+
+    createFormInputs()
+    {
+        return this.formSchema().map((input, index)=> {
+            return (
+                <FormInput key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           type={ input.type }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
+            )
         })
     }
 
-    render()
+    createForm()
     {
         return (
             <div>
                 <MainTitle>Login Page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.state.errors }>You have the wrong credentials</Alert>
+                        <Alert type='danger' display={ this.props.error }>You have the wrong credentials</Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
-                                <FormInput label='Email'
-                                           value={ this.state.email }
-                                           name='email'
-                                           type='email'
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label={'Password'}
-                                           value={ this.state.password }
-                                           name={'password'}
-                                           type='password'
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                                { this.createFormInputs() }
 
                                 <div className="form-group">
                                     <button type="submit"
@@ -76,6 +84,24 @@ class LoginPage extends React.Component
             </div>
         )
     }
+
+    render()
+    {
+        return (this.props.token !== null) ? ( <Redirect to='/dashboard' /> ) : ( this.createForm() )
+    }
 }
 
-export default LoginPage
+const mapStateToProps = (state)=> {
+    return {
+        error: state.auth.error,
+        token: state.auth.token
+    }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onUserLogin: (email, password)=> dispatch(actions.userLogin(email, password))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

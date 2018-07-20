@@ -4,14 +4,6 @@ import { MainTitle } from './../../Components'
 
 class DashboardPage extends React.Component
 {
-    constructor()
-    {
-        super()
-        this.state = {
-            login: true
-        }
-    }
-
     render()
     {
         return (
