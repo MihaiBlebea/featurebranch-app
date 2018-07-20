@@ -17,6 +17,24 @@ class LoginPage extends React.Component
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
+    formSchema()
+    {
+        return [
+            {
+                label: 'Email',
+                value: this.state.email,
+                name: 'email',
+                type: 'email'
+            },
+            {
+                label: 'Password',
+                value: this.state.password,
+                name: 'password',
+                type: 'password'
+            }
+        ]
+    }
+
     handleInputChange(event)
     {
         this.setState({ [event.target.name]: event.target.value })
@@ -27,7 +45,21 @@ class LoginPage extends React.Component
         this.props.onUserLogin(this.state.email, this.state.password)
     }
 
-    createLoginForm()
+    createFormInputs()
+    {
+        return this.formSchema().map((input, index)=> {
+            return (
+                <FormInput key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           type={ input.type }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
+            )
+        })
+    }
+
+    createForm()
     {
         return (
             <div>
@@ -38,17 +70,7 @@ class LoginPage extends React.Component
 
                         <div className="card shadow">
                             <div className="card-body">
-                                <FormInput label='Email'
-                                           value={ this.state.email }
-                                           name='email'
-                                           type='email'
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label={'Password'}
-                                           value={ this.state.password }
-                                           name={'password'}
-                                           type='password'
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                                { this.createFormInputs() }
 
                                 <div className="form-group">
                                     <button type="submit"
@@ -65,7 +87,7 @@ class LoginPage extends React.Component
 
     render()
     {
-        return (this.props.token !== null) ? <Redirect to='/dashboard' /> : this.createLoginForm()
+        return (this.props.token !== null) ? ( <Redirect to='/dashboard' /> ) : ( this.createForm() )
     }
 }
 
