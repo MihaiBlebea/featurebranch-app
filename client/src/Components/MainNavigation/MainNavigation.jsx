@@ -1,13 +1,38 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-
+import * as actions from './../../store/actions'
 
 class MainNavigation extends React.Component
 {
+    isAuth()
+    {
+        return (this.props.token) ? true : false
+    }
+
+    handleLogout()
+    {
+        this.props.onLogout()
+    }
+
     createAuthButtons()
     {
-        console.log(this.props.isAuth)
+        if(this.isAuth())
+        {
+            return (
+                <ul className="navbar-nav">
+                    <li onClick={ ()=> this.handleLogout() } className="nav-link" to="/logout">Logout</li>
+                    <Link className="nav-link" to="/profile">Profile</Link>
+                </ul>
+            )
+        } else {
+            return (
+                <ul className="navbar-nav">
+                    <Link className="nav-link" to="/login">Login</Link>
+                    <Link className="nav-link" to="/register">Register</Link>
+                </ul>
+            )
+        }
     }
 
     render()
@@ -34,11 +59,7 @@ class MainNavigation extends React.Component
                         </li>
                     </ul>
 
-                    <ul className="navbar-nav">
-                        { this.createAuthButtons() }
-                        <Link className="nav-link" to="/login">Login</Link>
-                        <Link className="nav-link" to="/register">Register</Link>
-                    </ul>
+                    { this.createAuthButtons() }
                 </div>
             </nav>
         )
@@ -47,14 +68,14 @@ class MainNavigation extends React.Component
 
 const mapStateToProps = (state)=> {
     return {
-        isAuth: state.auth.state
+        token: state.auth.token
     }
 }
 
-// const mapDispatchToProps = (dispatch)=> {
-//     return {
-//         onAuthChange: ()=> dispatch({type: 'USER_AUTH'})
-//     }
-// }
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onLogout: ()=> dispatch(actions.logout())
+    }
+}
 
 export default connect(mapStateToProps)(MainNavigation)

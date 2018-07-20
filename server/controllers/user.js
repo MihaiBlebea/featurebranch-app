@@ -19,7 +19,7 @@ router.post('/signup', (request, response)=> {
     }).then((token)=> {
         response.status(200).json({
             token: token,
-            expire: 3600,
+            expire: process.env.TOKEN_EXPIRE_PERIOD,
             user: user
         })
     }).catch((error)=> {
