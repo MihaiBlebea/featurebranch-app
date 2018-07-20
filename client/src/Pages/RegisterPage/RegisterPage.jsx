@@ -1,5 +1,6 @@
 import React from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import * as actions from './../../store/actions'
 import { MainTitle, FormInput, Alert } from './../../Components'
 
 class RegisterPage extends React.Component
@@ -13,14 +14,7 @@ class RegisterPage extends React.Component
             email: '',
             phone: '',
             password: '',
-            passwordAgain: '',
-            errors: {
-                firstName: null,
-                lastName: null,
-                email: null,
-                password: null,
-                passwordAgain: null
-            }
+            passwordAgain: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -34,21 +28,21 @@ class RegisterPage extends React.Component
                 value: this.state.firstName,
                 name: 'firstName',
                 type: 'text',
-                error: this.state.errors.firstName
+                error: this.props.errors.firstName
             },
             {
                 label: 'Last name',
                 value: this.state.lastName,
                 name: 'lastName',
                 type: 'text',
-                error: this.state.errors.lastName
+                error: this.props.errors.lastName
             },
             {
                 label: 'Email',
                 value: this.state.email,
                 name: 'email',
                 type: 'email',
-                error: this.state.errors.email
+                error: this.props.errors.email
             },
             {
                 label: 'Phone',
@@ -62,14 +56,14 @@ class RegisterPage extends React.Component
                 value: this.state.password,
                 name: 'password',
                 type: 'password',
-                error: this.state.errors.password
+                error: this.props.errors.password
             },
             {
                 label: 'Confirm password',
                 value: this.state.passwordAgain,
                 name: 'passwordAgain',
                 type: 'password',
-                error: this.state.errors.passwordAgain
+                error: this.passwordConfirmationMatch()
             }
         ]
     }
@@ -77,52 +71,27 @@ class RegisterPage extends React.Component
     handleInputChange(event)
     {
         let name = event.target.name
-        this.setState({ [name]: event.target.value }, ()=> {
-            if(name === 'passwordAgain' || name === 'password')
-            {
-                let errors = { ...this.state.errors }
-                errors.passwordAgain = (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
-                this.setState({ errors })
-            }
-        })
+        this.setState({ [name]: event.target.value })
+    }
+
+    passwordConfirmationMatch()
+    {
+        return (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
     }
 
     handleFormSubmit()
     {
-        let payload = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
-            email: this.state.email,
-            phone: this.state.phone,
-            password: this.state.password
-        }
-
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/signup', payload).then((result)=> {
-            if(result.data.errors !== undefined)
-            {
-                let data = result.data.errors;
-                let errors = {}
-
-                errors.firstName = (data.first_name) ? data.first_name.message : null
-                errors.lastName  = (data.last_name) ? data.last_name.message : null
-                errors.email     = (data.email) ? data.email.message : null
-                errors.password  = (data.password) ? data.password.message : null
-
-                this.setState({ errors: errors })
-                console.log(this.state)
-            } else {
-                localStorage.setItem('auth_token', result.data.token)
-                this.props.history.push('/dashboard')
-            }
-        }).catch((error)=> {
-            console.log(error)
-        })
+        this.props.onRegister(this.state.firstName,
+                              this.state.lastName,
+                              this.state.email,
+                              this.state.phone,
+                              this.state.password)
     }
 
     displayErrorBanner()
     {
         let result = false
-        let errors = Object.values(this.state.errors)
+        let errors = Object.values(this.props.errors)
         for(let i = 0; i < errors.length; i++)
         {
             if(errors[i] !== null)
@@ -141,6 +110,7 @@ class RegisterPage extends React.Component
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }
+                           type={ input.type }
                            error={ input.error }
                            onInputChange={ (event)=> this.handleInputChange(event) } />
             )
@@ -154,7 +124,9 @@ class RegisterPage extends React.Component
                 <MainTitle>Register page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.displayErrorBanner() }>Please fill all the required fields</Alert>
+                        <Alert type='danger' display={ this.displayErrorBanner() }>
+                            Please fill all the required fields
+                        </Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
@@ -163,7 +135,7 @@ class RegisterPage extends React.Component
 
                                 <div className="form-group">
                                     <button type="submit"
-                                            disabled={ (this.state.errors.passwordAgain !== null) ? true : false }
+                                            disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }
                                             className="btn btn-primary"
                                             onClick={ ()=> this.handleFormSubmit() }>Submit</button>
                                 </div>
@@ -176,4 +148,18 @@ class RegisterPage extends React.Component
     }
 }
 
-export default RegisterPage
+const mapStateToProps = (state)=> {
+    return {
+        errors: state.register.errors
+    }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onRegister: (firstName, lastName, email, phone, password)=> {
+            dispatch(actions.register(firstName, lastName, email, phone, password))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)

@@ -42,7 +42,12 @@ class LoginPage extends React.Component
 
     handleFormSubmit()
     {
-        this.props.onUserLogin(this.state.email, this.state.password)
+        this.props.onLogin(this.state.email, this.state.password)
+    }
+
+    displayErrorBanner()
+    {
+        return (this.props.error === null) ? false : true
     }
 
     createFormInputs()
@@ -66,7 +71,9 @@ class LoginPage extends React.Component
                 <MainTitle>Login Page</MainTitle>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.props.error }>You have the wrong credentials</Alert>
+                        <Alert type='danger' display={ this.displayErrorBanner() }>
+                            You have the wrong credentials
+                        </Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
@@ -93,14 +100,14 @@ class LoginPage extends React.Component
 
 const mapStateToProps = (state)=> {
     return {
-        error: state.auth.error,
+        error: state.login.error,
         token: state.auth.token
     }
 }
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        onUserLogin: (email, password)=> dispatch(actions.userLogin(email, password))
+        onLogin: (email, password)=> dispatch(actions.login(email, password))
     }
 }
 

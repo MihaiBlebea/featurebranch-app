@@ -14,10 +14,10 @@ import { HomePage,
 
 class App extends React.Component
 {
-    componentDidMount()
-    {
-        this.props.onAutoSignup()
-    }
+    // componentDidMount()
+    // {
+    //     this.props.onAuthCheckTimeout()
+    // }
 
     render() {
         return (
@@ -42,7 +42,7 @@ class App extends React.Component
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        onAutoSignup: ()=> dispatch(actions.authCheck())
+        // onAuthCheckTimeout: ()=> dispatch(actions.authCheckTimeout())
     }
 }
 

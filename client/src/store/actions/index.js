@@ -1,7 +1,12 @@
-import { userLogin, userLogout, authCheck } from './auth'
+export {
+    login,
+    loginStart,
+    logout,
+    authCheckTimeout } from './login'
 
 export {
-    userLogin,
-    userLogout,
-    authCheck
-}
+    register,
+    registerStart,
+    registerSuccess,
+    registerFail
+} from './register'
