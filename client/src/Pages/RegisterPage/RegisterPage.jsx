@@ -1,6 +1,10 @@
 import React from 'react'
-import axios from 'axios'
-import { MainTitle, FormInput, Alert } from './../../Components'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import ReactLoading from 'react-loading';
+
+import * as actions from './../../store/actions'
+import { TitleMain, FormInput, Alert } from './../../Components'
 
 class RegisterPage extends React.Component
 {
@@ -13,68 +17,89 @@ class RegisterPage extends React.Component
             email: '',
             phone: '',
             password: '',
-            passwordAgain: '',
-            errors: {
-                firstName: null,
-                lastName: null,
-                email: null,
-                password: null,
-                passwordAgain: null
-            }
+            passwordAgain: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
+    formSchema()
+    {
+        return [
+            {
+                label: 'First name',
+                value: this.state.firstName,
+                name: 'firstName',
+                type: 'text',
+                error: this.props.errors.firstName
+            },
+            {
+                label: 'Last name',
+                value: this.state.lastName,
+                name: 'lastName',
+                type: 'text',
+                error: this.props.errors.lastName
+            },
+            {
+                label: 'Email',
+                value: this.state.email,
+                name: 'email',
+                type: 'email',
+                error: this.props.errors.email
+            },
+            {
+                label: 'Phone',
+                value: this.state.phone,
+                name: 'phone',
+                type: 'text',
+                error: ''
+            },
+            {
+                label: 'Password',
+                value: this.state.password,
+                name: 'password',
+                type: 'password',
+                error: this.props.errors.password
+            },
+            {
+                label: 'Confirm password',
+                value: this.state.passwordAgain,
+                name: 'passwordAgain',
+                type: 'password',
+                error: this.passwordConfirmationMatch()
+            }
+        ]
+    }
+
+    isAuth()
+    {
+        return (this.props.token) ? true : false
+    }
+
     handleInputChange(event)
     {
         let name = event.target.name
-        this.setState({ [name]: event.target.value }, ()=> {
-            if(name === 'passwordAgain' || name === 'password')
-            {
-                let errors = { ...this.state.errors }
-                errors.passwordAgain = (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
-                this.setState({ errors })
-            }
-        })
+        this.setState({ [name]: event.target.value })
+    }
+
+    passwordConfirmationMatch()
+    {
+        return (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
     }
 
     handleFormSubmit()
     {
-        let payload = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
-            email: this.state.email,
-            phone: this.state.phone,
-            password: this.state.password
-        }
-
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/signup', payload).then((result)=> {
-            if(result.data.errors !== undefined)
-            {
-                let data = result.data.errors;
-                let errors = {}
-
-                errors.firstName = (data.first_name) ? data.first_name.message : null
-                errors.lastName  = (data.last_name) ? data.last_name.message : null
-                errors.email     = (data.email) ? data.email.message : null
-                errors.password  = (data.password) ? data.password.message : null
-
-                this.setState({ errors: errors })
-                console.log(this.state)
-            } else {
-                localStorage.setItem('auth_token', result.data.token)
-                this.props.history.push('/dashboard')
-            }
-        }).catch((error)=> {
-            console.log(error)
-        })
+        this.props.onRegister(this.state.firstName,
+                              this.state.lastName,
+                              this.state.email,
+                              this.state.phone,
+                              this.state.password)
     }
 
     displayErrorBanner()
     {
         let result = false
-        let errors = Object.values(this.state.errors)
+        let errors = Object.values(this.props.errors)
         for(let i = 0; i < errors.length; i++)
         {
             if(errors[i] !== null)
@@ -85,62 +110,49 @@ class RegisterPage extends React.Component
         return result
     }
 
-    render()
+    createFormInputs()
+    {
+        return this.formSchema().map((input, index)=> {
+            return (
+                <FormInput key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           type={ input.type }
+                           error={ input.error }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
+            )
+        })
+    }
+
+    createLoadingSpinner()
+    {
+        return (
+            <div className="row col justify-content-center">
+                <ReactLoading type="balls" color="blue" height={150} width={100} />
+            </div>
+        )
+    }
+
+    createForm()
     {
         return (
             <div>
-                <MainTitle>Register page</MainTitle>
+                <TitleMain>Register page</TitleMain>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.displayErrorBanner() }>Please fill all the required fields</Alert>
+                        <Alert type='danger' display={ this.displayErrorBanner() }>
+                            Please fill all the required fields
+                        </Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
 
-                                <FormInput label='First name'
-                                           value={ this.state.firstName }
-                                           name='firstName'
-                                           error={ this.state.errors.firstName }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Last name'
-                                           value={ this.state.lastName }
-                                           name='lastName'
-                                           error={ this.state.errors.lastName }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Email'
-                                           value={ this.state.email }
-                                           name='email'
-                                           type='email'
-                                           error={ this.state.errors.email }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Phone number'
-                                           value={ this.state.phone }
-                                           name='phone'
-                                           error={ this.state.errors.phone }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <hr />
-
-                                <FormInput label='Choose password'
-                                           value={ this.state.password }
-                                           name='password'
-                                           type='password'
-                                           error={ this.state.errors.password }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                                <FormInput label='Password again'
-                                           value={ this.state.passwordAgain }
-                                           name='passwordAgain'
-                                           type='password'
-                                           error={ this.state.errors.passwordAgain }
-                                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                                { this.createFormInputs() }
 
                                 <div className="form-group">
                                     <button type="submit"
-                                            disabled={ (this.state.errors.passwordAgain !== null) ? true : false }
+                                            disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }
                                             className="btn btn-primary"
                                             onClick={ ()=> this.handleFormSubmit() }>Submit</button>
                                 </div>
@@ -151,6 +163,31 @@ class RegisterPage extends React.Component
             </div>
         )
     }
+
+    render()
+    {
+        if(this.isAuth() === true)
+        {
+            return ( <Redirect to='/dashboard' /> )
+        }
+
+        return (this.props.isLoading === true) ? this.createLoadingSpinner() : this.createForm()
+    }
 }
 
-export default RegisterPage
+const mapStateToProps = (state)=> {
+    return {
+        errors: state.register.errors,
+        token: state.auth.token
+    }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        onRegister: (firstName, lastName, email, phone, password)=> {
+            dispatch(actions.register(firstName, lastName, email, phone, password))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)

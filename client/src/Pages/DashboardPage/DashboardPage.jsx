@@ -1,5 +1,5 @@
 import React from 'react'
-import { MainTitle } from './../../Components'
+import { TitleMain } from './../../Components'
 
 
 class DashboardPage extends React.Component
@@ -8,7 +8,7 @@ class DashboardPage extends React.Component
     {
         return (
             <div>
-                <MainTitle>Dashboard Page</MainTitle>
+                <TitleMain>Dashboard Page</TitleMain>
             </div>
         )
     }

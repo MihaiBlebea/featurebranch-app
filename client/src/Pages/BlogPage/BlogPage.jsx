@@ -1,11 +1,11 @@
 import React from 'react'
-import { MainTitle } from './../../Components'
+import { TitleMain } from './../../Components'
 
 
 const BlogPage = ()=> {
     return (
         <div>
-            <MainTitle>Blog Page</MainTitle>
+            <TitleMain>Blog Page</TitleMain>
         </div>
     )
 }

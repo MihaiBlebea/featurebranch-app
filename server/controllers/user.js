@@ -17,7 +17,11 @@ router.post('/signup', (request, response)=> {
     user.save().then(()=> {
         return user.generateJWT()
     }).then((token)=> {
-        response.header('x-auth', token).json(user)
+        response.status(200).json({
+            token: token,
+            expire: process.env.TOKEN_EXPIRE_PERIOD,
+            user: user
+        })
     }).catch((error)=> {
         response.json(error)
     })
@@ -28,10 +32,14 @@ router.post('/login', (request, response)=> {
     var password = request.body.password
     User.findByCredentials(email, password).then((user)=> {
         user.generateJWT().then((token)=> {
-            response.status(200).header('x-auth', token).json(user)
+            response.status(200).json({
+                token: token,
+                expire: 3600,
+                user: user
+            })
         })
     }).catch((error)=> {
-        response.status(401).json({ response: 'Credentials do not match' })
+        response.json({ response: 'Credentials do not match' })
     })
 })
 

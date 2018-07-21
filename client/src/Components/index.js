@@ -1,13 +1,15 @@
-import MainNavigation from './MainNavigation/MainNavigation'
-import MainTitle from './MainTitle/MainTitle'
+import NavigationMain from './NavigationMain/NavigationMain'
+import NavigationPublic from './NavigationPublic/NavigationPublic'
+import NavigationPrivate from './NavigationPrivate/NavigationPrivate'
+import TitleMain from './TitleMain/TitleMain'
 import FormInput from './FormInput/FormInput'
 import Alert from './Alert/Alert'
-import PrivateRoute from './PrivateRoute/PrivateRoute'
 
 export {
-    MainNavigation,
-    MainTitle,
+    NavigationMain,
+    NavigationPublic,
+    NavigationPrivate,
+    TitleMain,
     FormInput,
-    Alert,
-    PrivateRoute
+    Alert
 }

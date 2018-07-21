@@ -1,13 +1,12 @@
 import React from 'react'
 import { TitleMain } from './../../Components'
 
-
-const ContactPage = ()=> {
+const NoMatch = ()=> {
     return (
         <div>
-            <TitleMain>Contact Page</TitleMain>
+            <TitleMain>Page not found</TitleMain>
         </div>
     )
 }
 
-export default ContactPage
+export default NoMatch

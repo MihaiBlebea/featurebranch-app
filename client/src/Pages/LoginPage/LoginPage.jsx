@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { MainTitle, FormInput, Alert } from './../../Components'
 import { Redirect } from 'react-router-dom'
+import ReactLoading from 'react-loading';
+
+import { TitleMain, FormInput, Alert } from './../../Components'
 import * as actions from './../../store/actions'
 
 class LoginPage extends React.Component
@@ -14,7 +16,7 @@ class LoginPage extends React.Component
             password: ''
         }
 
-        this.handleInputChange = this.handleInputChange.bind(this)
+        // this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     formSchema()
@@ -35,6 +37,11 @@ class LoginPage extends React.Component
         ]
     }
 
+    isAuth()
+    {
+        return (this.props.token) ? true : false
+    }
+
     handleInputChange(event)
     {
         this.setState({ [event.target.name]: event.target.value })
@@ -42,7 +49,12 @@ class LoginPage extends React.Component
 
     handleFormSubmit()
     {
-        this.props.onUserLogin(this.state.email, this.state.password)
+        this.props.onLogin(this.state.email, this.state.password)
+    }
+
+    displayErrorBanner()
+    {
+        return (this.props.error === null) ? false : true
     }
 
     createFormInputs()
@@ -59,14 +71,25 @@ class LoginPage extends React.Component
         })
     }
 
+    createLoadingSpinner()
+    {
+        return (
+            <div className="row col justify-content-center">
+                <ReactLoading type="balls" color="blue" height={150} width={100} />
+            </div>
+        )
+    }
+
     createForm()
     {
         return (
             <div>
-                <MainTitle>Login Page</MainTitle>
+                <TitleMain>Login Page</TitleMain>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <Alert type='danger' display={ this.props.error }>You have the wrong credentials</Alert>
+                        <Alert type='danger' display={ this.displayErrorBanner() }>
+                            You have the wrong credentials
+                        </Alert>
 
                         <div className="card shadow">
                             <div className="card-body">
@@ -87,20 +110,26 @@ class LoginPage extends React.Component
 
     render()
     {
-        return (this.props.token !== null) ? ( <Redirect to='/dashboard' /> ) : ( this.createForm() )
+        if(this.isAuth() === true)
+        {
+            return ( <Redirect to='/dashboard' /> )
+        }
+
+        return (this.props.isLoading === true) ? this.createLoadingSpinner() : this.createForm()
     }
 }
 
 const mapStateToProps = (state)=> {
     return {
-        error: state.auth.error,
-        token: state.auth.token
+        error: state.login.error,
+        token: state.auth.token,
+        isLoading: state.isLoading
     }
 }
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        onUserLogin: (email, password)=> dispatch(actions.userLogin(email, password))
+        onLogin: (email, password)=> dispatch(actions.login(email, password))
     }
 }
 
