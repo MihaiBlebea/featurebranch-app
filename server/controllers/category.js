@@ -17,8 +17,8 @@ router.post('/save', auth, (request, response)=> {
     })
 })
 
-router.get('/:slug', (request, response)=> {
-    Category.findOne({ slug: request.params.slug })
+router.get('/all', (request, response)=> {
+    Category.find({})
             .populate('main_image')
             .populate('posts')
             .exec((error, category)=> {
@@ -27,8 +27,8 @@ router.get('/:slug', (request, response)=> {
             })
 })
 
-router.get('/all', (request, response)=> {
-    Category.find()
+router.get('/:slug', (request, response)=> {
+    Category.findOne({ slug: request.params.slug })
             .populate('main_image')
             .populate('posts')
             .exec((error, category)=> {

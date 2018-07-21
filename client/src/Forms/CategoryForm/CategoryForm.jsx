@@ -33,6 +33,16 @@ class CategoryForm extends React.Component
         })
     }
 
+    handleClearForm()
+    {
+        this.setState({
+            title: '',
+            slug: '',
+            description: '',
+            image: null
+        })
+    }
+
     handleFormSubmit()
     {
         let payload = {
@@ -43,7 +53,8 @@ class CategoryForm extends React.Component
         }
         let url = process.env.REACT_APP_API_ROOT + `category/save?auth_token=${this.props.token}`
         axios.post(url, payload).then((result)=> {
-            console.log(result)
+            this.handleClearForm()
+            this.props.onNewCategory()
         }).catch((error)=> {
             console.log(error)
         })

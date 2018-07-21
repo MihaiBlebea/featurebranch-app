@@ -31,13 +31,21 @@ class CreateCategoryPage extends React.Component
         })
     }
 
+    handleNewCategory()
+    {
+        this.fetchCategories()
+    }
+
     createCategoryCards()
     {
         if(this.state.categories !== null)
         {
             return this.state.categories.map((category)=> {
                 return (
-                    <CategoryCard />
+                    <div className="mb-2">
+                        <CategoryCard image={ category.main_image }
+                                      title={ category.title } />
+                    </div>
                 )
             })
         }
@@ -56,7 +64,8 @@ class CreateCategoryPage extends React.Component
                     </div>
                     <div className="col">
                         <TitleChapter>New category</TitleChapter>
-                        <CategoryForm token={ this.props.token }/>
+                        <CategoryForm token={ this.props.token }
+                                      onNewCategory={ ()=> this.handleNewCategory() } />
                     </div>
                 </div>
             </div>
