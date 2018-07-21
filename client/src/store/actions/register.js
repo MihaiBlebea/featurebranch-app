@@ -47,10 +47,10 @@ export const registerFail = (errors)=> {
     return {
         type: type.REGISTER_FAIL,
         errors: {
-            firstName: errors.first_name.message,
-            lastName: errors.last_name.message,
-            email: errors.email.message,
-            password: errors.password.message
+            firstName: (errors.first_name !== undefined) ? errors.first_name.message : null,
+            lastName: (errors.last_name !== undefined) ? errors.last_name.message : null,
+            email: (errors.email !== undefined) ? errors.email.message : null,
+            password: (errors.password !== undefined) ? errors.password.message : null
         }
     }
 }
