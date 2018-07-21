@@ -36,15 +36,30 @@ class CreateCategoryPage extends React.Component
         this.fetchCategories()
     }
 
+    handleDeleteCard(index)
+    {
+        let category = this.state.categories[index]
+        axios.delete(process.env.REACT_APP_API_ROOT + `category/delete/${category.slug}`).then((result)=> {
+            if(result.status === 200)
+            {
+                this.fetchCategories()
+            }
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
     createCategoryCards()
     {
         if(this.state.categories !== null)
         {
-            return this.state.categories.map((category)=> {
+            return this.state.categories.map((category, index)=> {
                 return (
-                    <div className="mb-2">
-                        <CategoryCard image={ category.main_image }
-                                      title={ category.title } />
+                    <div className="mb-2" key={ 'category_card_' + index }>
+                        <CategoryCard id={ index }
+                                      image={ category.main_image }
+                                      title={ category.title }
+                                      onDelete={ ()=> this.handleDeleteCard(index) } />
                     </div>
                 )
             })

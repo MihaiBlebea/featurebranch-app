@@ -8,6 +8,7 @@ import FormTextarea from './FormTextarea/FormTextarea'
 import FormUpload from './FormUpload/FormUpload'
 import Alert from './Alert/Alert'
 import ModalGallery from './ModalGallery/ModalGallery'
+import ModalConfirmation from './ModalConfirmation/ModalConfirmation'
 import ImagePreview from './ImagePreview/ImagePreview'
 import CategoryCard from './CategoryCard/CategoryCard'
 
@@ -22,6 +23,7 @@ export {
     FormUpload,
     Alert,
     ModalGallery,
+    ModalConfirmation,
     ImagePreview,
     CategoryCard
 }
