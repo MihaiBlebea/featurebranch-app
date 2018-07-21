@@ -1,9 +1,13 @@
 const express = require('express')
 const { Image } = require('./../database/models')
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/'})
 
 const router = express.Router()
 
-router.post('/save', (request, response)=> {
+
+router.post('/save', upload.single('image'), (request, response)=> {
+    console.log(request)
     Image.create({
         name:      request.body.name,
         extension: request.body.extension,
@@ -32,6 +36,14 @@ router.get('/', (request, response)=> {
             response.status(400).json(error)
         })
     }
+})
+
+router.get('/all', (request, response)=> {
+    Image.find().then((images)=> {
+        response.status(200).json(images)
+    }).catch((error)=> {
+        response.status(400).json(error)
+    })
 })
 
 
