@@ -27,6 +27,16 @@ router.get('/:slug', (request, response)=> {
             })
 })
 
+router.get('/all', (request, response)=> {
+    Category.find()
+            .populate('main_image')
+            .populate('posts')
+            .exec((error, category)=> {
+                if(error) throw error
+                response.status(200).json(category)
+            })
+})
+
 router.delete('/delete/:slug', (request, response)=> {
     Category.deleteOne({ slug: request.params.slug }).then((result)=> {
         response.status(200).json({ response: `Category ${request.params.slug} deleted` })

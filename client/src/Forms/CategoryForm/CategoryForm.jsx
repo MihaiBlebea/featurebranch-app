@@ -1,7 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 
-import { FormInput, FormTextarea, ModalGallery } from './../../Components'
+import {
+    FormInput,
+    FormTextarea,
+    ModalGallery,
+    ImagePreview } from './../../Components'
 
 
 class CategoryForm extends React.Component
@@ -12,7 +16,8 @@ class CategoryForm extends React.Component
         this.state = {
             title: '',
             slug: '',
-            description: ''
+            description: '',
+            image: null
         }
     }
 
@@ -21,12 +26,20 @@ class CategoryForm extends React.Component
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    handleSelectImage(image)
+    {
+        this.setState({
+            image: image
+        })
+    }
+
     handleFormSubmit()
     {
         let payload = {
             title: this.state.title,
             slug: this.state.slug,
-            description: this.state.description
+            description: this.state.description,
+            main_image: this.state.image._id
         }
         let url = process.env.REACT_APP_API_ROOT + `category/save?auth_token=${this.props.token}`
         axios.post(url, payload).then((result)=> {
@@ -34,6 +47,18 @@ class CategoryForm extends React.Component
         }).catch((error)=> {
             console.log(error)
         })
+    }
+
+    createImagePreview()
+    {
+        if(this.state.image)
+        {
+            return (
+                <div className="row col-md-6 form-group">
+                    <ImagePreview url={ this.state.image.url } />
+                </div>
+            )
+        }
     }
 
     render()
@@ -46,7 +71,9 @@ class CategoryForm extends React.Component
                     </button>
                 </div>
 
-                <ModalGallery />
+                { this.createImagePreview() }
+
+                <ModalGallery onSelectImage={ (image)=> this.handleSelectImage(image) } />
 
                 <FormInput label="Choose a title"
                            name="title"

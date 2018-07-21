@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { FormUpload } from './../index'
 
 class ModalGallery extends React.Component
 {
@@ -20,19 +21,44 @@ class ModalGallery extends React.Component
     {
         axios.get(process.env.REACT_APP_API_ROOT + 'image/all').then((result)=> {
             this.setState({
-                images: result.data,
-                selected: result.data[0].src
+                images: result.data
             })
         }).catch((error)=> {
             console.log(error)
         })
     }
 
-    handleSelectImage(event)
+    handleSelectImage(index)
     {
+        let selected = this.state.images[index]
         this.setState({
-            selected: event.target.src
+            selected: selected
         })
+    }
+
+    handleSaveImage()
+    {
+        if(this.state.selected !== null)
+        {
+            this.props.onSelectImage(this.state.selected)
+        }
+    }
+
+    handleImageUpload(event)
+    {
+        const formData = new FormData()
+        formData.append('image', event.target.files[0])
+        axios.post(process.env.REACT_APP_API_ROOT + 'image/save', formData).then((result)=> {
+            this.fetchImages()
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
+    isSelected(image)
+    {
+
+        return (this.state.selected !== null && this.state.selected._id === image._id) ? true : false
     }
 
     createImageGallery()
@@ -41,8 +67,11 @@ class ModalGallery extends React.Component
         {
             return this.state.images.map((image, index)=> {
                 return (
-                    <div className="col-md-4" key={ `image_gallery_${index}` }>
-                        <img className="w-100" src={ image.url } onClick={ (event)=> this.handleSelectImage(event) } />
+                    <div className="col-md-4 mb-2" key={ `image_gallery_${index}` }>
+                        <img className={'w-100 ' + (this.isSelected(image) ? 'shadow-lg' : '') }
+                             style={{ cursor: 'pointer' }}
+                             src={ image.url }
+                             onClick={ ()=> this.handleSelectImage(index) } />
                     </div>
                 )
             })
@@ -57,7 +86,7 @@ class ModalGallery extends React.Component
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <FormUpload onInputChange={ (event)=> this.handleImageUpload(event) } />
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -68,8 +97,11 @@ class ModalGallery extends React.Component
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button className="btn btn-secondary"
+                                    data-dismiss="modal">Close</button>
+                            <button className="btn btn-primary"
+                                    data-dismiss="modal"
+                                    onClick={ ()=> this.handleSaveImage() }>Select image</button>
                         </div>
                     </div>
                 </div>
