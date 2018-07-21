@@ -9,9 +9,11 @@ const NavigationPrivate = (props)=> {
                     <Link className="nav-link" to="/dashboard">Dashboard</Link>
                 </li>
                 <Link className="nav-link" to="/profile">Profile</Link>
+                <Link className="nav-link" to="/category">Category</Link>
             </ul>
 
             <ul className="navbar-nav">
+                <Link className="nav-link" to="/profile">{ props.authUser.firstName } { props.authUser.lastName }</Link>
                 <li onClick={ props.onLogout } style={{ cursor: 'pointer' }} className="nav-link">Logout</li>
             </ul>
         </div>

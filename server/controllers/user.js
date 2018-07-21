@@ -54,5 +54,14 @@ router.get('/', (request, response)=> {
     }
 })
 
+router.get('/:id', auth, (request, response)=> {
+    var id = request.params.id
+    User.findOne({ _id: id }).then((user)=> {
+        response.json({ model: user })
+    }).catch((error)=> {
+        console.log(error)
+    })
+})
+
 
 module.exports = router

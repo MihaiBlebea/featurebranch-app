@@ -18,7 +18,13 @@ const initState = {
             password: null
         }
     },
-    isLoading: false
+    isLoading: false,
+    user: {
+        firstName: null,
+        lastName: null,
+        phone: null,
+        email: null
+    }
 }
 
 
@@ -40,6 +46,8 @@ const reducer = (state = initState, action)=> {
         case type.REGISTER_SUCCESS: return functions.registerSuccess(state, action)
 
         case type.REGISTER_FAIL: return functions.registerFail(state, action)
+
+        case type.STORE_USER: return functions.storeUser(state, action)
 
         default:
             return state

@@ -74,3 +74,14 @@ export const registerFail = (state, action)=> {
         isLoading: false
     })
 }
+
+export const storeUser = (state, action)=> {
+    return updateState(state, {
+        user: {
+            firstName: action.firstName,
+            lastName: action.lastName,
+            email: action.email,
+            phone: action.phone
+        }
+    })
+}

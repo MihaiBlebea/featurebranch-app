@@ -1,10 +1,10 @@
 const express = require('express')
 const { Category } = require('./../database/models')
-
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
-router.post('/save', (request, response)=> {
+router.post('/save', auth, (request, response)=> {
     Category.create({
         title:       request.body.title,
         slug:        request.body.slug,

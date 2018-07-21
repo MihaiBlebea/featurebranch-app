@@ -3,13 +3,15 @@ const express = require('express')
 
 const router = express.Router()
 
-router.use('/api/v1/user', require('./user'))
+const version = '/api/v1'
 
-router.use('/api/v1/post', require('./post'))
+router.use(version + '/user', require('./user'))
 
-router.use('/api/v1/category', require('./category'))
+router.use(version + '/post', require('./post'))
 
-router.use('/api/v1/image', require('./image'))
+router.use(version + '/category', require('./category'))
+
+router.use(version + '/image', require('./image'))
 
 router.get('/', (request, response)=> {
     response.json({response: 'App works great'})

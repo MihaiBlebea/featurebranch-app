@@ -6,6 +6,9 @@ import RegisterPage from './RegisterPage/RegisterPage'
 import LoginPage from './LoginPage/LoginPage'
 import DashboardPage from './DashboardPage/DashboardPage'
 import NoMatch from './NoMatch/NoMatch'
+import ProfilePage from './ProfilePage/ProfilePage'
+
+import CreateCategoryPage from './CreateCategoryPage/CreateCategoryPage'
 
 export {
     HomePage,
@@ -15,5 +18,7 @@ export {
     RegisterPage,
     LoginPage,
     DashboardPage,
-    NoMatch
+    NoMatch,
+    ProfilePage,
+    CreateCategoryPage
 }
