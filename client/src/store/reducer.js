@@ -17,15 +17,16 @@ const initState = {
             email: null,
             password: null
         }
-    }
+    },
+    isLoading: false
 }
 
 
 const reducer = (state = initState, action)=> {
     switch(action.type)
     {
-        case type.LOGIN_START:
-            return state
+        case type.LOGIN_START: return functions.loginStart(state, action)
+
         case type.LOGOUT: return functions.logout(state, action)
 
         case type.LOGIN_SUCCESS: return functions.loginSuccess(state, action)
@@ -34,8 +35,7 @@ const reducer = (state = initState, action)=> {
 
         case type.AUTH_CHECK_TIMEOUT: return functions.authCheckTimeout(state, action)
 
-        case type.REGISTER_START:
-            return state
+        case type.REGISTER_START: return functions.registerStart(state, action)
 
         case type.REGISTER_SUCCESS: return functions.registerSuccess(state, action)
 

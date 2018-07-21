@@ -5,7 +5,7 @@ import BlogPage from './BlogPage/BlogPage'
 import RegisterPage from './RegisterPage/RegisterPage'
 import LoginPage from './LoginPage/LoginPage'
 import DashboardPage from './DashboardPage/DashboardPage'
-
+import NoMatch from './NoMatch/NoMatch'
 
 export {
     HomePage,
@@ -14,5 +14,6 @@ export {
     BlogPage,
     RegisterPage,
     LoginPage,
-    DashboardPage
+    DashboardPage,
+    NoMatch
 }

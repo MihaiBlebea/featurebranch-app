@@ -2,7 +2,8 @@ export {
     login,
     loginStart,
     logout,
-    authCheckTimeout } from './login'
+    authCheckTimeout,
+    authCheckState } from './login'
 
 export {
     register,

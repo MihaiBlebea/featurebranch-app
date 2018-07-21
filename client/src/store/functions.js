@@ -1,5 +1,9 @@
 import { updateState } from './utility'
 
+export const loginStart = (state, action)=> {
+    return updateState(state, { isLoading: true })
+}
+
 export const loginSuccess = (state, action)=> {
     return updateState(state, {
         auth: {
@@ -7,7 +11,8 @@ export const loginSuccess = (state, action)=> {
             expDate: action.expDate,
             userId: action.userId
         },
-        login: { error: null }
+        login: { error: null },
+        isLoading: false
     })
 }
 
@@ -15,7 +20,8 @@ export const loginFail = (state, action)=> {
     return updateState(state, {
         login: {
             error: action.errors
-        }
+        },
+        isLoading: false
     })
 }
 
@@ -39,6 +45,10 @@ export const authCheckTimeout = (state, action)=> {
     })
 }
 
+export const registerStart = (state, action)=> {
+    return updateState(state, { isLoading: true })
+}
+
 export const registerSuccess = (state, action)=> {
     return updateState(state, {
         auth: {
@@ -51,7 +61,8 @@ export const registerSuccess = (state, action)=> {
             lastName: null,
             email: null,
             password: null
-        }
+        },
+        isLoading: false
     })
 }
 
@@ -59,6 +70,7 @@ export const registerFail = (state, action)=> {
     return updateState(state, {
         register: {
             errors: action.errors
-        }
+        },
+        isLoading: false
     })
 }

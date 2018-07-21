@@ -1,6 +1,0 @@
-{
-    "mongo_database": {
-        "url": "mongodb://mongo",
-        "database": "FeatureBranch"
-    }
-}

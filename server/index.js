@@ -1,13 +1,12 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const env = require('dotenv')
+
+require('dotenv').config()
 
 const User = require('./database/models/User')
 
 const PORT = 8080;
-
-env.config()
 
 const app = express();
 

@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import ReactLoading from 'react-loading';
+
 import * as actions from './../../store/actions'
-import { MainTitle, FormInput, Alert } from './../../Components'
+import { TitleMain, FormInput, Alert } from './../../Components'
 
 class RegisterPage extends React.Component
 {
@@ -68,6 +71,11 @@ class RegisterPage extends React.Component
         ]
     }
 
+    isAuth()
+    {
+        return (this.props.token) ? true : false
+    }
+
     handleInputChange(event)
     {
         let name = event.target.name
@@ -117,11 +125,20 @@ class RegisterPage extends React.Component
         })
     }
 
-    render()
+    createLoadingSpinner()
+    {
+        return (
+            <div className="row col justify-content-center">
+                <ReactLoading type="balls" color="blue" height={150} width={100} />
+            </div>
+        )
+    }
+
+    createForm()
     {
         return (
             <div>
-                <MainTitle>Register page</MainTitle>
+                <TitleMain>Register page</TitleMain>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <Alert type='danger' display={ this.displayErrorBanner() }>
@@ -146,11 +163,22 @@ class RegisterPage extends React.Component
             </div>
         )
     }
+
+    render()
+    {
+        if(this.isAuth() === true)
+        {
+            return ( <Redirect to='/dashboard' /> )
+        }
+
+        return (this.props.isLoading === true) ? this.createLoadingSpinner() : this.createForm()
+    }
 }
 
 const mapStateToProps = (state)=> {
     return {
-        errors: state.register.errors
+        errors: state.register.errors,
+        token: state.auth.token
     }
 }
 

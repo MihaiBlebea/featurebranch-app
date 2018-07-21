@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { MainTitle, FormInput, Alert } from './../../Components'
 import { Redirect } from 'react-router-dom'
+import ReactLoading from 'react-loading';
+
+import { TitleMain, FormInput, Alert } from './../../Components'
 import * as actions from './../../store/actions'
 
 class LoginPage extends React.Component
@@ -14,7 +16,7 @@ class LoginPage extends React.Component
             password: ''
         }
 
-        this.handleInputChange = this.handleInputChange.bind(this)
+        // this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     formSchema()
@@ -33,6 +35,11 @@ class LoginPage extends React.Component
                 type: 'password'
             }
         ]
+    }
+
+    isAuth()
+    {
+        return (this.props.token) ? true : false
     }
 
     handleInputChange(event)
@@ -64,11 +71,20 @@ class LoginPage extends React.Component
         })
     }
 
+    createLoadingSpinner()
+    {
+        return (
+            <div className="row col justify-content-center">
+                <ReactLoading type="balls" color="blue" height={150} width={100} />
+            </div>
+        )
+    }
+
     createForm()
     {
         return (
             <div>
-                <MainTitle>Login Page</MainTitle>
+                <TitleMain>Login Page</TitleMain>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <Alert type='danger' display={ this.displayErrorBanner() }>
@@ -94,14 +110,20 @@ class LoginPage extends React.Component
 
     render()
     {
-        return (this.props.token !== null) ? ( <Redirect to='/dashboard' /> ) : ( this.createForm() )
+        if(this.isAuth() === true)
+        {
+            return ( <Redirect to='/dashboard' /> )
+        }
+
+        return (this.props.isLoading === true) ? this.createLoadingSpinner() : this.createForm()
     }
 }
 
 const mapStateToProps = (state)=> {
     return {
         error: state.login.error,
-        token: state.auth.token
+        token: state.auth.token,
+        isLoading: state.isLoading
     }
 }
 

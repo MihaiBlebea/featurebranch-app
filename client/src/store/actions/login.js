@@ -22,6 +22,10 @@ export const loginStart = ()=> {
 }
 
 export const loginSuccess = (token, expireIn, userId)=> {
+    const expDate = new Date(new Date().getTime() + expireIn * 1000)
+    localStorage.setItem('authToken', token)
+    localStorage.setItem('expDate', expDate)
+    localStorage.setItem('userId', userId)
     return {
         type: type.LOGIN_SUCCESS,
         token: token,
@@ -38,6 +42,9 @@ export const loginFail = (error)=> {
 }
 
 export const logout = ()=> {
+    localStorage.removeItem('authToken')
+    localStorage.removeItem('expDate')
+    localStorage.removeItem('userId')
     return {
         type: type.LOGOUT,
     }
@@ -47,6 +54,28 @@ export const authCheckTimeout = (expireIn)=> {
     return (dispatch)=> {
         setTimeout(()=> {
             dispatch(logout())
-        }, expireIn)
+        }, expireIn * 1000)
+    }
+}
+
+export const authCheckState = ()=> {
+    console.log('checking token in localstorage')
+    return (dispatch)=> {
+        let authToken = localStorage.getItem('authToken')
+        if(!authToken)
+        {
+            dispatch(logout())
+        } else {
+            let expDate = new Date(localStorage.getItem('expDate'))
+            let now = new Date()
+            if(expDate > now)
+            {
+                let userId = localStorage.getItem('userId')
+                let newExpDate = (expDate.getTime() - new Date().getTime()) / 1000
+
+                dispatch(loginSuccess(authToken, newExpDate, userId))
+                dispatch(authCheckTimeout(newExpDate))
+            }
+        }
     }
 }

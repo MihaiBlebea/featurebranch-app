@@ -12,7 +12,6 @@ export const register = (firstName, lastName, email, phone, password)=> {
             password: password
         }
         axios.post(process.env.REACT_APP_API_ROOT + 'user/signup', payload).then((result)=> {
-            console.log(result.data)
             if(result.data.errors === undefined)
             {
                 dispatch(registerSuccess(result.data.token, result.data.expire, result.data.user._id))
@@ -32,6 +31,10 @@ export const registerStart = ()=> {
 }
 
 export const registerSuccess = (token, expireIn, userId)=> {
+    const expDate = new Date(new Date().getTime() + expireIn * 1000)
+    localStorage.setItem('authToken', token)
+    localStorage.setItem('expDate', expDate)
+    localStorage.setItem('userId', userId)
     return {
         type: type.REGISTER_SUCCESS,
         token: token,
