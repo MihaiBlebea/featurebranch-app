@@ -5,6 +5,7 @@ import TitleMain from './TitleMain/TitleMain'
 import FormInput from './FormInput/FormInput'
 import FormTextarea from './FormTextarea/FormTextarea'
 import Alert from './Alert/Alert'
+import ModalGallery from './ModalGallery/ModalGallery'
 
 export {
     NavigationMain,
@@ -13,5 +14,6 @@ export {
     TitleMain,
     FormInput,
     FormTextarea,
-    Alert
+    Alert,
+    ModalGallery
 }

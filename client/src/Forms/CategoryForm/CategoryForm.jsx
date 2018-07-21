@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { FormInput, FormTextarea } from './../../Components'
+import { FormInput, FormTextarea, ModalGallery } from './../../Components'
 
 
 class CategoryForm extends React.Component
@@ -10,9 +10,9 @@ class CategoryForm extends React.Component
     {
         super(props)
         this.state = {
-            title: null,
-            slug: null,
-            description: null
+            title: '',
+            slug: '',
+            description: ''
         }
     }
 
@@ -40,6 +40,14 @@ class CategoryForm extends React.Component
     {
         return (
             <div>
+                <div className="form-group">
+                    <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Select image
+                    </button>
+                </div>
+
+                <ModalGallery />
+
                 <FormInput label="Choose a title"
                            name="title"
                            value={ this.state.title }

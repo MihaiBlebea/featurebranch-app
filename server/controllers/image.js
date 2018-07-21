@@ -1,22 +1,35 @@
 const express = require('express')
 const { Image } = require('./../database/models')
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/'})
+
 
 const router = express.Router()
 
+const storage = multer.diskStorage({
+    destination: function(request, file, callback) {
+        callback(null, 'uploads/')
+    },
+    filename: function(request, file, callback) {
+        callback(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage })
+
 
 router.post('/save', upload.single('image'), (request, response)=> {
-    console.log(request)
-    Image.create({
-        name:      request.body.name,
-        extension: request.body.extension,
-        url:       request.body.url
-    }).then((image)=> {
-        response.status(200).json(image)
-    }).catch((error)=> {
-        response.status(400).json(error)
-    })
+    if(request.file)
+    {
+        Image.create({
+            name:      request.file.originalname,
+            extension: request.file.mimetype,
+            url:       request.protocol + '://' + request.get('host') + '/' + request.file.path
+        }).then((image)=> {
+            response.status(200).json(image)
+        }).catch((error)=> {
+            response.status(400).json(error)
+        })
+    }
 })
 
 router.delete('/delete/:id', (request, response)=> {

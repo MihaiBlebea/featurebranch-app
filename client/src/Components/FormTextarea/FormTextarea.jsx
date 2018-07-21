@@ -20,9 +20,8 @@ class FormTextarea extends React.Component
                 <textarea onChange={ this.props.onInputChange }
                           name={ this.props.name }
                           className={ "form-control " + (this.props.error ? "is-invalid" : "") }
-                          rows="3">
-                    { this.props.value }
-                </textarea>
+                          rows="3"
+                          value={ this.props.value } />
                 { this.createErrorMessage() }
             </div>
         )
