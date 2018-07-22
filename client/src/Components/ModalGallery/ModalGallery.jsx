@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { FormUpload } from './../index'
+import { FormUpload, ImageCard } from './../index'
 
 class ModalGallery extends React.Component
 {
@@ -55,6 +55,19 @@ class ModalGallery extends React.Component
         })
     }
 
+    handleImageDelete(index)
+    {
+        let image = this.state.images[index]
+        axios.delete(process.env.REACT_APP_API_ROOT + `image/delete/${image._id}`).then((result)=> {
+            if(result.status === 200)
+            {
+                this.fetchImages()
+            }
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
     isSelected(image)
     {
 
@@ -68,10 +81,10 @@ class ModalGallery extends React.Component
             return this.state.images.map((image, index)=> {
                 return (
                     <div className="col-md-4 mb-2" key={ `image_gallery_${index}` }>
-                        <img className={'w-100 ' + (this.isSelected(image) ? 'shadow-lg' : '') }
-                             style={{ cursor: 'pointer' }}
-                             src={ image.url }
-                             onClick={ ()=> this.handleSelectImage(index) } />
+                        <ImageCard isSelected={ this.isSelected(image) }
+                                   url={ image.url }
+                                   handleSelected={ ()=> this.handleSelectImage(index) }
+                                   handleDelete={ ()=> this.handleImageDelete(index) } />
                     </div>
                 )
             })
