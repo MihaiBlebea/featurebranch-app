@@ -7,11 +7,9 @@ const ImageSchema = connect.Schema({
     },
     extension: {
         type: String,
-        required: true
     },
     url: {
         type: String,
-        required: true,
         unique: true
     }
 })

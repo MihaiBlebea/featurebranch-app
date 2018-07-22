@@ -30,7 +30,9 @@ class NavigationMain extends React.Component
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                { this.isAuth() ? <NavigationPrivate onLogout={ this.handleLogout }/> : <NavigationPublic /> }
+                { this.isAuth()
+                    ? <NavigationPrivate onLogout={ this.handleLogout } authUser={ this.props.user }/>
+                    : <NavigationPublic /> }
             </nav>
         )
     }
@@ -38,7 +40,8 @@ class NavigationMain extends React.Component
 
 const mapStateToProps = (state)=> {
     return {
-        token: state.auth.token
+        token: state.auth.token,
+        user: state.user
     }
 }
 

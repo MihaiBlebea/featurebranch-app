@@ -11,3 +11,7 @@ export {
     registerSuccess,
     registerFail
 } from './register'
+
+export {
+    fetchUser
+} from './user'

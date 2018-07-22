@@ -1,5 +1,7 @@
 import * as type from './types'
 import axios from 'axios'
+import { fetchUser } from './index'
+
 
 export const register = (firstName, lastName, email, phone, password)=> {
     return (dispatch)=> {
@@ -15,6 +17,7 @@ export const register = (firstName, lastName, email, phone, password)=> {
             if(result.data.errors === undefined)
             {
                 dispatch(registerSuccess(result.data.token, result.data.expire, result.data.user._id))
+                dispatch(fetchUser(result.data.user._id, result.data.token))
             } else {
                 dispatch(registerFail(result.data.errors))
             }

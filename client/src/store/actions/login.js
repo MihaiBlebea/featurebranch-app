@@ -1,5 +1,6 @@
 import * as type from './types'
 import axios from 'axios'
+import { fetchUser } from './index'
 
 export const login = (email, password)=> {
     return (dispatch)=> {
@@ -8,6 +9,7 @@ export const login = (email, password)=> {
         axios.post(process.env.REACT_APP_API_ROOT + 'user/login', payload).then((result)=> {
             dispatch(loginSuccess(result.data.token, result.data.expire, result.data.user._id))
             dispatch(authCheckTimeout(result.data.expire))
+            dispatch(fetchUser(result.data.user._id, result.data.token))
         }).catch((error)=> {
             dispatch(loginFail(error))
             console.log(error)
@@ -59,7 +61,6 @@ export const authCheckTimeout = (expireIn)=> {
 }
 
 export const authCheckState = ()=> {
-    console.log('checking token in localstorage')
     return (dispatch)=> {
         let authToken = localStorage.getItem('authToken')
         if(!authToken)
@@ -75,6 +76,7 @@ export const authCheckState = ()=> {
 
                 dispatch(loginSuccess(authToken, newExpDate, userId))
                 dispatch(authCheckTimeout(newExpDate))
+                dispatch(fetchUser(userId, authToken))
             }
         }
     }

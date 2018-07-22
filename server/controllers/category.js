@@ -1,10 +1,10 @@
 const express = require('express')
 const { Category } = require('./../database/models')
-
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
-router.post('/save', (request, response)=> {
+router.post('/save', auth, (request, response)=> {
     Category.create({
         title:       request.body.title,
         slug:        request.body.slug,
@@ -15,6 +15,16 @@ router.post('/save', (request, response)=> {
     }).catch((error)=> {
         response.status(400).json(error)
     })
+})
+
+router.get('/all', (request, response)=> {
+    Category.find({})
+            .populate('main_image')
+            .populate('posts')
+            .exec((error, category)=> {
+                if(error) throw error
+                response.status(200).json(category)
+            })
 })
 
 router.get('/:slug', (request, response)=> {

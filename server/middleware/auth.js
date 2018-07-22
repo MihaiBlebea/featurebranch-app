@@ -1,7 +1,7 @@
 const { User } = require('./../database/models')
 
 var authenticate = (request, response, next)=> {
-    var token = request.header('x-auth')
+    var token = request.query.auth_token
     User.findByToken(token).then((user)=> {
         if(!user)
         {

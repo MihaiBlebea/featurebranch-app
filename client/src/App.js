@@ -12,13 +12,15 @@ import {
     RegisterPage,
     LoginPage,
     DashboardPage,
-    NoMatch } from './Pages'
+    NoMatch,
+    ProfilePage,
+    CreateCategoryPage} from './Pages'
 
 class App extends React.Component
 {
     componentDidMount()
     {
-        this.props.OnAuthCheckState()
+        this.props.onAuthCheckState()
     }
 
     isAuth()
@@ -31,7 +33,11 @@ class App extends React.Component
         if(this.isAuth())
         {
             return (
-                <Route path="/dashboard" component={ DashboardPage } />
+                <Switch>
+                    <Route path="/dashboard" component={ DashboardPage } />
+                    <Route path="/profile" component={ ProfilePage } />
+                    <Route path="/category" component={ CreateCategoryPage } />
+                </Switch>
             )
         }
         return null
@@ -73,7 +79,7 @@ const mapStateToProps = (state)=> {
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        OnAuthCheckState: ()=> dispatch(actions.authCheckState())
+        onAuthCheckState: ()=> dispatch(actions.authCheckState())
     }
 }
 
