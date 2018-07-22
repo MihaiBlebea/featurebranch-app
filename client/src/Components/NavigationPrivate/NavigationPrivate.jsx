@@ -10,6 +10,7 @@ const NavigationPrivate = (props)=> {
                 </li>
                 <Link className="nav-link" to="/profile">Profile</Link>
                 <Link className="nav-link" to="/category">Category</Link>
+                <Link className="nav-link" to="/post">Post</Link>
             </ul>
 
             <ul className="navbar-nav">

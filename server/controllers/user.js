@@ -43,6 +43,14 @@ router.post('/login', (request, response)=> {
     })
 })
 
+router.get('/all', (request, response)=> {
+    User.find({}).then((users)=> {
+        response.json(users)
+    }).catch((error)=> {
+        console.log(error)
+    })
+})
+
 router.get('/', (request, response)=> {
     if(request.query.email !== null)
     {
@@ -62,6 +70,7 @@ router.get('/:id', auth, (request, response)=> {
         console.log(error)
     })
 })
+
 
 
 module.exports = router

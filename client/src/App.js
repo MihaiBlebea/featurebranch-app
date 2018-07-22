@@ -12,9 +12,9 @@ import {
     RegisterPage,
     LoginPage,
     DashboardPage,
-    NoMatch,
     ProfilePage,
-    CreateCategoryPage} from './Pages'
+    CreateCategoryPage,
+    CreatePostPage } from './Pages'
 
 class App extends React.Component
 {
@@ -37,6 +37,7 @@ class App extends React.Component
                     <Route path="/dashboard" component={ DashboardPage } />
                     <Route path="/profile" component={ ProfilePage } />
                     <Route path="/category" component={ CreateCategoryPage } />
+                    <Route path="/post" component={ CreatePostPage } />
                 </Switch>
             )
         }
