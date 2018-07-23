@@ -11,17 +11,18 @@ const FormSelect = (props)=> {
     }
 
     const createOptions = ()=> {
-        console.log(props)
         if(props.options !== null)
         {
-            return props.options.map((option)=> {
+            return props.options.map((option, index)=> {
                 return (
-                    <option value={ option.value }>{ option.label }</option>
+                    <option value={ option.value } key={ `${props.name}_${index}` }>{ option.label }</option>
                 )
             })
         }
-        return ( <option disabled>Select option</option> )
+        return null
     }
+
+    const defaultPlaceholder = 'Select a value'
 
     return (
         <div className="form-group">
@@ -31,6 +32,7 @@ const FormSelect = (props)=> {
                     name={ props.name }
                     className={ "form-control " + (props.error ? "is-invalid" : "") }
                     onChange={ props.onInputChange }>
+                <option value='default' disabled>{ props.placeholder || defaultPlaceholder }</option>
                 { createOptions() }
             </select>
             { createErrorMessage() }

@@ -4,8 +4,7 @@ import axios from 'axios'
 import {
     FormInput,
     FormTextarea,
-    ModalGallery,
-    ImagePreview } from './../../Components'
+    FormImageSelect } from './../../Components'
 
 
 class CategoryForm extends React.Component
@@ -17,8 +16,43 @@ class CategoryForm extends React.Component
             title: '',
             slug: '',
             description: '',
-            image: null
+            image: null,
+
+            errors: {
+                title: null,
+                slug: null,
+                description: null
+            }
         }
+    }
+
+    formSchema()
+    {
+        return [
+            {
+                label: 'Choose a title',
+                value: this.state.title,
+                name: 'title',
+                type: 'text',
+                component: FormInput,
+                error: this.state.errors.title
+            },
+            {
+                label: 'Pick a slug',
+                value: this.state.slug,
+                name: 'slug',
+                type: 'text',
+                component: FormInput,
+                error: this.state.errors.slug
+            },
+            {
+                label: 'Category description',
+                value: this.state.description,
+                name: 'description',
+                component: FormTextarea,
+                error: this.state.errors.description
+            },
+        ]
     }
 
     handleInputChange(event)
@@ -60,46 +94,31 @@ class CategoryForm extends React.Component
         })
     }
 
-    createImagePreview()
+    createFormInputs()
     {
-        if(this.state.image)
-        {
+        return this.formSchema().map((input, index)=> {
+            let Component = input.component
             return (
-                <div className="row col-md-6 form-group">
-                    <ImagePreview url={ this.state.image.url } />
-                </div>
+                <Component key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           type={ input.type }
+                           options={ input.options || null}
+                           error={ input.error }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
             )
-        }
+        })
     }
 
     render()
     {
         return (
             <div>
-                <div className="form-group">
-                    <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Select image
-                    </button>
-                </div>
+                <FormImageSelect imageUrl={ this.state.image ? this.state.image.url : null }
+                                 onSelectImage={ (image)=> this.handleSelectImage(image) }/>
 
-                { this.createImagePreview() }
-
-                <ModalGallery onSelectImage={ (image)=> this.handleSelectImage(image) } />
-
-                <FormInput label="Choose a title"
-                           name="title"
-                           value={ this.state.title }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                <FormInput label="Pick a slug"
-                           name="slug"
-                           value={ this.state.slug }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                <FormTextarea label="Category description"
-                              name="description"
-                              value={ this.state.description }
-                              onInputChange={ (event)=> this.handleInputChange(event) } />
+                { this.createFormInputs() }
 
                 <div className="form-group">
                     <button type="submit"

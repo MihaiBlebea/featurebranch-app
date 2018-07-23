@@ -9,7 +9,7 @@ import ProfilePage from './ProfilePage/ProfilePage'
 
 import CreateCategoryPage from './CreateCategoryPage/CreateCategoryPage'
 import CreatePostPage from './CreatePostPage/CreatePostPage'
-
+import AdminPostsPage from './AdminPostsPage/AdminPostsPage'
 
 export {
     HomePage,
@@ -21,5 +21,6 @@ export {
     DashboardPage,
     ProfilePage,
     CreateCategoryPage,
-    CreatePostPage
+    CreatePostPage,
+    AdminPostsPage
 }

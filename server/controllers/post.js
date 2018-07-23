@@ -25,6 +25,17 @@ router.post('/save', (request, response)=> {
     })
 })
 
+router.get('/all', (request, response)=> {
+    Post.find({})
+        .populate('author')
+        .populate('main_image')
+        .populate('comments')
+        .exec((error, posts)=> {
+            if(error) throw err;
+            response.status(200).json(posts)
+        })
+})
+
 // Get a post
 router.get('/:slug', (request, response)=> {
     Post.findOne({ slug: request.params.slug })
@@ -36,5 +47,15 @@ router.get('/:slug', (request, response)=> {
             response.status(200).json(post)
         })
 })
+
+router.delete('/delete/:id', (request, response)=> {
+    Post.deleteOne({ _id: request.params.id }).then((result)=> {
+        response.status(200).json({ response: `Post was deleted` })
+    }).catch((error)=> {
+        console.log(error)
+        response.status(400).json(error)
+    })
+})
+
 
 module.exports = router

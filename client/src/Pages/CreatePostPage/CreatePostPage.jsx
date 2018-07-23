@@ -1,5 +1,5 @@
 import React from 'react'
-import { TitleMain, EditorDraft } from './../../Components'
+import { TitleMain } from './../../Components'
 import { PostForm } from './../../Forms'
 
 class CreatePostPage extends React.Component
@@ -9,12 +9,8 @@ class CreatePostPage extends React.Component
         return (
             <div>
                 <TitleMain>Post Page</TitleMain>
-                <div className="row">
+                <div className="row justify-content-center">
                     <div className="col-md-8">
-                        <EditorDraft />
-                        
-                    </div>
-                    <div className="col-md-4">
                         <PostForm />
                     </div>
                 </div>

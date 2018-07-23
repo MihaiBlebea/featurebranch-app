@@ -6,15 +6,16 @@ const NavigationPrivate = (props)=> {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                    <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                    <Link className="nav-link" to="/admin/dashboard">Dashboard</Link>
                 </li>
-                <Link className="nav-link" to="/profile">Profile</Link>
-                <Link className="nav-link" to="/category">Category</Link>
-                <Link className="nav-link" to="/post">Post</Link>
+                <Link className="nav-link" to="/admin/profile">Profile</Link>
+                <Link className="nav-link" to="/admin/category">Category</Link>
+                <Link className="nav-link" to="/admin/posts">Posts</Link>
+                <Link className="nav-link" to="/admin/post">Post</Link>
             </ul>
 
             <ul className="navbar-nav">
-                <Link className="nav-link" to="/profile">{ props.authUser.firstName } { props.authUser.lastName }</Link>
+                <Link className="nav-link" to="/admin/profile">{ props.authUser.firstName } { props.authUser.lastName }</Link>
                 <li onClick={ props.onLogout } style={{ cursor: 'pointer' }} className="nav-link">Logout</li>
             </ul>
         </div>

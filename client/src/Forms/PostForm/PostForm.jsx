@@ -4,8 +4,9 @@ import axios from 'axios'
 import {
     FormInput,
     FormSelect,
-    ModalGallery,
-    ImagePreview } from './../../Components'
+    FormTextarea,
+    FormImageSelect } from './../../Components'
+
 
 class PostForm extends React.Component
 {
@@ -17,16 +18,65 @@ class PostForm extends React.Component
             slug: '',
             content: '',
             image: null,
-            author: '',
-            is_published: null,
-            publish_date: null,
+            author: 'default',
+            isPublished: 'default',
+            publishDate: null,
 
             authors: null,
+            publishOptions: [
+                { value: true, label: 'Published'},
+                { value: false, label: 'Draft'}
+            ],
             errors: {
                 title: null,
                 slug: null
             }
         }
+    }
+
+    formSchema()
+    {
+        return [
+            {
+                label: 'Choose a title',
+                value: this.state.title,
+                name: 'title',
+                type: 'text',
+                component: FormInput,
+                error: this.state.errors.title
+            },
+            {
+                label: 'Pick a slug',
+                value: this.state.slug,
+                name: 'slug',
+                type: 'text',
+                component: FormInput,
+                error: this.state.errors.slug
+            },
+            {
+                label: 'Select author',
+                value: this.state.author,
+                name: 'author',
+                options: this.state.authors || null,
+                component: FormSelect,
+                error: this.state.errors.author
+            },
+            {
+                label: 'Is published',
+                value: this.state.isPublished,
+                name: 'isPublished',
+                options: this.state.publishOptions || null,
+                component: FormSelect,
+                error: this.state.errors.publish
+            },
+            {
+                label: 'Post content',
+                value: this.state.content,
+                name: 'content',
+                component: FormTextarea,
+                error: this.state.errors.content
+            },
+        ]
     }
 
     componentDidMount()
@@ -43,6 +93,23 @@ class PostForm extends React.Component
     {
         this.setState({
             image: image
+        })
+    }
+
+    handleFormSubmit()
+    {
+        let payload = {
+            title:        this.state.title,
+            slug:         this.state.slug,
+            content:      this.state.content,
+            main_image:   this.state.image._id,
+            author:       this.state.author,
+            is_published: this.state.isPublished
+        }
+        axios.post(process.env.REACT_APP_API_ROOT + `post/save`, payload).then((result)=> {
+            console.log(result)
+        }).catch((error)=> {
+            console.log(error)
         })
     }
 
@@ -63,51 +130,41 @@ class PostForm extends React.Component
         })
     }
 
-    createImagePreview()
+    createFormInputs()
     {
-        if(this.state.image)
-        {
+        return this.formSchema().map((input, index)=> {
+            let Component = input.component
             return (
-                <div className="form-group">
-                    <ImagePreview url={ this.state.image.url } />
-                </div>
+                <Component key={ `form_input_${index}` }
+                           label={ input.label }
+                           value={ input.value }
+                           name={ input.name }
+                           type={ input.type }
+                           options={ input.options || null}
+                           error={ input.error }
+                           onInputChange={ (event)=> this.handleInputChange(event) } />
             )
-        }
+        })
     }
 
     render()
     {
         return (
             <div>
-                <FormInput label="Choose a title"
-                           name="title"
-                           value={ this.state.title }
-                           error={ this.state.errors.title }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormImageSelect imageUrl={ this.state.image ? this.state.image.url : null }
+                                 onSelectImage={ (image)=> this.handleSelectImage(image) }/>
 
-                <FormInput label="Slug"
-                           name="slug"
-                           value={ this.state.slug }
-                           error={ this.state.errors.slug }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
-
-                <FormSelect label="Author"
-                            name="author"
-                            value={ this.state.author }
-                            options={ this.state.authors }
-                            onInputChange={ (event)=> this.handleInputChange(event) } />
+                { this.createFormInputs() }
 
                 <div className="form-group">
-                    <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Select image
-                    </button>
+                    <button type="submit"
+                            className="btn btn-primary"
+                            onClick={ ()=> this.handleFormSubmit() }>Submit</button>
                 </div>
-
-                { this.createImagePreview() }
-                <ModalGallery onSelectImage={ (image)=> this.handleSelectImage(image) } />
             </div>
         )
     }
 }
+
 
 export default PostForm
