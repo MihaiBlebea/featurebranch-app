@@ -4,29 +4,42 @@ import axios from 'axios'
 import { schema } from './schema'
 import {
     FormInput,
+    FormSelect,
     FormTextarea,
     FormImageSelect } from './../../Components'
 
 
-class CategoryForm extends React.Component
+class PostForm extends React.Component
 {
-    constructor(props)
+    constructor()
     {
-        super(props)
+        super()
         this.state = {
             title: '',
             slug: '',
-            description: '',
+            content: '',
             image: null,
+            author: 'default',
+            isPublished: 'default',
+            publishDate: null,
 
+            authors: null,
+            publishOptions: [
+                { value: true, label: 'Published'},
+                { value: false, label: 'Draft'}
+            ],
             errors: {
                 title: null,
-                slug: null,
-                description: null
+                slug: null
             }
         }
 
         this.schema = ()=> schema(this.state)
+    }
+
+    componentDidMount()
+    {
+        this.fetchAuthors()
     }
 
     handleInputChange(event)
@@ -41,28 +54,35 @@ class CategoryForm extends React.Component
         })
     }
 
-    handleClearForm()
-    {
-        this.setState({
-            title: '',
-            slug: '',
-            description: '',
-            image: null
-        })
-    }
-
     handleFormSubmit()
     {
         let payload = {
-            title: this.state.title,
-            slug: this.state.slug,
-            description: this.state.description,
-            main_image: this.state.image._id
+            title:        this.state.title,
+            slug:         this.state.slug,
+            content:      this.state.content,
+            main_image:   this.state.image._id,
+            author:       this.state.author,
+            is_published: this.state.isPublished
         }
-        let url = process.env.REACT_APP_API_ROOT + `category/save?auth_token=${this.props.token}`
-        axios.post(url, payload).then((result)=> {
-            this.handleClearForm()
-            this.props.onNewCategory()
+        axios.post(process.env.REACT_APP_API_ROOT + `post/save`, payload).then((result)=> {
+            console.log(result)
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
+    fetchAuthors()
+    {
+        axios.get(process.env.REACT_APP_API_ROOT + `user/all`).then((result)=> {
+            if(result.status === 200)
+            {
+                let authors = result.data.map((author)=> {
+                    return { value: author._id, label: author.first_name + ' ' + author.last_name }
+                })
+                this.setState({
+                    authors: authors
+                })
+            }
         }).catch((error)=> {
             console.log(error)
         })
@@ -105,5 +125,4 @@ class CategoryForm extends React.Component
 }
 
 
-
-export default CategoryForm
+export default PostForm

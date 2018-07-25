@@ -9,7 +9,7 @@ const CategoryCard = (props)=> {
                 <div className="card-body">
                     <div className='row'>
                         <div className="col-md-4">
-                            <img src={ props.image.url } className="w-100"/>
+                            <img src={ props.image.url } className="w-100" alt="card" />
                         </div>
                         <div className="col">
                             <strong>{ props.title }</strong>

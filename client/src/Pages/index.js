@@ -5,10 +5,11 @@ import BlogPage from './BlogPage/BlogPage'
 import RegisterPage from './RegisterPage/RegisterPage'
 import LoginPage from './LoginPage/LoginPage'
 import DashboardPage from './DashboardPage/DashboardPage'
-import NoMatch from './NoMatch/NoMatch'
 import ProfilePage from './ProfilePage/ProfilePage'
 
 import CreateCategoryPage from './CreateCategoryPage/CreateCategoryPage'
+import CreatePostPage from './CreatePostPage/CreatePostPage'
+import AdminPostsPage from './AdminPostsPage/AdminPostsPage'
 
 export {
     HomePage,
@@ -18,7 +19,8 @@ export {
     RegisterPage,
     LoginPage,
     DashboardPage,
-    NoMatch,
     ProfilePage,
-    CreateCategoryPage
+    CreateCategoryPage,
+    CreatePostPage,
+    AdminPostsPage
 }

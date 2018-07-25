@@ -4,6 +4,8 @@ import thunk from 'redux-thunk'
 import dotenv from 'dotenv'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import 'babel-polyfill';
+
 
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'

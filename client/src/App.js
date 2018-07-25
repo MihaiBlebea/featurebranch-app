@@ -12,9 +12,10 @@ import {
     RegisterPage,
     LoginPage,
     DashboardPage,
-    NoMatch,
     ProfilePage,
-    CreateCategoryPage} from './Pages'
+    CreateCategoryPage,
+    CreatePostPage,
+    AdminPostsPage } from './Pages'
 
 class App extends React.Component
 {
@@ -30,17 +31,33 @@ class App extends React.Component
 
     privateRoutes()
     {
-        if(this.isAuth())
-        {
-            return (
-                <Switch>
-                    <Route path="/dashboard" component={ DashboardPage } />
-                    <Route path="/profile" component={ ProfilePage } />
-                    <Route path="/category" component={ CreateCategoryPage } />
-                </Switch>
-            )
-        }
-        return null
+        return (
+            <Switch>
+                <Route path="/admin/dashboard" component={ DashboardPage } />
+                <Route path="/admin/profile" component={ ProfilePage } />
+                <Route path="/admin/category" component={ CreateCategoryPage } />
+                <Route path="/admin/posts" component={ AdminPostsPage } />
+                <Route path="/admin/post" component={ CreatePostPage } />
+
+                <Redirect to='/admin/dashboard' />
+            </Switch>
+        )
+    }
+
+    publicRoutes()
+    {
+        return (
+            <Switch>
+                <Route exact path="/" component={ HomePage } />
+                <Route path="/blog" component={ BlogPage } />
+                <Route path="/about" component={ AboutPage } />
+                <Route path="/contact" component={ ContactPage } />
+                <Route path="/register" component={ RegisterPage } />
+                <Route path="/login" component={ LoginPage } />
+
+                <Redirect to='/' />
+            </Switch>
+        )
     }
 
     render()
@@ -51,18 +68,7 @@ class App extends React.Component
                     <NavigationMain />
 
                     <DefaultContainer>
-                        <Switch>
-                            <Route exact path="/" component={ HomePage } />
-                            <Route path="/blog" component={ BlogPage } />
-                            <Route path="/about" component={ AboutPage } />
-                            <Route path="/contact" component={ ContactPage } />
-                            <Route path="/register" component={ RegisterPage } />
-                            <Route path="/login" component={ LoginPage } />
-
-                            { this.privateRoutes() }
-
-                            <Redirect to='/' />
-                        </Switch>
+                        { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
                     </DefaultContainer>
 
                 </div>
