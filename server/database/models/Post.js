@@ -14,9 +14,14 @@ const PostSchema = connect.Schema({
         type: String,
         required: true
     },
-    main_image: {
+    author: {
         type: connect.Schema.Types.ObjectId,
-        ref: 'Image',
+        ref: 'User',
+        required: true
+    },
+    category: {
+        type: connect.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
     },
     comments: [{

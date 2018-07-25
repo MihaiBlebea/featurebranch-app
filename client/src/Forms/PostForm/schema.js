@@ -30,6 +30,14 @@ export const schema = (state)=> {
             error: state.errors.author
         },
         {
+            label: 'Select category',
+            value: state.category,
+            name: 'category',
+            options: state.categories || null,
+            component: FormSelect,
+            error: state.errors.category
+        },
+        {
             label: 'Is published',
             value: state.isPublished,
             name: 'isPublished',

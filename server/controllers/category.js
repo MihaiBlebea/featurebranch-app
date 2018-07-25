@@ -45,5 +45,9 @@ router.delete('/delete/:slug', (request, response)=> {
     })
 })
 
+// Get author's posts //
+
+// Edit a post //
+
 
 module.exports = router

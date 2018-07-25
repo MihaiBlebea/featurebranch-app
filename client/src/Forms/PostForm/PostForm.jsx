@@ -17,6 +17,7 @@ class PostForm extends React.Component
             content: '',
             image: null,
             author: 'default',
+            category: 'default',
             isPublished: 'default',
             publishDate: null,
 
@@ -37,6 +38,7 @@ class PostForm extends React.Component
     componentDidMount()
     {
         this.fetchAuthors()
+        this.fetchCategories()
     }
 
     handleInputChange(event)
@@ -64,6 +66,7 @@ class PostForm extends React.Component
             content:      this.state.content,
             main_image:   this.state.image._id,
             author:       this.state.author,
+            category:     this.state.category,
             is_published: this.state.isPublished
         }
         axios.post(process.env.REACT_APP_API_ROOT + `post/save`, payload).then((result)=> {
@@ -86,6 +89,23 @@ class PostForm extends React.Component
                 })
                 this.setState({
                     authors: authors
+                })
+            }
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
+    fetchCategories()
+    {
+        axios.get(process.env.REACT_APP_API_ROOT + `category/all`).then((result)=> {
+            if(result.status === 200)
+            {
+                let categories = result.data.map((category)=> {
+                    return { value: category._id, label: category.title }
+                })
+                this.setState({
+                    categories: categories
                 })
             }
         }).catch((error)=> {

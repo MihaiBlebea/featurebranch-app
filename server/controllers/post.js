@@ -10,6 +10,7 @@ router.post('/save', (request, response)=> {
         slug:         request.body.slug,
         content:      request.body.content,
         main_image:   request.body.main_image,
+        category:     request.body.category,
         comments:     request.body.comments,
         author:       request.body.author,
         is_published: request.body.is_published,
@@ -29,6 +30,7 @@ router.get('/all', (request, response)=> {
     Post.find({})
         .populate('author')
         .populate('main_image')
+        .populate('category')
         .populate('comments')
         .exec((error, posts)=> {
             if(error) throw err;
@@ -41,6 +43,7 @@ router.get('/:slug', (request, response)=> {
     Post.findOne({ slug: request.params.slug })
         .populate('author')
         .populate('main_image')
+        .populate('category')
         .populate('comments')
         .exec((error, post)=> {
             if(error) throw err;
