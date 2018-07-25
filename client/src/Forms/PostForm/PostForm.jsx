@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+import { schema } from './schema'
 import {
     FormInput,
     FormSelect,
@@ -32,51 +33,8 @@ class PostForm extends React.Component
                 slug: null
             }
         }
-    }
 
-    formSchema()
-    {
-        return [
-            {
-                label: 'Choose a title',
-                value: this.state.title,
-                name: 'title',
-                type: 'text',
-                component: FormInput,
-                error: this.state.errors.title
-            },
-            {
-                label: 'Pick a slug',
-                value: this.state.slug,
-                name: 'slug',
-                type: 'text',
-                component: FormInput,
-                error: this.state.errors.slug
-            },
-            {
-                label: 'Select author',
-                value: this.state.author,
-                name: 'author',
-                options: this.state.authors || null,
-                component: FormSelect,
-                error: this.state.errors.author
-            },
-            {
-                label: 'Is published',
-                value: this.state.isPublished,
-                name: 'isPublished',
-                options: this.state.publishOptions || null,
-                component: FormSelect,
-                error: this.state.errors.publish
-            },
-            {
-                label: 'Post content',
-                value: this.state.content,
-                name: 'content',
-                component: FormTextarea,
-                error: this.state.errors.content
-            },
-        ]
+        this.schema = ()=> schema(this.state)
     }
 
     componentDidMount()
@@ -132,7 +90,7 @@ class PostForm extends React.Component
 
     createFormInputs()
     {
-        return this.formSchema().map((input, index)=> {
+        return this.schema().map((input, index)=> {
             let Component = input.component
             return (
                 <Component key={ `form_input_${index}` }

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+import { schema } from './schema'
 import {
     FormInput,
     FormTextarea,
@@ -24,35 +25,8 @@ class CategoryForm extends React.Component
                 description: null
             }
         }
-    }
 
-    formSchema()
-    {
-        return [
-            {
-                label: 'Choose a title',
-                value: this.state.title,
-                name: 'title',
-                type: 'text',
-                component: FormInput,
-                error: this.state.errors.title
-            },
-            {
-                label: 'Pick a slug',
-                value: this.state.slug,
-                name: 'slug',
-                type: 'text',
-                component: FormInput,
-                error: this.state.errors.slug
-            },
-            {
-                label: 'Category description',
-                value: this.state.description,
-                name: 'description',
-                component: FormTextarea,
-                error: this.state.errors.description
-            },
-        ]
+        this.schema = ()=> schema(this.state)
     }
 
     handleInputChange(event)
@@ -96,7 +70,7 @@ class CategoryForm extends React.Component
 
     createFormInputs()
     {
-        return this.formSchema().map((input, index)=> {
+        return this.schema().map((input, index)=> {
             let Component = input.component
             return (
                 <Component key={ `form_input_${index}` }
