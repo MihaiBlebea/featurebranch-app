@@ -2,10 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import { schema } from './schema'
-import {
-    FormInput,
-    FormTextarea,
-    FormImageSelect } from './../../Components'
+import { FormImageSelect } from './../../Components'
 
 
 class CategoryForm extends React.Component

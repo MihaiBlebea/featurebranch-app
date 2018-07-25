@@ -7,6 +7,7 @@ import { schema } from './schema'
 import { FormInput, Alert } from './../../Components'
 import * as actions from './../../store/actions'
 
+
 class LoginForm extends React.Component
 {
     constructor()

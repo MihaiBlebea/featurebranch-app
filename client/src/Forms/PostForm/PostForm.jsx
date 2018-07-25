@@ -1,19 +1,16 @@
 import React from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 import { schema } from './schema'
-import {
-    FormInput,
-    FormSelect,
-    FormTextarea,
-    FormImageSelect } from './../../Components'
+import { FormImageSelect } from './../../Components'
 
 
 class PostForm extends React.Component
 {
-    constructor()
+    constructor(props)
     {
-        super()
+        super(props)
         this.state = {
             title: '',
             slug: '',
@@ -54,6 +51,11 @@ class PostForm extends React.Component
         })
     }
 
+    handleRedirect()
+    {
+        this.props.history.push('/admin/posts')
+    }
+
     handleFormSubmit()
     {
         let payload = {
@@ -65,7 +67,10 @@ class PostForm extends React.Component
             is_published: this.state.isPublished
         }
         axios.post(process.env.REACT_APP_API_ROOT + `post/save`, payload).then((result)=> {
-            console.log(result)
+            if(result.status === 200)
+            {
+                this.handleRedirect()
+            }
         }).catch((error)=> {
             console.log(error)
         })
@@ -125,4 +130,4 @@ class PostForm extends React.Component
 }
 
 
-export default PostForm
+export default withRouter(PostForm)

@@ -17,7 +17,7 @@ router.post('/save', (request, response)=> {
     }
     Post.create(payload).then((post)=> {
         response.status(200).json({
-            response: 'Posthave been saved to the database',
+            response: 'Post have been saved to the database',
             model: post
         })
     }).catch((error)=> {

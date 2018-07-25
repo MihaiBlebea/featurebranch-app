@@ -1,8 +1,7 @@
 import {
     FormInput,
     FormSelect,
-    FormTextarea,
-    FormImageSelect } from './../../Components'
+    FormTextarea } from './../../Components'
 
 export const schema = (state)=> {
     return [
