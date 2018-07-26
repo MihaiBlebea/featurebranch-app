@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { TitleMain, TitleChapter, CategoryCard } from './../../Components'
+import { TitleMain, TitleChapter, CardCategory } from './../../Components'
 import { CategoryForm } from './../../Forms'
 
 class CreateCategoryPage extends React.Component
@@ -56,7 +56,7 @@ class CreateCategoryPage extends React.Component
             return this.state.categories.map((category, index)=> {
                 return (
                     <div className="mb-2" key={ 'category_card_' + index }>
-                        <CategoryCard id={ index }
+                        <CardCategory id={ index }
                                       image={ category.main_image }
                                       title={ category.title }
                                       onDelete={ ()=> this.handleDeleteCard(index) } />

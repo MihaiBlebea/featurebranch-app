@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { FormUpload, ImageCard } from './../index'
+import { FormUpload, CardImage } from './../index'
 
 class ModalGallery extends React.Component
 {
@@ -81,7 +81,7 @@ class ModalGallery extends React.Component
             return this.state.images.map((image, index)=> {
                 return (
                     <div className="col-md-4 mb-2" key={ `image_gallery_${index}` }>
-                        <ImageCard isSelected={ this.isSelected(image) }
+                        <CardImage isSelected={ this.isSelected(image) }
                                    url={ image.url }
                                    handleSelected={ ()=> this.handleSelectImage(index) }
                                    handleDelete={ ()=> this.handleImageDelete(index) } />

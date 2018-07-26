@@ -43,7 +43,7 @@ export const schema = (state)=> {
             name: 'isPublished',
             options: state.publishOptions || null,
             component: FormSelect,
-            error: state.errors.publish
+            error: state.errors.isPublished
         },
         {
             label: 'Post content',

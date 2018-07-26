@@ -28,7 +28,11 @@ class PostForm extends React.Component
             ],
             errors: {
                 title: null,
-                slug: null
+                slug: null,
+                content: null,
+                author: null,
+                category: null,
+                isPublished: null,
             }
         }
 
@@ -64,7 +68,7 @@ class PostForm extends React.Component
             title:        this.state.title,
             slug:         this.state.slug,
             content:      this.state.content,
-            main_image:   this.state.image._id,
+            main_image:   (this.state.image) ? this.state.image._id : null,
             author:       this.state.author,
             category:     this.state.category,
             is_published: this.state.isPublished
@@ -75,7 +79,20 @@ class PostForm extends React.Component
                 this.handleRedirect()
             }
         }).catch((error)=> {
-            console.log(error)
+            if(error.response.status === 400)
+            {
+                this.setState({
+                    errors: {
+                        title: error.response.data.errors.title.message,
+                        slug: error.response.data.errors.slug.message,
+                        content: error.response.data.errors.content.message,
+                        author: error.response.data.errors.author.message,
+                        category: error.response.data.errors.category.message,
+                        isPublished: error.response.data.errors.is_published.message
+                    }
+                })
+                console.log(error.response)
+            }
         })
     }
 

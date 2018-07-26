@@ -44,7 +44,13 @@ class CategoryForm extends React.Component
             title: '',
             slug: '',
             description: '',
-            image: null
+            image: null,
+
+            errors: {
+                title: null,
+                slug: null,
+                description: null
+            }
         })
     }
 
@@ -54,14 +60,26 @@ class CategoryForm extends React.Component
             title: this.state.title,
             slug: this.state.slug,
             description: this.state.description,
-            main_image: this.state.image._id
+            main_image: (this.state.image) ? this.state.image._id : null
         }
         let url = process.env.REACT_APP_API_ROOT + `category/save?auth_token=${this.props.token}`
         axios.post(url, payload).then((result)=> {
-            this.handleClearForm()
-            this.props.onNewCategory()
+            if(result.status === 200)
+            {
+                this.handleClearForm()
+                this.props.onNewCategory()
+            }
         }).catch((error)=> {
-            console.log(error)
+            if(error.response.status === 400)
+            {
+                this.setState({
+                    errors: {
+                        title: error.response.data.errors.title.message,
+                        slug: error.response.data.errors.slug.message,
+                        description: error.response.data.errors.description.message
+                    }
+                })
+            }
         })
     }
 

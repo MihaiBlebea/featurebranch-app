@@ -2,14 +2,18 @@ import React from 'react'
 import { ModalConfirmation } from './../index'
 
 
-const CategoryCard = (props)=> {
+const CardCategory = (props)=> {
+    const renderImage = ()=> {
+        return (props.image) ? ( <img src={ props.image.url } className="w-100" alt="card" /> ) : null
+    }
+
     return (
         <div>
             <div className="card">
                 <div className="card-body">
                     <div className='row'>
                         <div className="col-md-4">
-                            <img src={ props.image.url } className="w-100" alt="card" />
+                            { renderImage() }
                         </div>
                         <div className="col">
                             <strong>{ props.title }</strong>
@@ -31,4 +35,4 @@ const CategoryCard = (props)=> {
     )
 }
 
-export default CategoryCard
+export default CardCategory

@@ -5,13 +5,14 @@ const { auth } = require('./../middleware/auth')
 const router = express.Router()
 
 router.post('/save', auth, (request, response)=> {
-    Category.create({
+    var category = new Category({
         title:       request.body.title,
         slug:        request.body.slug,
         description: request.body.description,
         main_image:  request.body.main_image
-    }).then((category)=> {
-        response.status(200).json(category)
+    })
+    category.save().then((result)=> {
+        response.status(200).json(result)
     }).catch((error)=> {
         response.status(400).json(error)
     })

@@ -5,7 +5,7 @@ const router = express.Router()
 
 // Save a Post
 router.post('/save', (request, response)=> {
-    var payload = {
+    var post = new Post({
         title:        request.body.title,
         slug:         request.body.slug,
         content:      request.body.content,
@@ -15,14 +15,12 @@ router.post('/save', (request, response)=> {
         author:       request.body.author,
         is_published: request.body.is_published,
         publish_date: request.body.publish_date
-    }
-    Post.create(payload).then((post)=> {
-        response.status(200).json({
-            response: 'Post have been saved to the database',
-            model: post
-        })
+    })
+
+    post.save().then((result)=> {
+        response.status(200).json(result)
     }).catch((error)=> {
-        console.log(error)
+        response.status(400).json(error)
     })
 })
 

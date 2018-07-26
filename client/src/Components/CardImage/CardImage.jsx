@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ImageCard = (props)=> {
+const CardImage = (props)=> {
     return (
         <div className="card">
             <img className={'w-100 ' + (props.isSelected ? 'border border-primary' : '') }
@@ -17,4 +17,4 @@ const ImageCard = (props)=> {
     )
 }
 
-export default ImageCard
+export default CardImage

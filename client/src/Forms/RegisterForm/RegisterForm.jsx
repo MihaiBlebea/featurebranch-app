@@ -25,54 +25,6 @@ class RegisterForm extends React.Component
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
-    // formSchema()
-    // {
-    //     return [
-    //         {
-    //             label: 'First name',
-    //             value: this.state.firstName,
-    //             name: 'firstName',
-    //             type: 'text',
-    //             error: this.props.errors.firstName
-    //         },
-    //         {
-    //             label: 'Last name',
-    //             value: this.state.lastName,
-    //             name: 'lastName',
-    //             type: 'text',
-    //             error: this.props.errors.lastName
-    //         },
-    //         {
-    //             label: 'Email',
-    //             value: this.state.email,
-    //             name: 'email',
-    //             type: 'email',
-    //             error: this.props.errors.email
-    //         },
-    //         {
-    //             label: 'Phone',
-    //             value: this.state.phone,
-    //             name: 'phone',
-    //             type: 'text',
-    //             error: ''
-    //         },
-    //         {
-    //             label: 'Password',
-    //             value: this.state.password,
-    //             name: 'password',
-    //             type: 'password',
-    //             error: this.props.errors.password
-    //         },
-    //         {
-    //             label: 'Confirm password',
-    //             value: this.state.passwordAgain,
-    //             name: 'passwordAgain',
-    //             type: 'password',
-    //             error: this.passwordConfirmationMatch()
-    //         }
-    //     ]
-    // }
-
     isAuth()
     {
         return (this.props.token) ? true : false
