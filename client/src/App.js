@@ -15,7 +15,8 @@ import {
     ProfilePage,
     CreateCategoryPage,
     CreatePostPage,
-    AdminPostsPage } from './Pages'
+    AdminPostsPage,
+    AdminImagesPage } from './Pages'
 
 class App extends React.Component
 {
@@ -38,6 +39,7 @@ class App extends React.Component
                 <Route path="/admin/category" component={ CreateCategoryPage } />
                 <Route path="/admin/posts" component={ AdminPostsPage } />
                 <Route path="/admin/post" component={ CreatePostPage } />
+                <Route path="/admin/images" component={ AdminImagesPage } />
 
                 <Redirect to='/admin/dashboard' />
             </Switch>
