@@ -23,7 +23,7 @@ router.post('/signup', (request, response)=> {
             user: user
         })
     }).catch((error)=> {
-        response.json(error)
+        response.status(400).json(error)
     })
 })
 
@@ -39,7 +39,7 @@ router.post('/login', (request, response)=> {
             })
         })
     }).catch((error)=> {
-        response.json({ response: 'Credentials do not match' })
+        response.status(400).json(error)
     })
 })
 

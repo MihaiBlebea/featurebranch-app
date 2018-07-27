@@ -5,7 +5,7 @@ import { LoginForm } from './../../Forms'
 const LoginPage = ()=> {
     return (
         <div className="row justify-content-center">
-            <div class="col-md-6">
+            <div className="col-md-6">
                 <TitleMain>Login</TitleMain>
                 <LoginForm />
             </div>
