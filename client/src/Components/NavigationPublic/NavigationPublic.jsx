@@ -12,9 +12,6 @@ const NavigationPublic = ()=> {
                     <Link className="nav-link" to="/blog">Blog</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/blog/category1/post2">Post</Link>
-                </li>
-                <li className="nav-item">
                     <Link className="nav-link" to="/about">About</Link>
                 </li>
                 <li className="nav-item">

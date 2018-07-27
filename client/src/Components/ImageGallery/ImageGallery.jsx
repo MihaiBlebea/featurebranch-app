@@ -36,6 +36,7 @@ class ImageGallery extends React.Component
         this.setState({
             selected: selected
         })
+        this.props.onSelectImage(selected)
     }
 
     handleSaveImage()

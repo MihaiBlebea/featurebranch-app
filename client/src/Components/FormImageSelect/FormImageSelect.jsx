@@ -11,18 +11,20 @@ class FormImageSelect extends React.Component
     {
         super(props)
         this.state = {
-            isOpen: false
+            isOpen: false,
+            tempImageSelect: null,
+            imagePreview: null
         }
     }
 
     createImagePreview()
     {
-        if(this.props.imageUrl)
+        if(this.state.imagePreview !== null)
         {
             return (
                 <div className="form-group">
                     <div className="row col-md-6">
-                        <ImagePreview url={ this.props.imageUrl } />
+                        <ImagePreview url={ this.state.imagePreview.url } />
                     </div>
                 </div>
             )
@@ -31,7 +33,19 @@ class FormImageSelect extends React.Component
 
     handleImageSelect(image)
     {
-        console.log(image)
+        this.setState({
+            tempImageSelect: image
+        })
+    }
+
+    handleSave()
+    {
+        let imagePreview = this.state.tempImageSelect
+        this.setState({
+            imagePreview: imagePreview
+        })
+        this.toggleModal()
+        this.props.onSelectImage(imagePreview)
     }
 
     toggleModal()
@@ -51,9 +65,13 @@ class FormImageSelect extends React.Component
                     </button>
                 </div>
 
-                <Modal visible={ this.state.isOpen } onClickBackdrop={ ()=> this.toggleModal() }>
+                { this.createImagePreview() }
+
+                <Modal visible={ this.state.isOpen }
+                       dialogClassName="modal-dialog-centered modal-lg"
+                       onClickBackdrop={ ()=> this.toggleModal() }>
                     <div className="modal-header">
-                        <h5 className="modal-title">Red Alert!</h5>
+                        <h5 className="modal-title">Select an image</h5>
                     </div>
                     <div className="modal-body">
                         <ImageGallery onSelectImage={ (image)=> this.handleImageSelect(image) } />
@@ -62,7 +80,7 @@ class FormImageSelect extends React.Component
                         <button type="button" className="btn btn-secondary" onClick={ ()=> this.toggleModal() }>
                             Cancel
                         </button>
-                        <button type="button" className="btn btn-primary" onClick={ '' }>
+                        <button type="button" className="btn btn-primary" onClick={ ()=> this.handleSave() }>
                             Save
                         </button>
                     </div>

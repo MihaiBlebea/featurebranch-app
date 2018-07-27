@@ -15,7 +15,9 @@ import ImagePreview from './ImagePreview/ImagePreview'
 import ImageGallery from './ImageGallery/ImageGallery'
 import CardImage from './CardImage/CardImage'
 import CardCategory from './CardCategory/CardCategory'
+import CardFrontCategory from './CardFrontCategory/CardFrontCategory'
 import CardPost from './CardPost/CardPost'
+import CardFrontPost from './CardFrontPost/CardFrontPost'
 
 export {
     NavigationMain,
@@ -35,5 +37,7 @@ export {
     ImageGallery,
     CardImage,
     CardCategory,
-    CardPost
+    CardFrontCategory,
+    CardPost,
+    CardFrontPost
 }

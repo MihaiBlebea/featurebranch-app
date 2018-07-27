@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 
 const CardPost = (props)=> {
     return (
@@ -23,4 +25,11 @@ const CardPost = (props)=> {
         </div>
     )
 }
+
+CardPost.propTypes = {
+    imageUrl: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired
+}
+
 export default CardPost
