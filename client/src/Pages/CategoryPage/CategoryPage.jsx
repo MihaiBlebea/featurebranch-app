@@ -56,10 +56,11 @@ class CategoryPage extends React.Component
     render()
     {
         return (
-            <div>
-                <TitleMain>Category Page</TitleMain>
-
-                { this.createPosts() }
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <TitleMain>Category Page</TitleMain>
+                    { this.createPosts() }
+                </div>
             </div>
         )
     }

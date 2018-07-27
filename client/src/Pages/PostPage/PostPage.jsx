@@ -27,7 +27,6 @@ class CategoryPage extends React.Component
             this.setState({
                 post: result.data
             })
-            console.log(result.data)
         }).catch((error)=> {
             console.log(error)
         })
@@ -75,7 +74,7 @@ class CategoryPage extends React.Component
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <TitleMain>{ this.createPostTitle() }</TitleMain>
-                    <img src={ this.createPostImage() } alt="post-main" />
+                    <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
                     <div>
                         { this.createPostContent() }
                     </div>
