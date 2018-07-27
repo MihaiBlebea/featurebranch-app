@@ -1,28 +1,22 @@
 import React from 'react'
 import axios from 'axios'
-import Modal from 'react-bootstrap4-modal';
-import PropTypes from 'prop-types';
 
-import { FormUpload, CardImage } from './../index'
+import { CardImage, FormUpload } from './../index'
 
 
-class ModalGallery extends React.Component
+class ImageGallery extends React.Component
 {
     constructor(props)
     {
         super(props)
         this.state = {
             images: null,
-            selected: null,
-            isOpen: false
+            selected: null
         }
     }
     componentDidMount()
     {
         this.fetchImages()
-        this.setState({
-            isOpen: this.props.isOpen
-        })
     }
 
     fetchImages()
@@ -78,7 +72,6 @@ class ModalGallery extends React.Component
 
     isSelected(image)
     {
-
         return (this.state.selected !== null && this.state.selected._id === image._id) ? true : false
     }
 
@@ -103,58 +96,16 @@ class ModalGallery extends React.Component
     render()
     {
         return (
-            <Modal visible={ this.state.isOpen } onClickBackdrop={ '' }>
-                <div className="modal-header">
-                    <h5 className="modal-title">Red Alert!</h5>
+            <div>
+                <div className="mb-2">
+                    <FormUpload onInputChange={ (event)=> this.handleImageUpload(event) } />
                 </div>
-                <div className="modal-body">
-                    <p>Enemy vessel approaching!</p>
+                <div className="row">
+                    { this.createImageGallery() }
                 </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={this.onPanic}>
-                        Panic
-                    </button>
-                    <button type="button" className="btn btn-primary" onClick={this.onFirePhasers}>
-                        Fire phasers
-                    </button>
-                </div>
-            </Modal>
+            </div>
         )
     }
 }
 
-// <div className="modal fade"
-//      id="exampleModal"
-//      tabIndex="-1"
-//      role="dialog"
-//      aria-labelledby="exampleModalLabel"
-//      aria-hidden="true">
-//     <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
-//         <div className="modal-content">
-//             <div className="modal-header">
-//                 <FormUpload onInputChange={ (event)=> this.handleImageUpload(event) } />
-//                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-//                     <span aria-hidden="true">&times;</span>
-//                 </button>
-//             </div>
-//             <div className="modal-body pl-2 pr-2">
-//                 <div className="row">
-//                     { this.createImageGallery() }
-//                 </div>
-//             </div>
-//             <div className="modal-footer">
-//                 <button className="btn btn-secondary"
-//                         data-dismiss="modal">Close</button>
-//                 <button className="btn btn-primary"
-//                         data-dismiss="modal"
-//                         onClick={ ()=> this.handleSaveImage() }>Select image</button>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-
-ModalGallery.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-}
-
-export default ModalGallery
+export default ImageGallery

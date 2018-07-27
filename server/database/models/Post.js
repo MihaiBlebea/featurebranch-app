@@ -50,6 +50,7 @@ PostSchema.methods.toJSON = function() {
         slug:         postObject.slug,
         main_image:   postObject.main_image,
         comments:     postObject.comments,
+        content:      postObject.content,
         author:       postObject.author,
         is_published: postObject.is_published,
         publish_date: postObject.publish_date

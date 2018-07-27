@@ -9,6 +9,7 @@
         "draft-js": "^0.10.5",
         "moment": "^2.22.2",
         "react": "^16.4.1",
+        "react-bootstrap4-modal": "^1.4.0",
         "react-dom": "^16.4.1",
         "react-loading": "^2.0.3",
         "react-redux": "^5.0.7",

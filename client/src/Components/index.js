@@ -12,6 +12,7 @@ import Alert from './Alert/Alert'
 import ModalGallery from './ModalGallery/ModalGallery'
 import ModalConfirmation from './ModalConfirmation/ModalConfirmation'
 import ImagePreview from './ImagePreview/ImagePreview'
+import ImageGallery from './ImageGallery/ImageGallery'
 import CardImage from './CardImage/CardImage'
 import CardCategory from './CardCategory/CardCategory'
 import CardPost from './CardPost/CardPost'
@@ -31,6 +32,7 @@ export {
     ModalGallery,
     ModalConfirmation,
     ImagePreview,
+    ImageGallery,
     CardImage,
     CardCategory,
     CardPost

@@ -7,6 +7,7 @@ import { NavigationMain } from './Components'
 import {
     HomePage,
     BlogPage,
+    PostPage,
     AboutPage,
     ContactPage,
     RegisterPage,
@@ -51,7 +52,8 @@ class App extends React.Component
         return (
             <Switch>
                 <Route exact path="/" component={ HomePage } />
-                <Route path="/blog" component={ BlogPage } />
+                <Route exact path="/blog" component={ BlogPage } />
+                <Route path="/blog/:category/:post" component={ PostPage } />
                 <Route path="/about" component={ AboutPage } />
                 <Route path="/contact" component={ ContactPage } />
                 <Route path="/register" component={ RegisterPage } />
