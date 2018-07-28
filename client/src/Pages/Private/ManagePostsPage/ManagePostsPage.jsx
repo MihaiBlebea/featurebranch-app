@@ -11,7 +11,11 @@ class ManagePostsPage extends React.Component
     {
         super()
         this.state = {
-            posts: null
+            posts: null,
+            confirmation: {
+                openModal: false,
+                postId: null
+            }
         }
     }
 
@@ -31,9 +35,8 @@ class ManagePostsPage extends React.Component
         })
     }
 
-    handlePostDelete(index)
+    handlePostDelete(post)
     {
-        let post = this.state.posts[index]
         axios.delete(process.env.REACT_APP_API_ROOT + `post/delete/${post._id}`).then((result)=> {
             if(result.status === 200)
             {
@@ -53,7 +56,9 @@ class ManagePostsPage extends React.Component
                     <div className="col-md-4 mb-2" key={ `card-post-${index}` }>
                         <CardPost imageUrl={ (post.main_image) ? post.main_image.url : null }
                                   title={ post.title }
-                                  onDelete={ ()=> this.handlePostDelete(index) } />
+                                  slug={ post.slug }
+                                  id={ post._id }
+                                  onDelete={ ()=> this.handlePostDelete(post) } />
                     </div>
                 )
             })
@@ -64,12 +69,14 @@ class ManagePostsPage extends React.Component
     render()
     {
         return (
-            <DefaultLayout>
-                <TitleMain>Manage posts</TitleMain>
-                <div className="row">
-                    { this.createPosts() }
-                </div>
-            </DefaultLayout>
+            <div>
+                <DefaultLayout>
+                    <TitleMain>Manage posts</TitleMain>
+                    <div className="row">
+                        { this.createPosts() }
+                    </div>
+                </DefaultLayout>
+            </div>
         )
     }
 }

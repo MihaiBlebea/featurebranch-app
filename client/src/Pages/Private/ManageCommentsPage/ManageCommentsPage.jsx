@@ -33,9 +33,11 @@ class ManageCommentsPage extends React.Component
         })
     }
 
-    handleApproveComment(comment)
+    handleApproveStatus(comment)
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `comment/approve/${comment._id}`).then((result)=> {
+        let status = !comment.isApproved
+        let url = process.env.REACT_APP_API_ROOT + `comment/approve/${comment._id}?status=${status}`
+        axios.get(url).then((result)=> {
             if(result.status === 200)
             {
                 this.fetchComments()
@@ -43,11 +45,6 @@ class ManageCommentsPage extends React.Component
         }).catch((error)=> {
             console.log(error)
         })
-    }
-
-    handleDisapproveComment(comment)
-    {
-
     }
 
     createCommentCards()
@@ -61,8 +58,7 @@ class ManageCommentsPage extends React.Component
                                      subject={ comment.title }
                                      content={ comment.content }
                                      isApproved={ comment.isApproved }
-                                     onApprove={ ()=> this.handleApproveComment(comment) }
-                                     onDisapprove={ ()=> this.handleDisapproveComment(comment) }/>
+                                     onApproveChange={ ()=> this.handleApproveStatus(comment) }/>
                     </div>
                 )
             })

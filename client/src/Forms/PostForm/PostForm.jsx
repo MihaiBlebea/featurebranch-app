@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 
 import { schema } from './schema'
@@ -26,6 +27,8 @@ class PostForm extends React.Component
                 { value: true, label: 'Published'},
                 { value: false, label: 'Draft'}
             ],
+            categories: null,
+
             errors: {
                 title: null,
                 slug: null,
@@ -43,6 +46,29 @@ class PostForm extends React.Component
     {
         this.fetchAuthors()
         this.fetchCategories()
+        if(this.props.editPost !== undefined)
+        {
+            this.handleEditPost(this.props.editPost)
+        }
+    }
+
+    handleEditPost(id)
+    {
+        axios.get(process.env.REACT_APP_API_ROOT + `post/id/${id}`).then((result)=> {
+            console.log(result.data)
+            this.setState({
+                title:       result.data.title,
+                slug:        result.data.slug,
+                content:     result.data.content,
+                author:      result.data.author._id,
+                image:       result.data.main_image,
+                category:    result.data.category,
+                isPublished: result.data.is_published,
+                publishDate: null,
+            })
+        }).catch((error)=> {
+            console.log(error)
+        })
     }
 
     handleInputChange(event)
@@ -64,6 +90,7 @@ class PostForm extends React.Component
 
     handleFormSubmit()
     {
+        let url = (this.props.editPost === undefined) ? `post/save` : `post/update/${this.props.editPost}`
         let payload = {
             title:        this.state.title,
             slug:         this.state.slug,
@@ -73,7 +100,7 @@ class PostForm extends React.Component
             category:     this.state.category,
             is_published: this.state.isPublished
         }
-        axios.post(process.env.REACT_APP_API_ROOT + `post/save`, payload).then((result)=> {
+        axios.post(process.env.REACT_APP_API_ROOT + url, payload).then((result)=> {
             if(result.status === 200)
             {
                 this.handleRedirect()
@@ -151,7 +178,7 @@ class PostForm extends React.Component
     {
         return (
             <div>
-                <FormImageSelect imageUrl={ this.state.image ? this.state.image.url : null }
+                <FormImageSelect defaultImage={ this.state.image }
                                  onSelectImage={ (image)=> this.handleSelectImage(image) }/>
 
                 { this.createFormInputs() }
@@ -159,11 +186,17 @@ class PostForm extends React.Component
                 <div className="form-group">
                     <button type="submit"
                             className="btn btn-primary"
-                            onClick={ ()=> this.handleFormSubmit() }>Submit</button>
+                            onClick={ ()=> this.handleFormSubmit() }>
+                        { (this.props.editPost === undefined) ? 'Save' : 'Update' }
+                    </button>
                 </div>
             </div>
         )
     }
+}
+
+PostForm.propTypes = {
+    editPost: PropTypes.string
 }
 
 

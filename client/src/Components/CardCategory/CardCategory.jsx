@@ -1,6 +1,9 @@
 import React from 'react'
 import Modal from 'react-bootstrap4-modal';
 
+import { ModalConfirmation } from './../index'
+
+
 class CardCategory extends React.Component
 {
     constructor(props)
@@ -23,10 +26,15 @@ class CardCategory extends React.Component
         })
     }
 
-    handleConfirmation()
+    createConfirmationModal()
     {
-        this.toggleModal()
-        this.props.onDelete()
+        return (
+            <ModalConfirmation isOpen={ this.state.isOpen }
+                               toggleModal={ ()=> this.toggleModal() }
+                               onConfirm={ ()=> this.props.onDelete() }>
+                You are about to delete { this.props.title }. Are you sure you want to continue?
+            </ModalConfirmation>
+        )
     }
 
     render()
@@ -51,21 +59,7 @@ class CardCategory extends React.Component
                     </div>
                 </div>
 
-                <Modal visible={ this.state.isOpen }
-                       dialogClassName="modal-dialog-centered"
-                       onClickBackdrop={ ()=> this.toggleModal() }>
-                    <div className="modal-body">
-                        Are you sure you want to delete { this.props.title } category?
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={ ()=> this.toggleModal() }>
-                            Cancel
-                        </button>
-                        <button type="button" className="btn btn-danger" onClick={ ()=> this.handleConfirmation() }>
-                            Delete
-                        </button>
-                    </div>
-                </Modal>
+                { this.createConfirmationModal() }
             </div>
         )
     }

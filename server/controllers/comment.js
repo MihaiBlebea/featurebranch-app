@@ -27,7 +27,7 @@ router.get('/all', (request, response)=> {
 })
 
 router.get('/approve/:id', (request, response)=> {
-    Comment.update({ _id: request.params.id }, { isApproved: true }).then((result)=> {
+    Comment.update({ _id: request.params.id }, { isApproved: request.query.status }).then((result)=> {
         response.status(200).json(result)
     }).catch((error)=> {
         response.status(400).json(error)

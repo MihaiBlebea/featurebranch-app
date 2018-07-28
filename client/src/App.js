@@ -44,6 +44,7 @@ class App extends React.Component
                 <Route path="/admin/post" component={ CreatePostPage } />
                 <Route path="/admin/images" component={ ManageImagesPage } />
                 <Route path="/admin/comments" component={ ManageCommentsPage } />
+                <Route path="/admin/preview/:post" component={ PostPage } />
 
                 <Redirect to='/admin/dashboard' />
             </Switch>

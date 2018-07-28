@@ -29,10 +29,6 @@ const PostSchema = connect.Schema({
         ref: 'Category',
         required: true
     },
-    // comments: [{
-    //     type: connect.Schema.Types.ObjectId,
-    //     ref: 'Comment'
-    // }],
     author: {
         type: connect.Schema.Types.ObjectId,
         ref: 'User',
@@ -64,6 +60,7 @@ PostSchema.methods.toJSON = function() {
         slug:         postObject.slug,
         main_image:   postObject.main_image,
         comments:     postObject.comments,
+        category:     postObject.category,
         content:      postObject.content,
         author:       postObject.author,
         is_published: postObject.is_published,

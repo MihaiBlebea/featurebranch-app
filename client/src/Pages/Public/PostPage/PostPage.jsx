@@ -63,14 +63,17 @@ class PostPage extends React.Component
         if(this.state.post !== null)
         {
             return this.state.post.comments.map((comment, index)=> {
-                return (
-                    <div className="card mb-3" key={ 'comment_' + index }>
-                        <div className="card-body">
-                            <strong>{ comment.title }</strong>
-                            <p>{ comment.content }</p>
+                if(comment.isApproved === true)
+                {
+                    return (
+                        <div className="card mb-3" key={ 'comment_' + index }>
+                            <div className="card-body">
+                                <strong>{ comment.title }</strong>
+                                <p>{ comment.content }</p>
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
             })
         }
         return null
@@ -92,14 +95,14 @@ class PostPage extends React.Component
     {
         return (
             <div>
-                <DefaultLayout col="8" horizontalCenter>
+                <DefaultLayout col={ 8 } horizontalCenter>
                     <TitleMain>{ this.createPostTitle() }</TitleMain>
                     <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
                     { this.createPostContent() }
                 </DefaultLayout>
 
                 <div className="bg-light">
-                    <DefaultLayout col="8" horizontalCenter>
+                    <DefaultLayout col={ 8 } horizontalCenter>
                         <div className="card card-body mt-4">
                             { this.createCommentForm() }
                         </div>

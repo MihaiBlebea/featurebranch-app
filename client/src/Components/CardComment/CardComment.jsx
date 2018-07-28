@@ -8,12 +8,12 @@ const CardComment = (props)=> {
         {
             return (
                 <button className="btn btn-success"
-                        onClick={ props.onApprove }>Approve</button>
+                        onClick={ props.onApproveChange }>Approve</button>
             )
         } else {
             return (
                 <button className="btn btn-danger"
-                        onClick={ props.onDisapprove }>Disapprove</button>
+                        onClick={ props.onApproveChange }>Disapprove</button>
             )
         }
     }
@@ -41,8 +41,7 @@ CardComment.propTypes = {
     subject: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     isApproved: PropTypes.bool.isRequired,
-    onApprove: PropTypes.func.isRequired,
-    onDisapprove: PropTypes.func.isRequired
+    onApproveChange: PropTypes.func.isRequired,
 }
 
 export default CardComment
