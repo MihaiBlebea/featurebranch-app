@@ -1,6 +1,6 @@
 import React from 'react'
-import { TitleMain } from './../../Components'
-import { LoginForm } from './../../Forms'
+import { TitleMain } from './../../../Components'
+import { LoginForm } from './../../../Forms'
 
 const LoginPage = ()=> {
     return (

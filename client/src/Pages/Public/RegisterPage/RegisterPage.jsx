@@ -1,6 +1,6 @@
 import React from 'react'
-import { RegisterForm } from './../../Forms'
-import { TitleMain } from './../../Components'
+import { RegisterForm } from './../../../Forms'
+import { TitleMain } from './../../../Components'
 
 const RegisterPage = ()=> {
     return (

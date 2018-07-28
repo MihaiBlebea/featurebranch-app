@@ -1,6 +1,6 @@
 import React from 'react'
-import { TitleMain } from './../../Components'
-import { PostForm } from './../../Forms'
+import { TitleMain } from './../../../Components'
+import { PostForm } from './../../../Forms'
 
 const CreatePostPage = ()=> {
     return (

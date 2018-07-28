@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { TitleMain } from './../../Components'
+import { TitleMain } from './../../../Components'
 
 
 class PostPage extends React.Component

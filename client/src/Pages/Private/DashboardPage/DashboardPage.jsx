@@ -1,5 +1,5 @@
 import React from 'react'
-import { TitleMain } from './../../Components'
+import { TitleMain } from './../../../Components'
 
 
 const DashboardPage = ()=> {

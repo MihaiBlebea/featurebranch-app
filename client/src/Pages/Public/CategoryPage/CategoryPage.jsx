@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardFrontPost } from './../../Components'
+import { TitleMain, CardFrontPost } from './../../../Components'
 
 
 class CategoryPage extends React.Component

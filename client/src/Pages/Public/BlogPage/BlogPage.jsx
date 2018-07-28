@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardFrontCategory } from './../../Components'
+import { TitleMain, CardFrontCategory } from './../../../Components'
 
 
 class BlogPage extends React.Component

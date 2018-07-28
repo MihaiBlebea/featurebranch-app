@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardPost } from './../../Components'
+import { TitleMain, CardPost } from './../../../Components'
 
 
 class AdminPostsPage extends React.Component

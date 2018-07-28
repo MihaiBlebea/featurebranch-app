@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { TitleMain, TitleChapter, CardCategory } from './../../Components'
-import { CategoryForm } from './../../Forms'
+import { TitleMain, TitleChapter, CardCategory } from './../../../Components'
+import { CategoryForm } from './../../../Forms'
 
 class CreateCategoryPage extends React.Component
 {
