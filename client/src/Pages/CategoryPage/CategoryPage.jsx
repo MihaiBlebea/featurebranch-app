@@ -10,6 +10,9 @@ class CategoryPage extends React.Component
     {
         super(props)
         this.state = {
+            title: null,
+            description: null,
+            image: null,
             posts: null,
             categorySlug: this.props.match.params.category
         }
@@ -22,9 +25,12 @@ class CategoryPage extends React.Component
 
     fetchPosts()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'post/all').then((result)=> {
+        axios.get(process.env.REACT_APP_API_ROOT + `category/${this.state.categorySlug}`).then((result)=> {
             this.setState({
-                posts: result.data
+                title: result.data.title,
+                description: result.data.description,
+                image: result.data.main_image.url,
+                posts: result.data.posts
             })
         }).catch((error=> {
             console.log(error)

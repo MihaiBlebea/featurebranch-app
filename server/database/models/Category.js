@@ -17,11 +17,16 @@ const CategorySchema = connect.Schema({
         type: connect.Schema.Types.ObjectId,
         ref: 'Image',
         required: true
-    },
-    posts: [{
-        type: connect.Schema.Types.ObjectId,
-        ref: 'Post'
-    }]
+    }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+})
+
+CategorySchema.virtual('posts', {
+    ref: 'Post',
+    localField: '_id',
+    foreignField: 'category'
 })
 
 CategorySchema.methods.toJSON = function() {
@@ -34,6 +39,17 @@ CategorySchema.methods.toJSON = function() {
         main_image:  categoryObject.main_image,
         posts:       categoryObject.posts
     }
+}
+
+CategorySchema.pre('findOne', autoPopulate)
+
+CategorySchema.pre('find', autoPopulate)
+
+function autoPopulate(next)
+{
+    this.populate('main_image')
+    this.populate('posts')
+    next()
 }
 
 const Category = connect.model('Category', CategorySchema)

@@ -29,10 +29,10 @@ const PostSchema = connect.Schema({
         ref: 'Category',
         required: true
     },
-    comments: [{
-        type: connect.Schema.Types.ObjectId,
-        ref: 'Comment'
-    }],
+    // comments: [{
+    //     type: connect.Schema.Types.ObjectId,
+    //     ref: 'Comment'
+    // }],
     author: {
         type: connect.Schema.Types.ObjectId,
         ref: 'User',
@@ -45,6 +45,15 @@ const PostSchema = connect.Schema({
     publish_date: {
         type: Date
     }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+})
+
+PostSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'post'
 })
 
 PostSchema.methods.toJSON = function() {
@@ -60,6 +69,18 @@ PostSchema.methods.toJSON = function() {
         is_published: postObject.is_published,
         publish_date: postObject.publish_date
     }
+}
+
+PostSchema.pre('findOne', autoPopulate)
+
+PostSchema.pre('find', autoPopulate)
+
+function autoPopulate(next)
+{
+    this.populate('main_image')
+    this.populate('author', ['_id', 'first_name', 'last_name'])
+    this.populate('comments')
+    next()
 }
 
 

@@ -39,7 +39,7 @@ class CreateCategoryPage extends React.Component
     handleDeleteCard(index)
     {
         let category = this.state.categories[index]
-        axios.delete(process.env.REACT_APP_API_ROOT + `category/delete/${category.slug}`).then((result)=> {
+        axios.delete(process.env.REACT_APP_API_ROOT + `category/delete/${category._id}`).then((result)=> {
             if(result.status === 200)
             {
                 this.fetchCategories()
@@ -59,6 +59,7 @@ class CreateCategoryPage extends React.Component
                         <CardCategory id={ index }
                                       image={ category.main_image }
                                       title={ category.title }
+                                      postsCount={ category.posts.length }
                                       onDelete={ ()=> this.handleDeleteCard(index) } />
                     </div>
                 )

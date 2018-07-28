@@ -41,6 +41,7 @@ class CardCategory extends React.Component
                             </div>
                             <div className="col">
                                 <strong>{ this.props.title }</strong>
+                                <p>{ this.props.postsCount } posts</p>
                                 <p className="p-0 mb-0" style={{ cursor: 'pointer' }}>Edit</p>
                                 <p className="p-0 mb-0 text-danger"
                                    style={{ cursor: 'pointer' }}

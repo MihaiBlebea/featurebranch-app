@@ -25,28 +25,20 @@ router.post('/save', (request, response)=> {
 })
 
 router.get('/all', (request, response)=> {
-    Post.find({})
-        .populate('author')
-        .populate('main_image')
-        .populate('category')
-        .populate('comments')
-        .exec((error, posts)=> {
-            if(error) throw err;
-            response.status(200).json(posts)
-        })
+    Post.find({}).then((posts)=> {
+        response.status(200).json(posts)
+    }).catch((error)=> {
+        response.status(400).json(error)
+    })
 })
 
 // Get a post
 router.get('/:slug', (request, response)=> {
-    Post.findOne({ slug: request.params.slug })
-        .populate('author')
-        .populate('main_image')
-        .populate('category')
-        .populate('comments')
-        .exec((error, post)=> {
-            if(error) throw err;
-            response.status(200).json(post)
-        })
+    Post.find({ slug: request.params.slug }).then((post)=> {
+        response.status(200).json(post)
+    }).catch((error)=> {
+        response.status(400).json(error)
+    })
 })
 
 router.delete('/delete/:id', (request, response)=> {
