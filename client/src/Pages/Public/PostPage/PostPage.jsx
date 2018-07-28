@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { TitleMain } from './../../../Components'
 import { CommentForm } from './../../../Forms'
-
+import { DefaultLayout } from './../../../Layouts'
 
 class PostPage extends React.Component
 {
@@ -91,20 +91,21 @@ class PostPage extends React.Component
     render()
     {
         return (
-            <div className="container mt-5">
-                <div className="row justify-content-center">
-                    <div className="col-md-6">
-                        <TitleMain>{ this.createPostTitle() }</TitleMain>
-                        <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
-                        <div>
-                            { this.createPostContent() }
-                        </div>
-                        { this.createCommentForm() }
+            <div>
+                <DefaultLayout col="8" horizontalCenter>
+                    <TitleMain>{ this.createPostTitle() }</TitleMain>
+                    <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
+                    { this.createPostContent() }
+                </DefaultLayout>
 
-                        <div className="bg-primary">
-                            { this.createPostComments() }
+                <div className="bg-light">
+                    <DefaultLayout col="8" horizontalCenter>
+                        <div className="card card-body mt-4">
+                            { this.createCommentForm() }
                         </div>
-                    </div>
+                        <hr />
+                        { this.createPostComments() }
+                    </DefaultLayout>
                 </div>
             </div>
         )

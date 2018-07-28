@@ -18,6 +18,8 @@ import CardCategory from './CardCategory/CardCategory'
 import CardFrontCategory from './CardFrontCategory/CardFrontCategory'
 import CardPost from './CardPost/CardPost'
 import CardFrontPost from './CardFrontPost/CardFrontPost'
+import CardComment from './CardComment/CardComment'
+
 
 export {
     NavigationMain,
@@ -39,5 +41,6 @@ export {
     CardCategory,
     CardFrontCategory,
     CardPost,
-    CardFrontPost
+    CardFrontPost,
+    CardComment
 }

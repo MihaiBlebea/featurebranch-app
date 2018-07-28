@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import { TitleMain, CardPost } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 class ManagePostsPage extends React.Component
@@ -63,12 +64,12 @@ class ManagePostsPage extends React.Component
     render()
     {
         return (
-            <div>
+            <DefaultLayout>
                 <TitleMain>Manage posts</TitleMain>
                 <div className="row">
                     { this.createPosts() }
                 </div>
-            </div>
+            </DefaultLayout>
         )
     }
 }

@@ -1,5 +1,5 @@
-import DefaultContainer from './DefaultContainer/DefaultContainer'
+import DefaultLayout from './DefaultLayout/DefaultLayout'
 
 export {
-    DefaultContainer
+    DefaultLayout
 }

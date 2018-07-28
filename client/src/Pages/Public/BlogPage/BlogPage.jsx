@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import { TitleMain, CardFrontCategory } from './../../../Components'
-
+import { DefaultLayout } from './../../../Layouts'
 
 class BlogPage extends React.Component
 {
@@ -56,10 +56,12 @@ class BlogPage extends React.Component
     {
         return (
             <div>
-                <TitleMain>Blog Page</TitleMain>
-                <div className="row">
-                    { this.createCategories() }
-                </div>
+                <DefaultLayout>
+                    <TitleMain>Blog Page</TitleMain>
+                    <div className="row">
+                        { this.createCategories() }
+                    </div>
+                </DefaultLayout>
             </div>
         )
     }

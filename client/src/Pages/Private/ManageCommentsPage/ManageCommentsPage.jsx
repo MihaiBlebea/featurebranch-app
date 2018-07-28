@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain } from './../../../Components'
-
+import { TitleMain, CardComment } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 class ManageCommentsPage extends React.Component
 {
@@ -33,23 +33,36 @@ class ManageCommentsPage extends React.Component
         })
     }
 
+    handleApproveComment(comment)
+    {
+        axios.get(process.env.REACT_APP_API_ROOT + `comment/approve/${comment._id}`).then((result)=> {
+            if(result.status === 200)
+            {
+                this.fetchComments()
+            }
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
+    handleDisapproveComment(comment)
+    {
+
+    }
+
     createCommentCards()
     {
         if(this.state.comments !== null)
         {
-            return this.state.comments.map((comment)=> {
+            return this.state.comments.map((comment, index)=> {
                 return (
-                    <div className="card">
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-md-4">
-                                    Author image
-                                </div>
-                                <div className="col">
-                                    { comment.content }
-                                </div>
-                            </div>
-                        </div>
+                    <div className="mb-3" key={ 'comment_' + index }>
+                        <CardComment author={ 'Serban' }
+                                     subject={ comment.title }
+                                     content={ comment.content }
+                                     isApproved={ comment.isApproved }
+                                     onApprove={ ()=> this.handleApproveComment(comment) }
+                                     onDisapprove={ ()=> this.handleDisapproveComment(comment) }/>
                     </div>
                 )
             })
@@ -61,8 +74,12 @@ class ManageCommentsPage extends React.Component
     {
         return (
             <div>
-                <TitleMain>Manage comments</TitleMain>
-                { this.createCommentCards() }
+                <DefaultLayout>
+                    <TitleMain>Manage comments</TitleMain>
+                </DefaultLayout>
+                <DefaultLayout col={ 6 } horizontalCenter>
+                    { this.createCommentCards() }
+                </DefaultLayout>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import { TitleMain, CardFrontPost } from './../../../Components'
-
+import { DefaultLayout } from './../../../Layouts'
 
 class CategoryPage extends React.Component
 {
@@ -63,11 +63,11 @@ class CategoryPage extends React.Component
     render()
     {
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <TitleMain>Category Page</TitleMain>
-                    { this.createPosts() }
-                </div>
+            <div>
+                <DefaultLayout col="6" horizontalCenter>
+                        <TitleMain>Category Page</TitleMain>
+                        { this.createPosts() }
+                </DefaultLayout>
             </div>
         )
     }

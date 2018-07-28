@@ -1,12 +1,13 @@
 import React from 'react'
 import { TitleMain } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 const ProfilePage = ()=> {
     return (
-        <div>
+        <DefaultLayout>
             <TitleMain>Profile</TitleMain>
-        </div>
+        </DefaultLayout>
     )
 }
 

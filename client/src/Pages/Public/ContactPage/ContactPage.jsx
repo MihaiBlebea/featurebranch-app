@@ -1,11 +1,13 @@
 import React from 'react'
 import { TitleMain } from './../../../Components'
-
+import { DefaultLayout } from './../../../Layouts'
 
 const ContactPage = ()=> {
     return (
         <div>
-            <TitleMain>Contact Page</TitleMain>
+            <DefaultLayout>
+                <TitleMain>Contact Page</TitleMain>
+            </DefaultLayout>
         </div>
     )
 }

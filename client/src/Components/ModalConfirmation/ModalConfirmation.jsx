@@ -1,30 +1,38 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import Modal from 'react-bootstrap4-modal'
+
 
 const ModalConfirmation = (props)=> {
     return (
-        <div className="modal fade" id={ props.modalId } tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Are you sure?</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        { props.children }
-                    </div>
-                    <div className="modal-footer">
-                        <button className="btn btn-secondary"
-                                data-dismiss="modal">Close</button>
-                        <button className="btn btn-primary"
-                                data-dismiss="modal"
-                                onClick={ props.onConfirmation }>Yes I am sure</button>
-                    </div>
-                </div>
+        <Modal visible={ this.props.isOpen }
+               dialogClassName="modal-dialog-centered modal-lg"
+               onClickBackdrop={ ()=> props.toggleModal() }>
+            <div className="modal-header">
+                <h5 className="modal-title">{ props.title || null }</h5>
             </div>
-        </div>
+            <div className="modal-body">
+                { props.children }
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={ ()=> this.toggleModal() }>
+                    { props.cancelBtn || 'Cancel' }
+                </button>
+                <button type="button" className="btn btn-primary" onClick={ ()=> this.onConfirm() }>
+                    { props.confirmBtn || 'Confirm' }
+                </button>
+            </div>
+        </Modal>
     )
+}
+
+ModalConfirmation.PropTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    toggleModal: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    cancelBtn: PropTypes.string,
+    confirmBtn: PropTypes.string
 }
 
 export default ModalConfirmation

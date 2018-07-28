@@ -1,12 +1,13 @@
 import React from 'react'
 import { TitleMain } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 const DashboardPage = ()=> {
     return (
-        <div>
+        <DefaultLayout>
             <TitleMain>Dashboard Page</TitleMain>
-        </div>
+        </DefaultLayout>
     )
 }
 

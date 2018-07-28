@@ -1,15 +1,15 @@
 import React from 'react'
 import { RegisterForm } from './../../../Forms'
 import { TitleMain } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
+
 
 const RegisterPage = ()=> {
     return (
-        <div className="row justify-content-center">
-            <div className="col-md-6">
-                <TitleMain>Register</TitleMain>
-                <RegisterForm />
-            </div>
-        </div>
+        <DefaultLayout col="6" horizontalCenter>
+            <TitleMain>Register</TitleMain>
+            <RegisterForm />
+        </DefaultLayout>
     )
 }
 

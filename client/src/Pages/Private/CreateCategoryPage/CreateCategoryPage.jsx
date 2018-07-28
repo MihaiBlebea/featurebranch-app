@@ -3,6 +3,8 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { TitleMain, TitleChapter, CardCategory } from './../../../Components'
 import { CategoryForm } from './../../../Forms'
+import { DefaultLayout } from './../../../Layouts'
+
 
 class CreateCategoryPage extends React.Component
 {
@@ -71,7 +73,7 @@ class CreateCategoryPage extends React.Component
     render()
     {
         return (
-            <div>
+            <DefaultLayout>
                 <TitleMain>Categories Page</TitleMain>
                 <div className="row">
                     <div className="col-md-4">
@@ -84,7 +86,7 @@ class CreateCategoryPage extends React.Component
                                       onNewCategory={ ()=> this.handleNewCategory() } />
                     </div>
                 </div>
-            </div>
+            </DefaultLayout>
         )
     }
 }

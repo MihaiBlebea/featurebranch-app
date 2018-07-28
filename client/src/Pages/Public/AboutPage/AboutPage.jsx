@@ -1,11 +1,13 @@
 import React from 'react'
 import { TitleMain } from './../../../Components'
-
+import { DefaultLayout } from './../../../Layouts'
 
 const AboutPage = ()=> {
     return (
         <div>
-            <TitleMain>About Page</TitleMain>
+            <DefaultLayout>
+                <TitleMain>About Page</TitleMain>
+            </DefaultLayout>
         </div>
     )
 }

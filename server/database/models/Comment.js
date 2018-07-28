@@ -9,6 +9,11 @@ const CommentSchema = connect.Schema({
         type: String,
         required: true
     },
+    isApproved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     author: {
         type: connect.Schema.Types.ObjectId,
         ref: 'User'
@@ -22,11 +27,12 @@ const CommentSchema = connect.Schema({
 CommentSchema.methods.toJSON = function() {
     var commentObject = this.toObject()
     return {
-        _id:     commentObject._id,
-        title:   commentObject.title,
-        content: commentObject.content,
-        author:  commentObject.author,
-        post:    commentObject.post,
+        _id:        commentObject._id,
+        title:      commentObject.title,
+        content:    commentObject.content,
+        author:     commentObject.author,
+        isApproved: commentObject.isApproved,
+        post:       commentObject.post,
     }
 }
 
