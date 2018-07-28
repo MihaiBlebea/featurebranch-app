@@ -34,7 +34,7 @@ router.get('/all', (request, response)=> {
 
 // Get a post
 router.get('/:slug', (request, response)=> {
-    Post.find({ slug: request.params.slug }).then((post)=> {
+    Post.findOne({ slug: request.params.slug }).then((post)=> {
         response.status(200).json(post)
     }).catch((error)=> {
         response.status(400).json(error)

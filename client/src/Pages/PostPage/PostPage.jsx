@@ -3,7 +3,7 @@ import axios from 'axios'
 import { TitleMain } from './../../Components'
 
 
-class CategoryPage extends React.Component
+class PostPage extends React.Component
 {
     constructor(props)
     {
@@ -87,4 +87,4 @@ class CategoryPage extends React.Component
     }
 }
 
-export default CategoryPage
+export default PostPage
