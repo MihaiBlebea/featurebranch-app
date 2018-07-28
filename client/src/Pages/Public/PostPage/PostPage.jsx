@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+
 import { TitleMain } from './../../../Components'
+import { CommentForm } from './../../../Forms'
 
 
 class PostPage extends React.Component
@@ -32,6 +34,11 @@ class PostPage extends React.Component
         })
     }
 
+    handleCommentFormSubmit()
+    {
+        this.fetchPost()
+    }
+
     createPostTitle()
     {
         return (this.state.post !== null) ? this.state.post.title : 'Post title'
@@ -55,11 +62,12 @@ class PostPage extends React.Component
     {
         if(this.state.post !== null)
         {
-            return this.state.post.comments.map((comment)=> {
+            return this.state.post.comments.map((comment, index)=> {
                 return (
-                    <div className="card">
+                    <div className="card mb-3" key={ 'comment_' + index }>
                         <div className="card-body">
-                            comment example
+                            <strong>{ comment.title }</strong>
+                            <p>{ comment.content }</p>
                         </div>
                     </div>
                 )
@@ -68,18 +76,34 @@ class PostPage extends React.Component
         return null
     }
 
+    createCommentForm()
+    {
+        if(this.state.post !== null)
+        {
+            return (
+                <CommentForm postId={ this.state.post._id }
+                             onFormSubmit={ ()=> this.handleCommentFormSubmit() } />
+            )
+        }
+        return null
+    }
+
     render()
     {
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <TitleMain>{ this.createPostTitle() }</TitleMain>
-                    <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
-                    <div>
-                        { this.createPostContent() }
-                    </div>
-                    <div className="bg-primary">
-                        { this.createPostComments() }
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <TitleMain>{ this.createPostTitle() }</TitleMain>
+                        <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
+                        <div>
+                            { this.createPostContent() }
+                        </div>
+                        { this.createCommentForm() }
+
+                        <div className="bg-primary">
+                            { this.createPostComments() }
+                        </div>
                     </div>
                 </div>
             </div>

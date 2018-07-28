@@ -46,10 +46,11 @@ class CategoryPage extends React.Component
     {
         if(this.state.posts !== null)
         {
-            return this.state.posts.map((post)=> {
+            return this.state.posts.map((post, index)=> {
                 return (
                     <div className="mb-3">
-                        <CardFrontPost imageUrl={ post.main_image.url}
+                        <CardFrontPost key={ 'category_' + index }
+                                       imageUrl={ post.main_image.url}
                                        title={ post.title }
                                        onClickAction={ ()=> this.handleClickAction(post) } />
                     </div>

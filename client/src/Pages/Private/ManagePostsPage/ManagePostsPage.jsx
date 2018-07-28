@@ -4,7 +4,7 @@ import axios from 'axios'
 import { TitleMain, CardPost } from './../../../Components'
 
 
-class AdminPostsPage extends React.Component
+class ManagePostsPage extends React.Component
 {
     constructor()
     {
@@ -73,4 +73,4 @@ class AdminPostsPage extends React.Component
     }
 }
 
-export default AdminPostsPage
+export default ManagePostsPage

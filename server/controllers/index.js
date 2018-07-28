@@ -13,6 +13,8 @@ router.use(version + '/category', require('./category'))
 
 router.use(version + '/image', require('./image'))
 
+router.use(version + '/comment', require('./comment'))
+
 router.get('/', (request, response)=> {
     response.json({response: 'App works great'})
 })

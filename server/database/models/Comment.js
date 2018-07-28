@@ -12,6 +12,10 @@ const CommentSchema = connect.Schema({
     author: {
         type: connect.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    post: {
+        type: connect.Schema.Types.ObjectId,
+        ref: 'Post'
     }
 })
 
@@ -22,6 +26,7 @@ CommentSchema.methods.toJSON = function() {
         title:   commentObject.title,
         content: commentObject.content,
         author:  commentObject.author,
+        post:    commentObject.post,
     }
 }
 

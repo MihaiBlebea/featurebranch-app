@@ -7,26 +7,15 @@ import {
     PostPage,
     RegisterPage,
     LoginPage } from './Public'
-// import AboutPage from './AboutPage/AboutPage'
-// import ContactPage from './ContactPage/ContactPage'
-// import BlogPage from './BlogPage/BlogPage'
-// import CategoryPage from './CategoryPage/CategoryPage'
-// import PostPage from './PostPage/PostPage'
-// import RegisterPage from './RegisterPage/RegisterPage'
-// import LoginPage from './LoginPage/LoginPage'
 
 import {
     DashboardPage,
     ProfilePage,
     CreateCategoryPage,
     CreatePostPage,
-    AdminPostsPage,
-    AdminImagesPage } from './Private'
-// import ProfilePage from './ProfilePage/ProfilePage'
-// import CreateCategoryPage from './CreateCategoryPage/CreateCategoryPage'
-// import CreatePostPage from './CreatePostPage/CreatePostPage'
-// import AdminPostsPage from './AdminPostsPage/AdminPostsPage'
-// import AdminImagesPage from './AdminImagesPage/AdminImagesPage'
+    ManagePostsPage,
+    ManageImagesPage,
+    ManageCommentsPage } from './Private'
 
 
 export {
@@ -42,6 +31,7 @@ export {
     ProfilePage,
     CreateCategoryPage,
     CreatePostPage,
-    AdminPostsPage,
-    AdminImagesPage
+    ManagePostsPage,
+    ManageImagesPage,
+    ManageCommentsPage
 }

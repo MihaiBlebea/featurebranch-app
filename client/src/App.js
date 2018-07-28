@@ -17,8 +17,9 @@ import {
     ProfilePage,
     CreateCategoryPage,
     CreatePostPage,
-    AdminPostsPage,
-    AdminImagesPage } from './Pages'
+    ManagePostsPage,
+    ManageImagesPage,
+    ManageCommentsPage } from './Pages'
 
 class App extends React.Component
 {
@@ -39,9 +40,10 @@ class App extends React.Component
                 <Route path="/admin/dashboard" component={ DashboardPage } />
                 <Route path="/admin/profile" component={ ProfilePage } />
                 <Route path="/admin/category" component={ CreateCategoryPage } />
-                <Route path="/admin/posts" component={ AdminPostsPage } />
+                <Route path="/admin/posts" component={ ManagePostsPage } />
                 <Route path="/admin/post" component={ CreatePostPage } />
-                <Route path="/admin/images" component={ AdminImagesPage } />
+                <Route path="/admin/images" component={ ManageImagesPage } />
+                <Route path="/admin/comments" component={ ManageCommentsPage } />
 
                 <Redirect to='/admin/dashboard' />
             </Switch>
@@ -73,9 +75,7 @@ class App extends React.Component
                 <div>
                     <NavigationMain />
 
-                    <DefaultContainer>
-                        { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
-                    </DefaultContainer>
+                    { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
 
                 </div>
             </Router>
