@@ -1,0 +1,35 @@
+[
+    {
+        "title": "Box 1",
+        "bullets": [
+            "Best site for developers",
+            "Best site for developers",
+            "Best site for developers",
+            "Best site for developers",
+            "Best site for developers"
+        ],
+        "cta": { "label": "Find out more", "url": "/about" }
+    },
+    {
+        "title": "Box 2",
+        "bullets": [
+            "All the information you need",
+            "All the information you need",
+            "All the information you need",
+            "All the information you need",
+            "All the information you need"
+        ],
+        "cta": { "label": "Find out more", "url": "/about" }
+    },
+    {
+        "title": "Box 3",
+        "bullets": [
+            "Become a better developer",
+            "Become a better developer",
+            "Become a better developer",
+            "Become a better developer",
+            "Become a better developer"
+        ],
+        "cta": { "label": "Find out more", "url": "/about" }
+    }
+]

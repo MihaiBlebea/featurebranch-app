@@ -19,13 +19,12 @@ class FormImageSelect extends React.Component
 
     createImagePreview()
     {
-        if(this.state.imagePreview !== null || this.props.defaultImage !== null)
+        if(this.state.imagePreview !== null)
         {
-            let url = (this.props.defaultImage === null) ? this.state.imagePreview.url : this.props.defaultImage.url
             return (
                 <div className="form-group">
                     <div className="row col-md-6">
-                        <ImagePreview url={ url } />
+                        <ImagePreview url={ this.state.imagePreview.url } />
                     </div>
                 </div>
             )
