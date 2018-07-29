@@ -20,9 +20,9 @@ import CardFrontCategory from './CardFrontCategory/CardFrontCategory'
 import CardPost from './CardPost/CardPost'
 import CardFrontPost from './CardFrontPost/CardFrontPost'
 import CardComment from './CardComment/CardComment'
+import CardAuthor from './CardAuthor/CardAuthor'
 import Footer from './Footer/Footer'
 import ButtonSocial from './ButtonSocial/ButtonSocial'
-
 
 export {
     NavigationMain,
@@ -47,6 +47,7 @@ export {
     CardPost,
     CardFrontPost,
     CardComment,
+    CardAuthor,
     Footer,
     ButtonSocial
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
-import { TitleMain } from './../../../Components'
+import { TitleMain, CardAuthor } from './../../../Components'
 import { CommentForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
+
 
 class PostPage extends React.Component
 {
@@ -14,8 +16,8 @@ class PostPage extends React.Component
             post: null
         }
 
-        console.log('CATEGORY', this.props.match.params.category)
-        console.log('POST', this.props.match.params.post)
+        // console.log('CATEGORY', this.props.match.params.category)
+        // console.log('POST', this.props.match.params.post)
     }
 
     componentDidMount()
@@ -58,6 +60,11 @@ class PostPage extends React.Component
         return null
     }
 
+    createCardAuthor()
+    {
+        return (this.state.post) ? <CardAuthor name={ this.createAuthorFullName() } /> : null
+    }
+
     createPostComments()
     {
         if(this.state.post !== null)
@@ -92,28 +99,73 @@ class PostPage extends React.Component
         return null
     }
 
+    createAuthorFullName()
+    {
+        if(this.state.post !== null)
+        {
+            return this.state.post.author.first_name + ' ' + this.state.post.author.last_name
+        }
+        return null
+    }
+
+    createPublishDate()
+    {
+        return (this.state.post) ? this.state.post.publishDate : null
+    }
+
+    createCommentsCount()
+    {
+        return (this.state.post) ? this.state.post.comments.length : 0
+    }
+
     render()
     {
         return (
             <div>
                 <DefaultLayout col={ 8 } horizontalCenter>
+                    <div className="mb-5">
+                        { this.createCardAuthor() }
+                    </div>
+
                     <TitleMain>{ this.createPostTitle() }</TitleMain>
-                    <img className="w-100 my-5" src={ this.createPostImage() } alt="post-main" />
+
+                    <div className="mb-5">
+                        <img className="w-100 mb-2" src={ this.createPostImage() } alt="post-main" />
+                        <div className="row small">
+                            <div className="col-md-6">
+                                { this.createAuthorFullName() } | { this.createPublishDate() }
+                            </div>
+                            <div className="col">
+                                <span className="float-md-right">{ this.createCommentsCount() } comments</span>
+                            </div>
+                        </div>
+                    </div>
+
                     { this.createPostContent() }
                 </DefaultLayout>
 
                 <div className="bg-light">
-                    <DefaultLayout col={ 8 } horizontalCenter>
-                        <div className="card card-body mt-4">
-                            { this.createCommentForm() }
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-8">
+                                <div className="card card-body mt-4">
+                                    { this.createCommentForm() }
+                                </div>
+                                <hr />
+                                <div className="mb-5">
+                                    { this.createPostComments() }
+                                </div>
+                            </div>
                         </div>
-                        <hr />
-                        { this.createPostComments() }
-                    </DefaultLayout>
+                    </div>
                 </div>
             </div>
         )
     }
+}
+
+PostPage.propTypes = {
+
 }
 
 export default PostPage

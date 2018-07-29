@@ -1,15 +1,16 @@
 import React from 'react'
 import axios from 'axios'
+import random from 'randomstring'
 
 import { Alert } from './../../Components'
 import { schema } from './schema'
-
+import { withErrorValidation } from './../../HOC'
 
 class ContactForm extends React.Component
 {
-    constructor()
+    constructor(props)
     {
-        super()
+        super(props)
         this.state = {
             subject: '',
             email: '',
@@ -19,9 +20,9 @@ class ContactForm extends React.Component
                 subject: null,
                 email: null,
                 content: null
-            }
+            },
+            success: false
         }
-
         this.schema = ()=> schema(this.state)
     }
 
@@ -48,7 +49,8 @@ class ContactForm extends React.Component
                         subject: null,
                         email: null,
                         content: null
-                    }
+                    },
+                    success: true
                 })
             }
         }).catch((error)=> {
@@ -56,9 +58,9 @@ class ContactForm extends React.Component
             {
                 this.setState({
                     errors: {
-                        subject: (error.response.data.errors.subject) ? error.response.data.errors.subject.message : null,
-                        email:   (error.response.data.errors.email) ? error.response.data.errors.email.message : null,
-                        content: (error.response.data.errors.content) ? error.response.data.errors.content.message : null,
+                        subject: this.props.validateError(error.response.data.errors.subject),
+                        email:   this.props.validateError(error.response.data.errors.email),
+                        content: this.props.validateError(error.response.data.errors.content),
                     }
                 })
             }
@@ -70,7 +72,7 @@ class ContactForm extends React.Component
         return this.schema().map((input, index)=> {
             let Component = input.component
             return (
-                <Component key={ `form_input_${index}` }
+                <Component key={ random.generate(6) }
                            label={ input.label }
                            value={ input.value }
                            type= { input.type || null }
@@ -102,6 +104,10 @@ class ContactForm extends React.Component
                     Form could not be sent
                 </Alert>
 
+                <Alert type='success' display={ this.state.success }>
+                    Form was sent successfully
+                </Alert>
+
                 { this.createFormInputs() }
 
                 <div className="form-group">
@@ -114,4 +120,4 @@ class ContactForm extends React.Component
     }
 }
 
-export default ContactForm
+export default withErrorValidation(ContactForm)

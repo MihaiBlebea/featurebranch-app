@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { schema } from './schema'
 import { FormImageSelect } from './../../Components'
-
+import { withErrorValidation } from './../../HOC'
 
 class CategoryForm extends React.Component
 {
@@ -74,9 +74,9 @@ class CategoryForm extends React.Component
             {
                 this.setState({
                     errors: {
-                        title: error.response.data.errors.title.message,
-                        slug: error.response.data.errors.slug.message,
-                        description: error.response.data.errors.description.message
+                        title: this.props.validateError(error.response.data.errors.title),
+                        slug: this.props.validateError(error.response.data.errors.slug),
+                        description: this.props.validateError(error.response.data.errors.description)
                     }
                 })
             }
@@ -121,4 +121,4 @@ class CategoryForm extends React.Component
 
 
 
-export default CategoryForm
+export default withErrorValidation(CategoryForm)

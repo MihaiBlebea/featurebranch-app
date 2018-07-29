@@ -2,9 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import random from 'randomstring'
 
 import { schema } from './schema'
 import { FormImageSelect } from './../../Components'
+import { withErrorValidation } from './../../HOC'
 
 
 class PostForm extends React.Component
@@ -110,12 +112,12 @@ class PostForm extends React.Component
             {
                 this.setState({
                     errors: {
-                        title: error.response.data.errors.title.message,
-                        slug: error.response.data.errors.slug.message,
-                        content: error.response.data.errors.content.message,
-                        author: error.response.data.errors.author.message,
-                        category: error.response.data.errors.category.message,
-                        isPublished: error.response.data.errors.is_published.message
+                        title: this.validateError(error.response.data.errors.title),
+                        slug: this.validateError(error.response.data.errors.slug),
+                        content: this.validateError(error.response.data.errors.content),
+                        author: this.validateError(error.response.data.errors.author),
+                        category: this.validateError(error.response.data.errors.category),
+                        isPublished: this.validateError(error.response.data.errors.is_published)
                     }
                 })
                 console.log(error.response)
@@ -162,7 +164,7 @@ class PostForm extends React.Component
         return this.schema().map((input, index)=> {
             let Component = input.component
             return (
-                <Component key={ `form_input_${index}` }
+                <Component key={ random.generate(6) }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }
@@ -200,4 +202,4 @@ PostForm.propTypes = {
 }
 
 
-export default withRouter(PostForm)
+export default withErrorValidation(withRouter(PostForm))

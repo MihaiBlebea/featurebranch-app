@@ -16,7 +16,9 @@ const DefaultLayout = (props)=> {
 }
 
 DefaultLayout.propTypes = {
-    col: PropTypes.number,
+    col:              PropTypes.number,
+    marginTop:        PropTypes.number,
+    marginBottom:     PropTypes.number,
     horizontalCenter: PropTypes.bool,
 }
 

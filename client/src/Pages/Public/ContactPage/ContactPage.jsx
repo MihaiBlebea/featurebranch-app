@@ -17,7 +17,7 @@ const ContactPage = ()=> {
 
                     <div className="col-md-6">
                         <TitleChapter>Where are we base?</TitleChapter>
-                        Google map
+
                     </div>
                 </div>
             </DefaultLayout>

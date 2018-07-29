@@ -4,7 +4,7 @@ import LoginForm from './LoginForm/LoginForm'
 import RegisterForm from './RegisterForm/RegisterForm'
 import CommentForm from './CommentForm/CommentForm'
 import ContactForm from './ContactForm/ContactForm'
-
+import ProfileForm from './ProfileForm/ProfileForm'
 
 export {
     CategoryForm,
@@ -12,5 +12,6 @@ export {
     LoginForm,
     RegisterForm,
     CommentForm,
-    ContactForm
+    ContactForm,
+    ProfileForm
 }

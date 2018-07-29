@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading'
+import random from 'randomstring'
 
 import { schema } from './schema'
 import * as actions from './../../store/actions'
 import { FormInput, Alert } from './../../Components'
+
 
 class RegisterForm extends React.Component
 {
@@ -52,23 +54,22 @@ class RegisterForm extends React.Component
 
     displayErrorBanner()
     {
-        let result = false
         let errors = Object.values(this.props.errors)
         for(let i = 0; i < errors.length; i++)
         {
             if(errors[i] !== null)
             {
-                result = true
+                return true
             }
         }
-        return result
+        return false
     }
 
     createFormInputs()
     {
         return this.schema().map((input, index)=> {
             return (
-                <FormInput key={ `form_input_${index}` }
+                <FormInput key={ random.generate(6) }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }

@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
+import random from 'randomstring'
 
 import { TitleMain, CardFrontPost } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
+
 
 class CategoryPage extends React.Component
 {
@@ -48,11 +50,14 @@ class CategoryPage extends React.Component
         {
             return this.state.posts.map((post, index)=> {
                 return (
-                    <div className="mb-3">
-                        <CardFrontPost key={ 'category_' + index }
-                                       imageUrl={ post.main_image.url}
+                    <div className="mb-4" key={ random.generate(6) }>
+                        <CardFrontPost imageUrl={ post.main_image.url }
                                        title={ post.title }
-                                       onClickAction={ ()=> this.handleClickAction(post) } />
+                                       content={ post.content }
+                                       author={ post.author.first_name + ' ' + post.author.last_name }
+                                       publishDate={ '20.08.2018' }
+                                       commentsCount={ post.comments.length }
+                                       onClickAction={ ()=> this.handleClickAction(post) }/>
                     </div>
                 )
             })

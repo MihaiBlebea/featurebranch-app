@@ -6,7 +6,7 @@ import { DefaultLayout } from './../../../Layouts'
 
 const LoginPage = ()=> {
     return (
-        <DefaultLayout col="6" horizontalCenter>
+        <DefaultLayout col={ 6 } horizontalCenter>
             <TitleMain>Login</TitleMain>
             <LoginForm />
         </DefaultLayout>

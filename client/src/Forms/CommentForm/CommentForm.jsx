@@ -3,7 +3,7 @@ import axios from 'axios'
 import PropTypes from 'prop-types';
 
 import { schema } from './schema'
-
+import { withErrorValidation } from './../../HOC'
 
 class CommentForm extends React.Component
 {
@@ -52,8 +52,8 @@ class CommentForm extends React.Component
             {
                 this.setState({
                     errors: {
-                        subject: error.response.data.errors.title.message,
-                        content: error.response.data.errors.content.message,
+                        subject: this.props.validateError(error.response.data.errors.title),
+                        content: this.props.validateError(error.response.data.errors.content)
                     }
                 })
             }
@@ -122,4 +122,4 @@ CommentForm.propTypes = {
     onFormSubmit: PropTypes.func.isRequired
 };
 
-export default CommentForm
+export default withErrorValidation(CommentForm)

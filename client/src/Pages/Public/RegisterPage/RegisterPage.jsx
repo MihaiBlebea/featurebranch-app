@@ -6,7 +6,7 @@ import { DefaultLayout } from './../../../Layouts'
 
 const RegisterPage = ()=> {
     return (
-        <DefaultLayout col="6" horizontalCenter>
+        <DefaultLayout col={ 6 } horizontalCenter>
             <TitleMain>Register</TitleMain>
             <RegisterForm />
         </DefaultLayout>

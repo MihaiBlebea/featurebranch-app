@@ -48,12 +48,12 @@ class PostSection extends React.Component
                 return (
                     <div className="mb-4" key={ random.generate(6) }>
                         <CardFrontPost imageUrl={ post.main_image.url }
-                                  title={ post.title }
-                                  content={ post.content }
-                                  author={ post.author.first_name + ' ' + post.author.last_name }
-                                  publishDate={ '20.08.2018' }
-                                  commentsCount={ post.comments.length }
-                                  onClickAction={ ()=> this.handleClickAction(post) }/>
+                                       title={ post.title }
+                                       content={ post.content }
+                                       author={ post.author.first_name + ' ' + post.author.last_name }
+                                       publishDate={ '20.08.2018' }
+                                       commentsCount={ post.comments.length }
+                                       onClickAction={ ()=> this.handleClickAction(post) }/>
                     </div>
                 )
             })
