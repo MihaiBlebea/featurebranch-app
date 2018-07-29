@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as actions from './store/actions'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
-import { DefaultContainer } from './Layouts'
-import { NavigationMain } from './Components'
+import { NavigationMain, Footer } from './Components'
 import {
     HomePage,
     BlogPage,
@@ -76,8 +75,11 @@ class App extends React.Component
                 <div>
                     <NavigationMain />
 
+                    <div style={{ minHeight: '90vh' }}>
                     { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
+                    </div>
 
+                    <Footer />
                 </div>
             </Router>
         )

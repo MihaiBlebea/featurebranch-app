@@ -49,7 +49,7 @@ class CardPost extends React.Component
         return (
             <div>
                 <div className="card">
-                    <img className="card-img-top" src={ this.props.imageUrl } alt="Card image cap" />
+                    <img className="card-img-top" src={ this.props.imageUrl } alt="Card-cap" />
                     <div className="card-body">
                         <h5 className="card-title">{ this.props.title }</h5>
                         <p>{ this.props.excerpt }</p>

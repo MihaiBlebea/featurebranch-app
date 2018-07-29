@@ -12,7 +12,7 @@ const MainHero = ()=> {
                             <h3>The best place to experiment wth coding</h3>
                         </div>
                         <div className="col-md-6">
-                            <img src="/img/homepage-hero.png" className="w-100 mt-3 mt-md-0" alt="Mihai-hero-image" />
+                            <img src="/img/homepage-hero.png" className="w-100 mt-3 mt-md-0" alt="Mihai-hero" />
                         </div>
                     </div>
                 </div>

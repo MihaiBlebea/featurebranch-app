@@ -1,6 +1,7 @@
 import React from 'react'
-import { FeatureBox } from './../index'
+import random from 'randomstring'
 
+import { FeatureBox } from './../index'
 import boxes from './schema'
 
 
@@ -8,7 +9,7 @@ const FeatureBoxes = ()=> {
     const createBoxes = ()=> {
         return boxes.map((box)=> {
             return (
-                <div className="col-md-4">
+                <div className="col-md-4" key={ random.generate(6) }>
                     <FeatureBox title={ box.title }
                                 bullets={ box.bullets }
                                 action={ box.cta }/>

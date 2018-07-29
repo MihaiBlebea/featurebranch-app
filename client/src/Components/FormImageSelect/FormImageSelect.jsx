@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-bootstrap4-modal';
 import PropTypes from 'prop-types';
 
-import { ModalGallery, ImagePreview, ImageGallery } from './../index'
+import { ImagePreview, ImageGallery } from './../index'
 
 
 class FormImageSelect extends React.Component

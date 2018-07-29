@@ -3,5 +3,6 @@ module.exports = {
     Post:     require('./Post'),
     Category: require('./Category'),
     Image:    require('./Image'),
-    Comment:  require('./Comment')
+    Comment:  require('./Comment'),
+    Form:     require('./Form')
 }

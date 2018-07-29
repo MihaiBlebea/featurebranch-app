@@ -1,6 +1,7 @@
 import NavigationMain from './NavigationMain/NavigationMain'
 import NavigationPublic from './NavigationPublic/NavigationPublic'
 import NavigationPrivate from './NavigationPrivate/NavigationPrivate'
+import NavigationSecondary from './NavigationSecondary/NavigationSecondary'
 import TitleMain from './TitleMain/TitleMain'
 import TitleChapter from './TitleChapter/TitleChapter'
 import FormInput from './FormInput/FormInput'
@@ -19,12 +20,15 @@ import CardFrontCategory from './CardFrontCategory/CardFrontCategory'
 import CardPost from './CardPost/CardPost'
 import CardFrontPost from './CardFrontPost/CardFrontPost'
 import CardComment from './CardComment/CardComment'
+import Footer from './Footer/Footer'
+import ButtonSocial from './ButtonSocial/ButtonSocial'
 
 
 export {
     NavigationMain,
     NavigationPublic,
     NavigationPrivate,
+    NavigationSecondary,
     TitleMain,
     TitleChapter,
     FormInput,
@@ -42,5 +46,7 @@ export {
     CardFrontCategory,
     CardPost,
     CardFrontPost,
-    CardComment
+    CardComment,
+    Footer,
+    ButtonSocial
 }

@@ -15,6 +15,8 @@ router.use(version + '/image', require('./image'))
 
 router.use(version + '/comment', require('./comment'))
 
+router.use(version + '/form', require('./form'))
+
 router.get('/', (request, response)=> {
     response.json({response: 'App works great'})
 })

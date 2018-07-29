@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import random from 'randomstring'
 
 const FeatureBox = (props)=> {
     const createBullets = ()=> {
         return props.bullets.map((bullet)=> {
             return (
-                <li>{ bullet }</li>
+                <li key={ random.generate(6) }>{ bullet }</li>
             )
         })
     }

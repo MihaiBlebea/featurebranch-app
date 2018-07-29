@@ -1,0 +1,21 @@
+.CardFrontCategory {
+    transition: all 0.5s ease-in-out;
+}
+
+.CardFrontCategory:hover {
+    filter: drop-shadow(5px 5px 5px black);
+}
+
+.Image-Wrapper {
+    height: 150px;
+}
+
+.Image {
+    height: inherit;
+    height: -webkit-fill-available;
+    transition: all 0.5s ease-in-out;
+}
+
+.Image:hover {
+    filter: saturate(8);
+}
