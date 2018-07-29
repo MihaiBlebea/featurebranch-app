@@ -58,6 +58,10 @@ class ManagePostsPage extends React.Component
                                   title={ post.title }
                                   slug={ post.slug }
                                   id={ post._id }
+                                  content={ post.content }
+                                  author={ post.author.first_name + ' ' + post.author.last_name }
+                                  publishDate={ '20.08.2018' }
+                                  commentsCount={ post.comments.length }
                                   onDelete={ ()=> this.handlePostDelete(post) } />
                     </div>
                 )

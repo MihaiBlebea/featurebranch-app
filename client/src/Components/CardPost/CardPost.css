@@ -1,0 +1,29 @@
+.CardPost {
+    transition: all 0.5s ease-in-out;
+}
+
+.CardPost:hover {
+    filter: drop-shadow(5px 5px 5px black);
+}
+
+.CardPost .Image-Wrapper {
+    height: 200px;
+}
+
+.Image {
+    height: inherit;
+    height: -webkit-fill-available;
+    transition: all 0.5s ease-in-out;
+}
+
+.Image:hover {
+    filter: saturate(8);
+}
+
+.CardPost .ReadMoreLink {
+    cursor: pointer;
+}
+
+.CardPost .ReadMoreLink:hover {
+    text-decoration: underline;
+}

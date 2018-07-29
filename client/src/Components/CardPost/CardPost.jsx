@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router'
+import { Icon } from 'react-fa'
 
 import { ModalConfirmation } from './../index'
+import './CardPost.css'
 
 
 class CardPost extends React.Component
@@ -13,6 +15,11 @@ class CardPost extends React.Component
         this.state = {
             isOpen: false
         }
+    }
+
+    createExcerpt(content)
+    {
+        return (content !== null && content !== undefined) ? content.substr(0, 100) + '...' : null
     }
 
     toggleModal()
@@ -48,21 +55,41 @@ class CardPost extends React.Component
     {
         return (
             <div>
-                <div className="card">
-                    <img className="card-img-top" src={ this.props.imageUrl } alt="Card-cap" />
+                <div className="CardPost card">
+                    <div className="Image-Wrapper">
+                        <img className="Image card-img-top" src={ this.props.imageUrl } alt="Card-cap" />
+                    </div>
                     <div className="card-body">
-                        <h5 className="card-title">{ this.props.title }</h5>
-                        <p>{ this.props.excerpt }</p>
+                        <h5 className="text-center">{ this.props.title }</h5>
+                        { this.createExcerpt(this.props.content) }
+                        <hr />
 
-                        <button className="btn btn-primary mr-2"
+                        <div className="row small">
+                            <div className="col-md-8">
+                                { this.props.author } | { this.props.publishDate }
+                            </div>
+                            <div className="col">
+                                <span className="float-md-right">{ this.props.commentsCount } comments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-footer">
+
+                        <button className="btn btn-sm btn-primary mr-2"
                                 style={{ cursor: 'pointer' }}
-                                onClick={ ()=> this.handlePostPreview() }>Preview</button>
-                        <button className="btn btn-secondary mr-2"
+                                onClick={ ()=> this.handlePostPreview() }>
+                            <Icon name="eye" size="lg" />
+                        </button>
+                        <button className="btn btn-sm btn-secondary mr-2"
                                 style={{ cursor: 'pointer' }}
-                                onClick={ ()=> this.handleEditPost() }>Edit</button>
-                        <button className="btn btn-danger"
+                                onClick={ ()=> this.handleEditPost() }>
+                            <Icon name="edit" size="lg" />
+                        </button>
+                        <button className="btn btn-sm btn-danger"
                                 style={{ cursor: 'pointer' }}
-                                onClick={ ()=> this.toggleModal() }>Delete</button>
+                                onClick={ ()=> this.toggleModal() }>
+                            <Icon name="trash" size="lg" />
+                        </button>
                     </div>
                 </div>
 
@@ -73,12 +100,16 @@ class CardPost extends React.Component
 }
 
 CardPost.propTypes = {
-    imageUrl: PropTypes.string.isRequired,
-    title:    PropTypes.string.isRequired,
-    id:       PropTypes.string.isRequired,
-    slug:     PropTypes.string.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    excerpt:  PropTypes.string
+    imageUrl:      PropTypes.string.isRequired,
+    title:         PropTypes.string.isRequired,
+    id:            PropTypes.string.isRequired,
+    slug:          PropTypes.string.isRequired,
+    onDelete:      PropTypes.func.isRequired,
+    author:        PropTypes.string.isRequired,
+    publishDate:   PropTypes.string.isRequired,
+    content:       PropTypes.string,
+    commentsCount: PropTypes.number
 }
+
 
 export default withRouter(CardPost)

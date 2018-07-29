@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon } from 'react-fa'
 
 import { ModalConfirmation } from './../index'
 
@@ -49,10 +50,15 @@ class CardCategory extends React.Component
                             <div className="col">
                                 <strong>{ this.props.title }</strong>
                                 <p>{ this.props.postsCount } posts</p>
-                                <p className="p-0 mb-0" style={{ cursor: 'pointer' }}>Edit</p>
-                                <p className="p-0 mb-0 text-danger"
-                                   style={{ cursor: 'pointer' }}
-                                   onClick={ ()=> this.toggleModal() } >Delete</p>
+                                <button className="btn btn-secondary btn-sm mr-2"
+                                        style={{ cursor: 'pointer' }}>
+                                    <Icon name="edit" />
+                                </button>
+                                <button className="btn btn-danger btn-sm"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={ ()=> this.toggleModal() }>
+                                    <Icon name="trash" />
+                                </button>
                             </div>
                         </div>
                     </div>
