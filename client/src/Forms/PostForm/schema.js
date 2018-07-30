@@ -1,7 +1,7 @@
 import {
     FormInput,
     FormSelect,
-    FormTextarea } from './../../Components'
+    FormMarkdown } from './../../Components'
 
 export const schema = (state)=> {
     return [
@@ -49,7 +49,7 @@ export const schema = (state)=> {
             label: 'Post content',
             value: state.content,
             name: 'content',
-            component: FormTextarea,
+            component: FormMarkdown,
             error: state.errors.content
         },
     ]

@@ -7,6 +7,7 @@ import TitleChapter from './TitleChapter/TitleChapter'
 import FormInput from './FormInput/FormInput'
 import FormTextarea from './FormTextarea/FormTextarea'
 import FormUpload from './FormUpload/FormUpload'
+import FormMarkdown from './FormMarkdown/FormMarkdown'
 import FormImageSelect from './FormImageSelect/FormImageSelect'
 import FormSelect from './FormSelect/FormSelect'
 import Alert from './Alert/Alert'
@@ -34,6 +35,7 @@ export {
     FormInput,
     FormTextarea,
     FormUpload,
+    FormMarkdown,
     FormImageSelect,
     FormSelect,
     Alert,

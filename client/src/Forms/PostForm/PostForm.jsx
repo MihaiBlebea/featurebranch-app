@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import random from 'randomstring'
 
 import { schema } from './schema'
-import { FormImageSelect } from './../../Components'
+import { FormImageSelect, FormMarkdown } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 
 
@@ -42,6 +42,7 @@ class PostForm extends React.Component
         }
 
         this.schema = ()=> schema(this.state)
+        this.validateError = this.props.validateError
     }
 
     componentDidMount()
@@ -164,7 +165,7 @@ class PostForm extends React.Component
         return this.schema().map((input, index)=> {
             let Component = input.component
             return (
-                <Component key={ random.generate(6) }
+                <Component key={ 'input_' + index }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }
