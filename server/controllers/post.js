@@ -1,10 +1,12 @@
 const express = require('express')
 const { Post, User } = require('./../database/models')
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
+
 // Save a Post
-router.post('/save', (request, response)=> {
+router.post('/save', auth, (request, response)=> {
     var post = new Post({
         title:        request.body.title,
         slug:         request.body.slug,
@@ -24,7 +26,7 @@ router.post('/save', (request, response)=> {
     })
 })
 
-router.post('/update/:id', (request, response)=> {
+router.post('/update/:id', auth, (request, response)=> {
     Post.update({ _id: request.params.id }, {
         title:        request.body.title,
         slug:         request.body.slug,
@@ -59,7 +61,7 @@ router.get('/:slug', (request, response)=> {
     })
 })
 
-router.get('/id/:id', (request, response)=> {
+router.get('/id/:id', auth, (request, response)=> {
     Post.findOne({ _id: request.params.id }).then((post)=> {
         response.status(200).json(post)
     }).catch((error)=> {
@@ -67,7 +69,7 @@ router.get('/id/:id', (request, response)=> {
     })
 })
 
-router.delete('/delete/:id', (request, response)=> {
+router.delete('/delete/:id', auth, (request, response)=> {
     Post.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).json({ response: `Post was deleted` })
     }).catch((error)=> {

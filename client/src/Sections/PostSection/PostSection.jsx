@@ -1,8 +1,9 @@
 import React from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import { withRouter } from 'react-router'
 import random from 'randomstring'
 
+import { axios } from './../../axios'
 import { CardFrontPost } from './../../Components'
 
 
@@ -23,7 +24,7 @@ class PostSection extends React.Component
 
     fetchPosts()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'post/all').then((result)=> {
+        axios.get('post/all').then((result)=> {
             if(result.status === 200)
             {
                 this.setState({

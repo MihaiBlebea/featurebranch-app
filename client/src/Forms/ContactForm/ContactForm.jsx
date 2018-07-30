@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import random from 'randomstring'
 
+import { axios } from './../../axios'
 import { Alert } from './../../Components'
 import { schema } from './schema'
 import { withErrorValidation } from './../../HOC'
@@ -38,7 +38,7 @@ class ContactForm extends React.Component
             email:   this.state.email,
             content: this.state.content,
         }
-        axios.post(process.env.REACT_APP_API_ROOT + 'form/save', payload).then((result)=> {
+        axios.post('form/save', payload).then((result)=> {
             if(result.status === 200)
             {
                 this.setState({

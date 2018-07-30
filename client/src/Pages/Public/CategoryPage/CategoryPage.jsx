@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import random from 'randomstring'
 
+import { axios } from './../../../axios'
 import { TitleMain, CardFrontPost } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
@@ -27,7 +27,7 @@ class CategoryPage extends React.Component
 
     fetchPosts()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `category/${this.state.categorySlug}`).then((result)=> {
+        axios.get('category/' + this.state.categorySlug).then((result)=> {
             this.setState({
                 title: result.data.title,
                 description: result.data.description,
@@ -69,7 +69,7 @@ class CategoryPage extends React.Component
     {
         return (
             <div>
-                <DefaultLayout col="6" horizontalCenter>
+                <DefaultLayout col={ 6 } horizontalCenter>
                         <TitleMain>Category Page</TitleMain>
                         { this.createPosts() }
                 </DefaultLayout>

@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import random from 'randomstring'
 
+import { axios } from './../../axios'
 import { schema } from './schema'
 import { FormImageSelect, FormInput } from './../../Components'
 

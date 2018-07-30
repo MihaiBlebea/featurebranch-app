@@ -14,11 +14,22 @@ class FormMarkdown extends React.Component
         }
     }
 
+    componentDidMount()
+    {
+        this.setState({ content: this.props.value })
+        let content = localStorage.getItem('content')
+        if(content !== null)
+        {
+            this.setState({ content: content })
+        }
+    }
+
     handleInputChange(event)
     {
         this.setState({ content: event.target.value })
         this.autoResizeTextarea()
         this.props.onInputChange(event)
+        localStorage.setItem('content', this.props.value)
     }
 
     autoResizeTextarea()
@@ -52,7 +63,7 @@ class FormMarkdown extends React.Component
                               rows="6"
                               name={ this.props.name }
                               onChange={ (event)=> this.handleInputChange(event) }
-                              value={ this.props.value }></textarea>
+                              value={ this.state.content }></textarea>
                 </div>
 
                 <div className="form-group">

@@ -1,6 +1,8 @@
 import React from 'react'
+
 import { TitleMain } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
+
 
 const AboutPage = ()=> {
     return (

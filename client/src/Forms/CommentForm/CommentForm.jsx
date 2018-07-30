@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import PropTypes from 'prop-types';
 
+import { axios } from './../../axios'
 import { schema } from './schema'
 import { withErrorValidation } from './../../HOC'
 
@@ -37,7 +37,7 @@ class CommentForm extends React.Component
             author: null,
             post: this.props.postId,
         }
-        axios.post(process.env.REACT_APP_API_ROOT + 'comment/save', payload).then((result)=> {
+        axios.post('comment/save', payload).then((result)=> {
             if(result.status === 200)
             {
                 this.setState({

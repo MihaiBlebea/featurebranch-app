@@ -1,6 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
+
+import { axios } from './../../../axios'
 import { TitleMain, TitleChapter, CardCategory } from './../../../Components'
 import { CategoryForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
@@ -23,7 +24,7 @@ class CreateCategoryPage extends React.Component
 
     fetchCategories()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'category/all').then((result)=> {
+        axios.get('category/all').then((result)=> {
             console.log(result.data)
             this.setState({
                 categories: result.data
@@ -41,7 +42,7 @@ class CreateCategoryPage extends React.Component
     handleDeleteCard(index)
     {
         let category = this.state.categories[index]
-        axios.delete(process.env.REACT_APP_API_ROOT + `category/delete/${category._id}`).then((result)=> {
+        axios.delete('category/delete/' + category._id).then((result)=> {
             if(result.status === 200)
             {
                 this.fetchCategories()

@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import Modal from 'react-bootstrap4-modal';
 import PropTypes from 'prop-types';
 
+import { axios } from './../../axios'
 import { FormUpload, CardImage } from './../index'
 
 
@@ -27,7 +27,7 @@ class ModalGallery extends React.Component
 
     fetchImages()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'image/all').then((result)=> {
+        axios.get('image/all').then((result)=> {
             this.setState({
                 images: result.data
             })
@@ -56,7 +56,7 @@ class ModalGallery extends React.Component
     {
         const formData = new FormData()
         formData.append('image', event.target.files[0])
-        axios.post(process.env.REACT_APP_API_ROOT + 'image/save', formData).then((result)=> {
+        axios.post('image/save', formData).then((result)=> {
             this.fetchImages()
         }).catch((error)=> {
             console.log(error)
@@ -66,7 +66,7 @@ class ModalGallery extends React.Component
     handleImageDelete(index)
     {
         let image = this.state.images[index]
-        axios.delete(process.env.REACT_APP_API_ROOT + `image/delete/${image._id}`).then((result)=> {
+        axios.delete('image/delete/' + image._id).then((result)=> {
             if(result.status === 200)
             {
                 this.fetchImages()

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import ReactLoading from 'react-loading'
-import random from 'randomstring'
 
 import { schema } from './schema'
 import * as actions from './../../store/actions'
@@ -69,7 +68,7 @@ class RegisterForm extends React.Component
     {
         return this.schema().map((input, index)=> {
             return (
-                <FormInput key={ random.generate(6) }
+                <FormInput key={ 'input_' + index }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }

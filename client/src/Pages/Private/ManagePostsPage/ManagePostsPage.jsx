@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios'
 
+import { axios } from './../../../axios'
 import { TitleMain, CardPost } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
@@ -26,7 +26,7 @@ class ManagePostsPage extends React.Component
 
     fetchPosts()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `post/all`).then((result)=> {
+        axios.get('post/all').then((result)=> {
             this.setState({
                 posts: result.data
             })
@@ -37,7 +37,7 @@ class ManagePostsPage extends React.Component
 
     handlePostDelete(post)
     {
-        axios.delete(process.env.REACT_APP_API_ROOT + `post/delete/${post._id}`).then((result)=> {
+        axios.delete('post/delete/' + post._id).then((result)=> {
             if(result.status === 200)
             {
                 this.fetchPosts()
