@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios'
 
+import { axios } from './../../../axios'
 import { TitleMain, CardComment } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
@@ -21,7 +21,7 @@ class ManageCommentsPage extends React.Component
 
     fetchComments()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'comment/all').then((result)=> {
+        axios.get('comment/all').then((result)=> {
             if(result.status === 200)
             {
                 this.setState({
@@ -36,7 +36,7 @@ class ManageCommentsPage extends React.Component
     handleApproveStatus(comment)
     {
         let status = !comment.isApproved
-        let url = process.env.REACT_APP_API_ROOT + `comment/approve/${comment._id}?status=${status}`
+        let url = 'comment/approve/' + comment._id + '?status=' + status
         axios.get(url).then((result)=> {
             if(result.status === 200)
             {

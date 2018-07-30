@@ -1,4 +1,6 @@
 import React from 'react'
+import marked from 'marked'
+import plainText from 'marked-plaintext'
 import PropTypes from 'prop-types';
 
 import './CardFrontPost.css'
@@ -6,7 +8,7 @@ import './CardFrontPost.css'
 
 const CardFrontPost = (props)=> {
     const createExcerpt = (content)=> {
-        return (content !== null && content !== undefined) ? content.substr(0, 150) + '...' : null
+        return (content !== null && content !== undefined) ? markdownToPlainText(content).substr(0, 150) + '... ' : null
     }
 
     const createReadMoreLink = ()=> {
@@ -14,6 +16,11 @@ const CardFrontPost = (props)=> {
             <span className="ReadMoreLink text-primary"
                   onClick={ props.onClickAction }>Read more</span>
         )
+    }
+
+    const markdownToPlainText = (markdown)=> {
+        let renderer = new plainText;
+        return marked(markdown, { renderer: renderer })
     }
 
     return (
@@ -27,7 +34,8 @@ const CardFrontPost = (props)=> {
             </div>
             <div className="card-body">
                 <h3>{ props.title }</h3>
-                { createExcerpt(props.content) } { createReadMoreLink() }
+                { createExcerpt(props.content) }
+                { createReadMoreLink() }
                 <hr />
 
                 <div className="row small">

@@ -34,7 +34,7 @@ router.get('/:slug', (request, response)=> {
     })
 })
 
-router.delete('/delete/:id', (request, response)=> {
+router.delete('/delete/:id', auth, (request, response)=> {
     Category.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).send()
     }).catch((error)=> {

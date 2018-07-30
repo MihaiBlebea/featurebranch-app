@@ -43,7 +43,7 @@ router.post('/login', (request, response)=> {
     })
 })
 
-router.get('/all', (request, response)=> {
+router.get('/all', auth, (request, response)=> {
     User.find({}).then((users)=> {
         response.json(users)
     }).catch((error)=> {
@@ -51,7 +51,7 @@ router.get('/all', (request, response)=> {
     })
 })
 
-router.get('/', (request, response)=> {
+router.get('/', auth, (request, response)=> {
     if(request.query.email !== null)
     {
         User.findOne({ email: request.query.email }).then((user)=> {

@@ -45,7 +45,7 @@ class LoginForm extends React.Component
     {
         return this.schema().map((input, index)=> {
             return (
-                <FormInput key={ `form_input_${index}` }
+                <FormInput key={ 'input_' + index }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }

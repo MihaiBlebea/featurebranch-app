@@ -1,5 +1,6 @@
 const express = require('express')
 const { Form } = require('./../database/models')
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ router.post('/save', (request, response)=> {
     })
 })
 
-router.get('/all', (request, response)=> {
+router.get('/all', auth, (request, response)=> {
     Form.find({}).then((forms)=> {
         response.status(200).json(forms)
     }).catch((error)=> {
@@ -25,7 +26,7 @@ router.get('/all', (request, response)=> {
     })
 })
 
-router.get('/:id', (request, response)=> {
+router.get('/:id', auth, (request, response)=> {
     Form.findOne({ slug: request.params.id }).then((form)=> {
         response.status(200).json(form)
     }).catch((error)=> {

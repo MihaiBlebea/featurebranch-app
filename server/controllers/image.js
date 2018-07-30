@@ -1,7 +1,7 @@
 const express = require('express')
 const { Image } = require('./../database/models')
 const multer = require('multer')
-
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
-router.post('/save', upload.single('image'), (request, response)=> {
+router.post('/save', upload.single('image'), auth, (request, response)=> {
     if(request.file)
     {
         Image.create({
@@ -32,7 +32,7 @@ router.post('/save', upload.single('image'), (request, response)=> {
     }
 })
 
-router.delete('/delete/:id', (request, response)=> {
+router.delete('/delete/:id', auth, (request, response)=> {
     Image.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).json({ response: `Image ${request.params.id} deleted` })
     }).catch((error)=> {
@@ -40,7 +40,7 @@ router.delete('/delete/:id', (request, response)=> {
     })
 })
 
-router.get('/', (request, response)=> {
+router.get('/', auth, (request, response)=> {
     if(request.query.id)
     {
         Image.findOne({ _id: request.query.id }).then((image)=> {
@@ -51,7 +51,7 @@ router.get('/', (request, response)=> {
     }
 })
 
-router.get('/all', (request, response)=> {
+router.get('/all', auth, (request, response)=> {
     Image.find().then((images)=> {
         response.status(200).json(images)
     }).catch((error)=> {

@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios'
 
+import { axios } from './../../axios'
 import { schema } from './schema'
 import { FormImageSelect } from './../../Components'
 import { withErrorValidation } from './../../HOC'
@@ -62,8 +62,7 @@ class CategoryForm extends React.Component
             description: this.state.description,
             main_image: (this.state.image) ? this.state.image._id : null
         }
-        let url = process.env.REACT_APP_API_ROOT + `category/save?auth_token=${this.props.token}`
-        axios.post(url, payload).then((result)=> {
+        axios.post('category/save', payload).then((result)=> {
             if(result.status === 200)
             {
                 this.handleClearForm()

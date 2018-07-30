@@ -7,6 +7,7 @@ import TitleChapter from './TitleChapter/TitleChapter'
 import FormInput from './FormInput/FormInput'
 import FormTextarea from './FormTextarea/FormTextarea'
 import FormUpload from './FormUpload/FormUpload'
+import FormMarkdown from './FormMarkdown/FormMarkdown'
 import FormImageSelect from './FormImageSelect/FormImageSelect'
 import FormSelect from './FormSelect/FormSelect'
 import Alert from './Alert/Alert'
@@ -23,6 +24,8 @@ import CardComment from './CardComment/CardComment'
 import CardAuthor from './CardAuthor/CardAuthor'
 import Footer from './Footer/Footer'
 import ButtonSocial from './ButtonSocial/ButtonSocial'
+import MarkdownPreview from './MarkdownPreview/MarkdownPreview'
+
 
 export {
     NavigationMain,
@@ -34,6 +37,7 @@ export {
     FormInput,
     FormTextarea,
     FormUpload,
+    FormMarkdown,
     FormImageSelect,
     FormSelect,
     Alert,
@@ -49,5 +53,6 @@ export {
     CardComment,
     CardAuthor,
     Footer,
-    ButtonSocial
+    ButtonSocial,
+    MarkdownPreview
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import PropTypes from 'prop-types'
 
-import { TitleMain, CardAuthor } from './../../../Components'
+import { axios } from './../../../axios'
+import { TitleMain, CardAuthor, MarkdownPreview } from './../../../Components'
 import { CommentForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
 
@@ -27,7 +27,7 @@ class PostPage extends React.Component
 
     fetchPost()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `post/${this.props.match.params.post}`).then((result)=> {
+        axios.get('post/' + this.props.match.params.post).then((result)=> {
             this.setState({
                 post: result.data
             })
@@ -141,7 +141,7 @@ class PostPage extends React.Component
                         </div>
                     </div>
 
-                    { this.createPostContent() }
+                    <MarkdownPreview markdown={ this.createPostContent() } />
                 </DefaultLayout>
 
                 <div className="bg-light">

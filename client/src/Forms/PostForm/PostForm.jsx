@@ -1,11 +1,11 @@
 import React from 'react'
-import axios from 'axios'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import random from 'randomstring'
 
 import { schema } from './schema'
-import { FormImageSelect } from './../../Components'
+import { axios } from './../../axios'
+import { FormImageSelect, FormMarkdown } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 
 
@@ -42,6 +42,7 @@ class PostForm extends React.Component
         }
 
         this.schema = ()=> schema(this.state)
+        this.validateError = this.props.validateError
     }
 
     componentDidMount()
@@ -56,7 +57,7 @@ class PostForm extends React.Component
 
     handleEditPost(id)
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `post/id/${id}`).then((result)=> {
+        axios.get('post/id/' + id).then((result)=> {
             console.log(result.data)
             this.setState({
                 title:       result.data.title,
@@ -92,7 +93,7 @@ class PostForm extends React.Component
 
     handleFormSubmit()
     {
-        let url = (this.props.editPost === undefined) ? `post/save` : `post/update/${this.props.editPost}`
+        let url = (this.props.editPost === undefined) ? 'post/save' : 'post/update/' + this.props.editPost
         let payload = {
             title:        this.state.title,
             slug:         this.state.slug,
@@ -102,7 +103,7 @@ class PostForm extends React.Component
             category:     this.state.category,
             is_published: this.state.isPublished
         }
-        axios.post(process.env.REACT_APP_API_ROOT + url, payload).then((result)=> {
+        axios.post(url, payload).then((result)=> {
             if(result.status === 200)
             {
                 this.handleRedirect()
@@ -127,7 +128,7 @@ class PostForm extends React.Component
 
     fetchAuthors()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `user/all`).then((result)=> {
+        axios.get('user/all').then((result)=> {
             if(result.status === 200)
             {
                 let authors = result.data.map((author)=> {
@@ -144,7 +145,7 @@ class PostForm extends React.Component
 
     fetchCategories()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + `category/all`).then((result)=> {
+        axios.get('category/all').then((result)=> {
             if(result.status === 200)
             {
                 let categories = result.data.map((category)=> {
@@ -164,7 +165,7 @@ class PostForm extends React.Component
         return this.schema().map((input, index)=> {
             let Component = input.component
             return (
-                <Component key={ random.generate(6) }
+                <Component key={ 'input_' + index }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }

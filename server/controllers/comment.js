@@ -1,5 +1,6 @@
 const express = require('express')
 const { Comment } = require('./../database/models')
+const { auth } = require('./../middleware/auth')
 
 const router = express.Router()
 
@@ -18,7 +19,7 @@ router.post('/save', (request, response)=> {
     })
 })
 
-router.get('/all', (request, response)=> {
+router.get('/all', auth, (request, response)=> {
     Comment.find({}).then((comments)=> {
         response.status(200).json(comments)
     }).catch((error)=> {
@@ -26,7 +27,7 @@ router.get('/all', (request, response)=> {
     })
 })
 
-router.get('/approve/:id', (request, response)=> {
+router.get('/approve/:id', auth, (request, response)=> {
     Comment.update({ _id: request.params.id }, { isApproved: request.query.status }).then((result)=> {
         response.status(200).json(result)
     }).catch((error)=> {

@@ -1,8 +1,9 @@
 import React from 'react'
-import axios from 'axios'
 
+import { axios } from './../../../axios'
 import { TitleMain, CardFrontCategory } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
+
 
 class BlogPage extends React.Component
 {
@@ -21,7 +22,7 @@ class BlogPage extends React.Component
 
     fetchCategories()
     {
-        axios.get(process.env.REACT_APP_API_ROOT + 'category/all').then((result)=> {
+        axios.get('category/all').then((result)=> {
             this.setState({
                 categories: result.data
             })
