@@ -35,6 +35,13 @@ const UserSchema = new connect.Schema({
     phone: {
         type: String
     },
+    image: {
+        type: connect.Schema.Types.ObjectId,
+        ref: 'Image'
+    },
+    description: {
+        type: String,
+    },
     tokens: [{
         access: {
             type: String,
@@ -68,11 +75,13 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.toJSON = function() {
     var userObject = this.toObject()
     return {
-        _id: userObject._id,
-        first_name: userObject.first_name,
-        last_name: userObject.last_name,
-        email: userObject.email,
-        phone: userObject.phone
+        _id:         userObject._id,
+        first_name:  userObject.first_name,
+        last_name:   userObject.last_name,
+        email:       userObject.email,
+        phone:       userObject.phone,
+        description: userObject.description,
+        image:       userObject.image,
     }
 }
 

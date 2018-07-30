@@ -13,5 +13,6 @@ export {
 } from './register'
 
 export {
-    fetchUser
+    fetchUser,
+    storeUser
 } from './user'

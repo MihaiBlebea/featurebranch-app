@@ -17,9 +17,10 @@ router.post('/signup', (request, response)=> {
     user.save().then(()=> {
         return user.generateJWT()
     }).then((token)=> {
+        console.log()
         response.status(200).json({
             token: token,
-            expire: process.env.TOKEN_EXPIRE_PERIOD,
+            expire: 3600,
             user: user
         })
     }).catch((error)=> {
@@ -52,20 +53,27 @@ router.get('/all', auth, (request, response)=> {
 })
 
 router.get('/', auth, (request, response)=> {
-    if(request.query.email !== null)
-    {
-        User.findOne({ email: request.query.email }).then((user)=> {
-            response.json({ model: user })
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
+    User.findByToken(request.query.auth_token).then((user)=> {
+        console.log(user)
+        response.json(user)
+    }).catch((error)=> {
+        console.log(error)
+    })
+})
+
+router.get('/email/:email', auth, (request, response)=> {
+    var email = request.params.email
+    User.findOne({ email: request.query.email }).then((user)=> {
+        response.json(user)
+    }).catch((error)=> {
+        console.log(error)
+    })
 })
 
 router.get('/:id', auth, (request, response)=> {
     var id = request.params.id
     User.findOne({ _id: id }).then((user)=> {
-        response.json({ model: user })
+        response.json(user)
     }).catch((error)=> {
         console.log(error)
     })

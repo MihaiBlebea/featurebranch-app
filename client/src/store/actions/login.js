@@ -1,15 +1,15 @@
 import * as type from './types'
-import axios from 'axios'
-import { fetchUser } from './index'
+import { axios } from './../../axios'
+import { storeUser, fetchUser } from './index'
 
 export const login = (email, password)=> {
     return (dispatch)=> {
         dispatch(loginStart())
         let payload = { email, password }
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/login', payload).then((result)=> {
+        axios.post('user/login', payload).then((result)=> {
             dispatch(loginSuccess(result.data.token, result.data.expire, result.data.user._id))
             dispatch(authCheckTimeout(result.data.expire))
-            dispatch(fetchUser(result.data.user._id, result.data.token))
+            dispatch(storeUser(result.data.user))
         }).catch((error)=> {
             dispatch(loginFail(error))
             console.log(error)
@@ -31,7 +31,7 @@ export const loginSuccess = (token, expireIn, userId)=> {
     return {
         type: type.LOGIN_SUCCESS,
         token: token,
-        expireIn: expireIn,
+        expDate: expDate,
         userId: userId
     }
 }

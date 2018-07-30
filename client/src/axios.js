@@ -9,6 +9,6 @@ export const axios = Axios.create({
     timeout: 1000,
     headers: { 'default': 'foot' },
     params: {
-        auth_token: fetchToken()
+        auth_token: localStorage.getItem('authToken')
     }
 })

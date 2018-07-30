@@ -53,7 +53,7 @@ export const registerSuccess = (state, action)=> {
     return updateState(state, {
         auth: {
             token: action.token,
-            expDate: action.expireIn,
+            expDate: action.expDate,
             userId: action.userId
         },
         errors: {

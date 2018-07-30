@@ -1,9 +1,9 @@
 import * as type from './types'
-import axios from 'axios'
+import { axios } from './../../axios'
 
 export const fetchUser = (userId, token)=> {
     return (dispatch)=> {
-        axios.get(process.env.REACT_APP_API_ROOT + `user/${userId}?auth_token=${token}`).then((result)=> {
+        axios.get('user').then((result)=> {
             dispatch(storeUser(result.data.model))
         }).catch((error)=> {
             console.log(error)
@@ -13,10 +13,10 @@ export const fetchUser = (userId, token)=> {
 
 export const storeUser = (user)=> {
     return {
-        type: type.STORE_USER,
+        type:      type.STORE_USER,
         firstName: user.first_name,
-        lastName: user.last_name,
-        phone: user.phone,
-        email: user.email
+        lastName:  user.last_name,
+        phone:     user.phone,
+        email:     user.email
     }
 }

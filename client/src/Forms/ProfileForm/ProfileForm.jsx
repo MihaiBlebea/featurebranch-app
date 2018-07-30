@@ -1,5 +1,5 @@
 import React from 'react'
-import random from 'randomstring'
+import { connect } from 'react-redux'
 
 import { axios } from './../../axios'
 import { schema } from './schema'
@@ -31,6 +31,30 @@ class ProfileForm extends React.Component
             }
         }
         this.schema = ()=> schema(this.state)
+    }
+
+    componentDidMount()
+    {
+        this.fetchUser()
+    }
+
+    fetchUser()
+    {
+        axios.get('user').then((result)=> {
+            if(result.status === 200)
+            {
+                this.setState({
+                    image:       result.data.image || null,
+                    firstName:   result.data.first_name,
+                    lastName:    result.data.last_name,
+                    email:       result.data.email,
+                    phone:       result.data.phone || '',
+                    description: result.data.description || ''
+                })
+            }
+        }).catch((error)=> {
+            console.log(error)
+        })
     }
 
     handleInputChange(event)
@@ -68,10 +92,10 @@ class ProfileForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input)=> {
+        return this.schema().map((input, index)=> {
             let Component = input.component || FormInput
             return (
-                <Component key={ random.generate(6) }
+                <Component key={ 'input_' + index }
                            label={ input.label }
                            value={ input.value }
                            name={ input.name }
