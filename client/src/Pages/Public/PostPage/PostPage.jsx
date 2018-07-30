@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
-import { TitleMain, CardAuthor } from './../../../Components'
+import { TitleMain, CardAuthor, MarkdownPreview } from './../../../Components'
 import { CommentForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
 
@@ -141,7 +141,7 @@ class PostPage extends React.Component
                         </div>
                     </div>
 
-                    { this.createPostContent() }
+                    <MarkdownPreview markdown={ this.createPostContent() } />
                 </DefaultLayout>
 
                 <div className="bg-light">

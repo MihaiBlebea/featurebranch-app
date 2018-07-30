@@ -24,6 +24,8 @@ import CardComment from './CardComment/CardComment'
 import CardAuthor from './CardAuthor/CardAuthor'
 import Footer from './Footer/Footer'
 import ButtonSocial from './ButtonSocial/ButtonSocial'
+import MarkdownPreview from './MarkdownPreview/MarkdownPreview'
+
 
 export {
     NavigationMain,
@@ -51,5 +53,6 @@ export {
     CardComment,
     CardAuthor,
     Footer,
-    ButtonSocial
+    ButtonSocial,
+    MarkdownPreview
 }

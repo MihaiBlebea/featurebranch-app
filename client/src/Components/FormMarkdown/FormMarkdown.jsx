@@ -1,10 +1,7 @@
 import React from 'react'
-import showdown from 'showdown'
-import marked from 'marked'
-import highlight from 'highlight.js';
 import PropTypes from 'prop-types'
 
-import './highlight.css'
+import { MarkdownPreview } from './../index'
 
 
 class FormMarkdown extends React.Component
@@ -15,34 +12,6 @@ class FormMarkdown extends React.Component
         this.state = {
             content: ''
         }
-
-        this.converter = new showdown.Converter()
-        this.marked = this.configMarked()
-    }
-
-    configMarked()
-    {
-        return marked.setOptions({
-            renderer: new marked.Renderer(),
-            highlight: (code, language)=> {
-                let value = highlight.highlightAuto(code).value
-                return `<pre><code class="hljs ${language}">${value}</code></pre>`
-            },
-            pedantic: false,
-            gfm: true,
-            tables: true,
-            breaks: false,
-            sanitize: true,
-            smartLists: true,
-            smartypants: false,
-            xhtml: false
-        })
-    }
-
-    convertToHtml()
-    {
-        // return { __html: this.converter.makeHtml(this.state.content) }
-        return { __html: this.marked(this.state.content) }
     }
 
     handleInputChange(event)
@@ -88,8 +57,7 @@ class FormMarkdown extends React.Component
 
                 <div className="form-group">
                     <label><strong>Preview</strong></label>
-                    <div dangerouslySetInnerHTML={ this.convertToHtml() }></div>
-
+                    <MarkdownPreview markdown={ this.state.content }/>
                 </div>
 
             </div>
