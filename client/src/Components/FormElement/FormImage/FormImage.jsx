@@ -13,16 +13,26 @@ class FormImageSelect extends React.Component
         super(props)
         this.state = {
             isOpen: false,
-            tempImageSelect: null,
-            imagePreview: null
+            selectedImgId: null,
+            imagePreviewUrl: null
         }
     }
 
-    fetchPreviewImage()
+    componentDidUpdate()
     {
-        axios.get('image/id/' + this.state.imageId).then((result)=> {
+        if(this.props.value !== null)
+        {
+            this.fetchPreviewImage(this.props.value)
+        } else {
+            this.state.imagePreviewUrl = null
+        }
+    }
+
+    fetchPreviewImage(id)
+    {
+        axios.get('image/id/' + id).then((result)=> {
             this.setState({
-                imagePreview: result.data.url
+                imagePreviewUrl: result.data.url
             })
         }).catch((error)=> {
             console.log(error)
@@ -31,12 +41,12 @@ class FormImageSelect extends React.Component
 
     createImagePreview()
     {
-        if(this.state.imagePreview !== null)
+        if(this.state.imagePreviewUrl !== null)
         {
             return (
                 <div className="form-group">
                     <div className="row col-md-6">
-                        <ImagePreview url={ this.state.imagePreview } />
+                        <ImagePreview url={ this.state.imagePreviewUrl } />
                     </div>
                 </div>
             )
@@ -47,18 +57,15 @@ class FormImageSelect extends React.Component
     handleImageSelect(id)
     {
         this.setState({
-            tempImageSelect: id
+            selectedImgId: id
         })
     }
 
     handleSave()
     {
-        let imagePreview = this.state.tempImageSelect
-        this.setState({
-            imagePreview: imagePreview
-        })
         this.toggleModal()
-        this.props.onInputChange({ target: { name: this.props.name, value: this.state.tempImageSelect }})
+        this.fetchPreviewImage(this.state.selectedImgId)
+        this.props.onInputChange({ target: { name: this.props.name, value: this.state.selectedImgId }})
     }
 
     toggleModal()
@@ -104,8 +111,7 @@ class FormImageSelect extends React.Component
 }
 
 FormImageSelect.propTypes = {
-    onInputChange: PropTypes.func.isRequired,
-    defaultImage:  PropTypes.object,
+    onInputChange: PropTypes.func.isRequired
 }
 
 export default FormImageSelect
