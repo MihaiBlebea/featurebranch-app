@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import random from 'randomstring'
 
 import { schema } from './schema'
-import { axios } from './../../axios'
+import axios from 'axios'
 import { FormImageSelect, FormMarkdown } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 

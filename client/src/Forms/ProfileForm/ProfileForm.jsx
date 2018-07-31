@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { axios } from './../../axios'
+import axios from 'axios'
 import { schema } from './schema'
 import { FormImageSelect, FormInput } from './../../Components'
 

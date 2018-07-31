@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { axios } from './../../../axios'
+import axios from 'axios'
 import { TitleMain, CardAuthor, MarkdownPreview } from './../../../Components'
 import { CommentForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'

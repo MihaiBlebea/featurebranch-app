@@ -1,6 +1,7 @@
 import React from 'react'
+import axios from 'axios'
+import PropTypes from 'prop-types'
 
-import { axios } from './../../axios'
 import { CardImage, FormUpload } from './../index'
 
 
@@ -36,10 +37,7 @@ class ImageGallery extends React.Component
         this.setState({
             selected: selected
         })
-        if(this.props.onSelectImage)
-        {
-            this.props.onSelectImage(selected)
-        }
+        this.props.onSelectImage(selected._id)
     }
 
     handleImageUpload(event)
@@ -102,6 +100,10 @@ class ImageGallery extends React.Component
             </div>
         )
     }
+}
+
+ImageGallery.propTypes = {
+    onSelectImage: PropTypes.func.isRequired
 }
 
 export default ImageGallery

@@ -1,7 +1,7 @@
 import React from 'react'
 import random from 'randomstring'
 
-import { axios } from './../../axios'
+import axios from 'axios'
 import { Alert } from './../../Components'
 import { schema } from './schema'
 import { withErrorValidation } from './../../HOC'

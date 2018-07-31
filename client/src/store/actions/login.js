@@ -1,5 +1,5 @@
 import * as type from './types'
-import { axios } from './../../axios'
+import axios from 'axios'
 import { storeUser, fetchUser } from './index'
 
 export const login = (email, password)=> {

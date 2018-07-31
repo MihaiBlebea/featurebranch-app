@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { axios } from './../../../axios'
+import axios from 'axios'
 import { TitleMain, TitleChapter, CardCategory } from './../../../Components'
 import { CategoryForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
@@ -25,7 +25,6 @@ class CreateCategoryPage extends React.Component
     fetchCategories()
     {
         axios.get('category/all').then((result)=> {
-            console.log(result.data)
             this.setState({
                 categories: result.data
             })
@@ -83,8 +82,7 @@ class CreateCategoryPage extends React.Component
                     </div>
                     <div className="col">
                         <TitleChapter>New category</TitleChapter>
-                        <CategoryForm token={ this.props.token }
-                                      onNewCategory={ ()=> this.handleNewCategory() } />
+                        <CategoryForm onNewCategory={ ()=> this.handleNewCategory() } />
                     </div>
                 </div>
             </DefaultLayout>
@@ -92,10 +90,5 @@ class CreateCategoryPage extends React.Component
     }
 }
 
-const mapStateToProps = (state)=> {
-    return {
-        token: state.auth.token
-    }
-}
 
-export default connect(mapStateToProps)(CreateCategoryPage)
+export default CreateCategoryPage

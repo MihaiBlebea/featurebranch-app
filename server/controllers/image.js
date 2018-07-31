@@ -40,10 +40,10 @@ router.delete('/delete/:id', auth, (request, response)=> {
     })
 })
 
-router.get('/', auth, (request, response)=> {
-    if(request.query.id)
+router.get('/id/:id', auth, (request, response)=> {
+    if(request.params.id)
     {
-        Image.findOne({ _id: request.query.id }).then((image)=> {
+        Image.findOne({ _id: request.params.id }).then((image)=> {
             response.status(200).json(image)
         }).catch((error)=> {
             response.status(400).json(error)

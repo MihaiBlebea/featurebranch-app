@@ -10,6 +10,8 @@ import FormUpload from './FormUpload/FormUpload'
 import FormMarkdown from './FormMarkdown/FormMarkdown'
 import FormImageSelect from './FormImageSelect/FormImageSelect'
 import FormSelect from './FormSelect/FormSelect'
+import { FormElement } from './FormElement'
+import { FormButton } from './FormElement'
 import Alert from './Alert/Alert'
 import ModalGallery from './ModalGallery/ModalGallery'
 import ModalConfirmation from './ModalConfirmation/ModalConfirmation'
@@ -40,6 +42,8 @@ export {
     FormMarkdown,
     FormImageSelect,
     FormSelect,
+    FormElement,
+    FormButton,
     Alert,
     ModalGallery,
     ModalConfirmation,

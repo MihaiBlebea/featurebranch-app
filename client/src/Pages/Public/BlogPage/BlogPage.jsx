@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { axios } from './../../../axios'
+import axios from 'axios'
 import { TitleMain, CardFrontCategory } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
