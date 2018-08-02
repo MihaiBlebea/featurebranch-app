@@ -36,7 +36,7 @@ router.delete('/delete/:id', auth, (request, response)=> {
     Image.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).json({ response: `Image ${request.params.id} deleted` })
     }).catch((error)=> {
-        console.log(error)
+        response.status(400).json(error)
     })
 })
 

@@ -17,7 +17,6 @@ router.post('/signup', (request, response)=> {
     user.save().then(()=> {
         return user.generateJWT()
     }).then((token)=> {
-        console.log()
         response.status(200).json({
             token: token,
             expire: 3600,
@@ -46,36 +45,35 @@ router.post('/login', (request, response)=> {
 
 router.get('/all', auth, (request, response)=> {
     User.find({}).then((users)=> {
-        response.json(users)
+        response.status(200).json(users)
     }).catch((error)=> {
-        console.log(error)
+        response.status(error).json(error)
     })
 })
 
 router.get('/', auth, (request, response)=> {
     User.findByToken(request.query.auth_token).then((user)=> {
-        console.log(user)
-        response.json(user)
+        response.status(200).json(user)
     }).catch((error)=> {
-        console.log(error)
+        response.status(400).json(error)
     })
 })
 
 router.get('/email/:email', auth, (request, response)=> {
     var email = request.params.email
     User.findOne({ email: request.query.email }).then((user)=> {
-        response.json(user)
+        response.status(200).json(user)
     }).catch((error)=> {
-        console.log(error)
+        response.status(400).json(error)
     })
 })
 
 router.get('/:id', auth, (request, response)=> {
     var id = request.params.id
     User.findOne({ _id: id }).then((user)=> {
-        response.json(user)
+        response.status(200).json(user)
     }).catch((error)=> {
-        console.log(error)
+        response.status(400).json(error)
     })
 })
 

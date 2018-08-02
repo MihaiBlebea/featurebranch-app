@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-
 import axios from 'axios'
-import { schema } from './schema'
+
+import { FormElement, FormButton } from './../../Components'
 import { withErrorValidation } from './../../HOC'
+
 
 class CommentForm extends React.Component
 {
@@ -12,6 +13,23 @@ class CommentForm extends React.Component
         super(props)
         this.state = {
             isOpen: false,
+            form: {
+                subject: {
+                    elementType: 'input',
+                    label: 'Subject',
+                    type: 'text',
+                    placeholder: 'Your subject',
+                    name: 'subject',
+                    value: ''
+                },
+                content: {
+                    elementType: 'textarea',
+                    label: 'Message',
+                    placeholder: 'Your message',
+                    name: 'content',
+                    value: ''
+                },
+            },
             subject: '',
             content: '',
 
@@ -21,19 +39,25 @@ class CommentForm extends React.Component
             }
         }
 
-        this.schema = ()=> schema(this.state)
+        // this.schema = ()=> schema(this.state)
     }
 
     handleInputChange(event)
     {
-        this.setState({ [event.target.name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
     }
 
     handleFormSubmit()
     {
         let payload = {
-            title: this.state.subject,
-            content: this.state.content,
+            title: this.state.form.subject.value,
+            content: this.state.form.content.value,
             author: null,
             post: this.props.postId,
         }
@@ -70,15 +94,21 @@ class CommentForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             let Component = input.component
             return (
-                <Component key={ `form_input_${index}` }
-                           label={ input.label }
-                           value={ input.value }
-                           name={ input.name }
-                           error={ input.error }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             error={ this.state.errors[input.id] }
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -88,11 +118,7 @@ class CommentForm extends React.Component
         return (
             <div>
                 { this.createFormInputs() }
-                <div className="form-group">
-                    <button type="submit"
-                            className="btn btn-primary"
-                            onClick={ ()=> this.handleFormSubmit() }>Submit</button>
-                </div>
+                <FormButton submit={ ()=> this.handleFormSubmit() } button="Post" />
             </div>
         )
     }

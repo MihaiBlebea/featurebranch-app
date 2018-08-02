@@ -13,7 +13,6 @@ router.post('/save', (request, response)=> {
     form.save().then((result)=> {
         response.status(200).json(result)
     }).catch((error)=> {
-        console.log(error)
         response.status(400).json(error)
     })
 })

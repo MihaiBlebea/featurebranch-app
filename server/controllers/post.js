@@ -73,7 +73,6 @@ router.delete('/delete/:id', auth, (request, response)=> {
     Post.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).json({ response: `Post was deleted` })
     }).catch((error)=> {
-        console.log(error)
         response.status(400).json(error)
     })
 })
