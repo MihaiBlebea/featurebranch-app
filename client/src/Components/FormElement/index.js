@@ -4,7 +4,7 @@ import FormTextarea from './FormTextarea/FormTextarea'
 import FormSelect from './FormSelect/FormSelect'
 import FormImage from './FormImage/FormImage'
 import FormButton from './FormButton/FormButton'
-
+import FormMarkdown from './FormMarkdown/FormMarkdown'
 
 export {
     FormElement,
@@ -12,5 +12,6 @@ export {
     FormTextarea,
     FormSelect,
     FormImage,
-    FormButton
+    FormButton,
+    FormMarkdown
 }

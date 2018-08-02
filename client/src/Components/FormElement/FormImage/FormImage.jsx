@@ -20,12 +20,7 @@ class FormImageSelect extends React.Component
 
     componentDidUpdate()
     {
-        if(this.props.value !== null)
-        {
-            this.fetchPreviewImage(this.props.value)
-        } else {
-            this.state.imagePreviewUrl = null
-        }
+        // this.fetchPreviewImage(this.props.value)
     }
 
     fetchPreviewImage(id)

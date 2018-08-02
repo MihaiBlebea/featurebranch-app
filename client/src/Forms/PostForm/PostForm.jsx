@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import random from 'randomstring'
-
-import { schema } from './schema'
 import axios from 'axios'
-import { FormImageSelect, FormMarkdown } from './../../Components'
+
+import { FormElement, FormButton } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 
 
@@ -15,21 +13,69 @@ class PostForm extends React.Component
     {
         super(props)
         this.state = {
-            title: '',
-            slug: '',
-            content: '',
-            image: null,
-            author: 'default',
-            category: 'default',
-            isPublished: 'default',
-            publishDate: null,
-
-            authors: null,
-            publishOptions: [
-                { value: true, label: 'Published'},
-                { value: false, label: 'Draft'}
-            ],
-            categories: null,
+            form: {
+                title: {
+                    elementType: 'input',
+                    label: 'Post title',
+                    type: 'text',
+                    placeholder: 'Choose a post title',
+                    name: 'title',
+                    value: ''
+                },
+                slug: {
+                    elementType: 'input',
+                    label: 'Post slug',
+                    type: 'text',
+                    placeholder: 'Choose a post slug for SEO',
+                    name: 'slug',
+                    value: ''
+                },
+                content: {
+                    elementType: 'markdown',
+                    label: 'Post content',
+                    type: 'text',
+                    placeholder: 'Write a story',
+                    name: 'content',
+                    value: ''
+                },
+                image: {
+                    elementType: 'image',
+                    label: 'Select a main image',
+                    name: 'image',
+                    value: ''
+                },
+                author: {
+                    elementType: 'select',
+                    label: 'Author of the post',
+                    options: [],
+                    name: 'author',
+                    value: 'default'
+                },
+                category: {
+                    elementType: 'select',
+                    label: 'Post is in category',
+                    options: [],
+                    name: 'category',
+                    value: 'default'
+                },
+                isPublished: {
+                    elementType: 'select',
+                    label: 'Is the post going to be published',
+                    options: [
+                        { value: true, label: 'Published'},
+                        { value: false, label: 'Draft'}
+                    ],
+                    name: 'isPublished',
+                    value: ''
+                },
+                publishDate: {
+                    elementType: 'input',
+                    label: 'Publish date',
+                    type: 'text',
+                    name: 'publishDate',
+                    value: ''
+                }
+            },
 
             errors: {
                 title: null,
@@ -40,8 +86,6 @@ class PostForm extends React.Component
                 isPublished: null,
             }
         }
-
-        this.schema = ()=> schema(this.state)
         this.validateError = this.props.validateError
     }
 
@@ -76,13 +120,23 @@ class PostForm extends React.Component
 
     handleInputChange(event)
     {
-        this.setState({ [event.target.name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
     }
 
-    handleSelectImage(image)
+    addOptionsToState(key, options)
     {
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[key] }
+        updatedElement.options = options
+        updatedForm[key] = updatedElement
         this.setState({
-            image: image
+            form: updatedForm
         })
     }
 
@@ -95,13 +149,13 @@ class PostForm extends React.Component
     {
         let url = (this.props.editPost === undefined) ? 'post/save' : 'post/update/' + this.props.editPost
         let payload = {
-            title:        this.state.title,
-            slug:         this.state.slug,
-            content:      this.state.content,
-            main_image:   (this.state.image) ? this.state.image._id : null,
-            author:       this.state.author,
-            category:     this.state.category,
-            is_published: this.state.isPublished
+            title:        this.state.form.title.value,
+            slug:         this.state.form.slug.value,
+            content:      this.state.form.content.value,
+            main_image:   this.state.form.image.value,
+            author:       this.state.form.author.value,
+            category:     this.state.form.category.value,
+            is_published: this.state.form.isPublished.value
         }
         axios.post(url, payload).then((result)=> {
             if(result.status === 200)
@@ -113,15 +167,14 @@ class PostForm extends React.Component
             {
                 this.setState({
                     errors: {
-                        title: this.validateError(error.response.data.errors.title),
-                        slug: this.validateError(error.response.data.errors.slug),
-                        content: this.validateError(error.response.data.errors.content),
-                        author: this.validateError(error.response.data.errors.author),
-                        category: this.validateError(error.response.data.errors.category),
+                        title:       this.validateError(error.response.data.errors.title),
+                        slug:        this.validateError(error.response.data.errors.slug),
+                        content:     this.validateError(error.response.data.errors.content),
+                        author:      this.validateError(error.response.data.errors.author),
+                        category:    this.validateError(error.response.data.errors.category),
                         isPublished: this.validateError(error.response.data.errors.is_published)
                     }
                 })
-                console.log(error.response)
             }
         })
     }
@@ -134,9 +187,7 @@ class PostForm extends React.Component
                 let authors = result.data.map((author)=> {
                     return { value: author._id, label: author.first_name + ' ' + author.last_name }
                 })
-                this.setState({
-                    authors: authors
-                })
+                this.addOptionsToState('author', authors)
             }
         }).catch((error)=> {
             console.log(error)
@@ -151,9 +202,7 @@ class PostForm extends React.Component
                 let categories = result.data.map((category)=> {
                     return { value: category._id, label: category.title }
                 })
-                this.setState({
-                    categories: categories
-                })
+                this.addOptionsToState('category', categories)
             }
         }).catch((error)=> {
             console.log(error)
@@ -162,17 +211,20 @@ class PostForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
-            let Component = input.component
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             return (
-                <Component key={ 'input_' + index }
-                           label={ input.label }
-                           value={ input.value }
-                           name={ input.name }
-                           type={ input.type }
-                           options={ input.options || null}
-                           error={ input.error }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             error={ this.state.errors[input.id] }
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -181,18 +233,8 @@ class PostForm extends React.Component
     {
         return (
             <div>
-                <FormImageSelect defaultImage={ this.state.image }
-                                 onSelectImage={ (image)=> this.handleSelectImage(image) }/>
-
                 { this.createFormInputs() }
-
-                <div className="form-group">
-                    <button type="submit"
-                            className="btn btn-primary"
-                            onClick={ ()=> this.handleFormSubmit() }>
-                        { (this.props.editPost === undefined) ? 'Save' : 'Update' }
-                    </button>
-                </div>
+                <FormButton submit={ ()=> this.handleFormSubmit() } button="Save" />
             </div>
         )
     }

@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { FormInput, FormTextarea, FormSelect, FormImage } from './index'
+import {
+    FormInput,
+    FormTextarea,
+    FormSelect,
+    FormImage,
+    FormMarkdown } from './index'
 
 
 const FormElement = (props)=> {
@@ -20,6 +25,9 @@ const FormElement = (props)=> {
             break
         case('image'):
             formElement = <FormImage { ...props } />
+            break
+        case('markdown'):
+            formElement = <FormMarkdown { ...props } />
             break
         default:
             formElement = <FormInput { ...props } />

@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 
 const FormSelect = (props)=> {
     const createOptions = ()=> {
@@ -24,6 +26,10 @@ const FormSelect = (props)=> {
             { createOptions() }
         </select>
     )
+}
+
+FormSelect.propTypes = {
+    options: PropTypes.array.isRequired
 }
 
 export default FormSelect

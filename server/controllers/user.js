@@ -52,7 +52,8 @@ router.get('/all', auth, (request, response)=> {
 })
 
 router.get('/', auth, (request, response)=> {
-    User.findByToken(request.query.auth_token).then((user)=> {
+    var token = request.headers.authorization
+    User.findByToken(token).then((user)=> {
         response.status(200).json(user)
     }).catch((error)=> {
         response.status(400).json(error)
