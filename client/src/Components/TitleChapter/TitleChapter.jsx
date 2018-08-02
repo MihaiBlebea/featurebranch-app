@@ -3,8 +3,9 @@ import React from 'react'
 const TitleChapter = (props)=> {
     return (
         <div className="mb-3">
-            <h5><strong>{ props.children }</strong></h5>
-            <hr />
+            <h3 className="border-grey border-solid border-b">
+                <strong>{ props.children }</strong>
+            </h3>
         </div>
     )
 }

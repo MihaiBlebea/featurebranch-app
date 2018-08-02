@@ -1,16 +1,15 @@
 import React from 'react'
 
 import { TitleMain } from './../../../Components'
-import { DefaultLayout } from './../../../Layouts'
 import { ProfileForm } from './../../../Forms'
 
 
 const ProfilePage = ()=> {
     return (
-        <DefaultLayout>
+        <div className="container mx-auto">
             <TitleMain>Profile</TitleMain>
             <ProfileForm />
-        </DefaultLayout>
+        </div>
     )
 }
 

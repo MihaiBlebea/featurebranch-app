@@ -38,14 +38,16 @@ const FormElement = (props)=> {
         if(props.error !== null)
         {
             return (
-                <div className="invalid-feedback">{ props.error }</div>
+                <p className="text-red text-xs italic mt-2">{ props.error }</p>
             )
         }
     }
 
     return (
-        <div className="form-group">
-            <label>{ props.label }</label>
+        <div className="mb-4">
+            <label className="block text-grey-darker text-sm font-bold mb-2">
+                { props.label }
+            </label>
             { formElement }
             { errorMessage() }
         </div>

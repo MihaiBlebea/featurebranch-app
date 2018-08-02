@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import dotenv from 'dotenv'
+import './css/tailwind.css';
 import { Provider } from 'react-redux'
 import 'babel-polyfill';
 import axios from 'axios'

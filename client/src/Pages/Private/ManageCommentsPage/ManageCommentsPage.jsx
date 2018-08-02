@@ -2,7 +2,7 @@ import React from 'react'
 
 import axios from 'axios'
 import { TitleMain, CardComment } from './../../../Components'
-import { DefaultLayout } from './../../../Layouts'
+
 
 class ManageCommentsPage extends React.Component
 {
@@ -69,13 +69,9 @@ class ManageCommentsPage extends React.Component
     render()
     {
         return (
-            <div>
-                <DefaultLayout>
-                    <TitleMain>Manage comments</TitleMain>
-                </DefaultLayout>
-                <DefaultLayout col={ 6 } horizontalCenter>
-                    { this.createCommentCards() }
-                </DefaultLayout>
+            <div className="container mx-auto">
+                <TitleMain>Manage comments</TitleMain>
+                { this.createCommentCards() }
             </div>
         )
     }

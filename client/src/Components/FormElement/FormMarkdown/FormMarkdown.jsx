@@ -41,21 +41,11 @@ class FormMarkdown extends React.Component
         }
     }
 
-    createErrorMessage()
-    {
-        if(this.props.error !== null)
-        {
-            return (
-                <div className="invalid-feedback">{ this.props.error }</div>
-            )
-        }
-    }
-
     render()
     {
         return (
             <div>
-                <textarea className={ "form-control " + (this.props.error ? "is-invalid" : "") }
+                <textarea className={ "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline " + (this.props.error ? "border-red" : "") }
                           style={{ overflow: 'hidden' }}
                           ref="markdownTextarea"
                           rows="6"
@@ -72,10 +62,10 @@ class FormMarkdown extends React.Component
 
 FormMarkdown.propTypes = {
     onInputChange: PropTypes.func.isRequired,
-    label: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    value: PropTypes.string,
-    error: PropTypes.string,
+    label:         PropTypes.string.isRequired,
+    name:          PropTypes.string,
+    value:         PropTypes.string,
+    error:         PropTypes.string
 }
 
 export default FormMarkdown

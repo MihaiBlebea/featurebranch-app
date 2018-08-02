@@ -1,13 +1,12 @@
 import React from 'react'
 import { TitleMain } from './../../../Components'
-import { DefaultLayout } from './../../../Layouts'
 
 
 const DashboardPage = ()=> {
     return (
-        <DefaultLayout>
+        <div className="container mx-auto">
             <TitleMain>Dashboard Page</TitleMain>
-        </DefaultLayout>
+        </div>
     )
 }
 

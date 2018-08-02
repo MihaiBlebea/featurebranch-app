@@ -2,7 +2,7 @@ import React from 'react'
 
 const TitleMain = (props)=> {
     return (
-        <h3 className="text-center mb-5">{ props.children }</h3>
+        <h1 className="text-center mb-20 mt-20">{ props.children }</h1>
     )
 }
 
