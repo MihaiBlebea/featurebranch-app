@@ -4,6 +4,7 @@ import axios from 'axios'
 import { FormElement, FormButton } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 
+
 class CategoryForm extends React.Component
 {
     constructor(props)
@@ -50,7 +51,7 @@ class CategoryForm extends React.Component
                 description: null
             }
         }
-        this.initialState = this.state;
+        this.initialState = this.state
     }
 
     handleInputChange(event)

@@ -1,10 +1,10 @@
 import React from 'react'
 import random from 'randomstring'
-
 import axios from 'axios'
-import { Alert } from './../../Components'
-import { schema } from './schema'
+
+import { FormElement, FormButton, Alert } from './../../Components'
 import { withErrorValidation } from './../../HOC'
+
 
 class ContactForm extends React.Component
 {
@@ -12,10 +12,32 @@ class ContactForm extends React.Component
     {
         super(props)
         this.state = {
-            subject: '',
-            email: '',
-            content: '',
-
+            form: {
+                subject: {
+                    elementType: 'input',
+                    label: 'Subject',
+                    type: 'text',
+                    placeholder: 'Your subject',
+                    name: 'subject',
+                    value: ''
+                },
+                email: {
+                    elementType: 'input',
+                    label: 'Enter your email',
+                    type: 'email',
+                    placeholder: 'Your email',
+                    name: 'email',
+                    value: ''
+                },
+                content: {
+                    elementType: 'textarea',
+                    label: 'Enter your message',
+                    type: 'text',
+                    placeholder: 'Your message',
+                    name: 'content',
+                    value: ''
+                },
+            },
             errors: {
                 subject: null,
                 email: null,
@@ -23,35 +45,39 @@ class ContactForm extends React.Component
             },
             success: false
         }
-        this.schema = ()=> schema(this.state)
+        this.initialState = this.state
     }
 
     handleInputChange(event)
     {
-        this.setState({ [event.target.name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
+    }
+
+    handleClearForm()
+    {
+        this.setState({
+            ...this.initialState
+        })
     }
 
     handleFormSubmit()
     {
         let payload = {
-            subject: this.state.subject,
-            email:   this.state.email,
-            content: this.state.content,
+            subject: this.state.form.subject.value,
+            email:   this.state.form.email.value,
+            content: this.state.form.content.value,
         }
         axios.post('form/save', payload).then((result)=> {
             if(result.status === 200)
             {
-                this.setState({
-                    subject: '',
-                    email: '',
-                    content: '',
-                    errors: {
-                        subject: null,
-                        email: null,
-                        content: null
-                    },
-                    success: true
-                })
+                this.handleClearForm()
+                this.setState({ success: true })
             }
         }).catch((error)=> {
             if(error.response.status === 400)
@@ -69,16 +95,20 @@ class ContactForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
-            let Component = input.component
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             return (
-                <Component key={ random.generate(6) }
-                           label={ input.label }
-                           value={ input.value }
-                           type= { input.type || null }
-                           name={ input.name }
-                           error={ input.error }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             error={ this.state.errors[input.id] }
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -109,12 +139,7 @@ class ContactForm extends React.Component
                 </Alert>
 
                 { this.createFormInputs() }
-
-                <div className="form-group">
-                    <button type="submit"
-                            className="btn btn-primary"
-                            onClick={ ()=> this.handleFormSubmit() }>Submit</button>
-                </div>
+                <FormButton submit={ ()=> this.handleFormSubmit() } button="Send" />
             </div>
         )
     }
