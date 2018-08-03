@@ -24,13 +24,15 @@ class CardCategory extends React.Component
 
     createConfirmationModal()
     {
-        return (
-            <ModalConfirmation isOpen={ this.state.isOpen }
-                               toggleModal={ ()=> this.toggleModal() }
-                               onConfirm={ ()=> this.props.onDelete() }>
-                You are about to delete { this.props.title }. Are you sure you want to continue?
-            </ModalConfirmation>
-        )
+        if(this.state.isOpen)
+        {
+            return (
+                <ModalConfirmation close={ ()=> this.toggleModal() }>
+                    You are about to delete { this.props.title }. Are you sure you want to continue?
+                </ModalConfirmation>
+            )
+        }
+        return null
     }
 
     render()

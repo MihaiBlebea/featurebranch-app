@@ -75,8 +75,10 @@ class App extends React.Component
                 <div>
                     <NavigationMain />
 
-                    <div style={{ minHeight: '90vh' }}>
-                    { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
+                    <div className="min-h-screen flex flex-col">
+                        <div className="flex-grow">
+                            { this.isAuth() ? this.privateRoutes() : this.publicRoutes() }
+                        </div>
                     </div>
 
                     <Footer />

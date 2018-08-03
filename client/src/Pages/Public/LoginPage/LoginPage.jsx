@@ -1,14 +1,16 @@
 import React from 'react'
-import { TitleMain } from './../../../Components'
+import { TitleMain, CardDefault } from './../../../Components'
 import { LoginForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
 
 
 const LoginPage = ()=> {
     return (
-        <DefaultLayout col={ 6 } horizontalCenter>
+        <DefaultLayout>
             <TitleMain>Login</TitleMain>
-            <LoginForm />
+            <CardDefault>
+                <LoginForm />
+            </CardDefault>
         </DefaultLayout>
     )
 }

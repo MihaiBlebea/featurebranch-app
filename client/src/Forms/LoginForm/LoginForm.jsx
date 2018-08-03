@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import ReactLoading from 'react-loading';
 
-import { schema } from './schema'
-import { FormInput, Alert } from './../../Components'
+import { FormElement, Alert, FormButton } from './../../Components'
 import * as actions from './../../store/actions'
 
 
@@ -14,11 +13,25 @@ class LoginForm extends React.Component
     {
         super()
         this.state = {
-            email: '',
-            password: ''
+            form: {
+                email: {
+                    elementType: 'input',
+                    label: 'Email',
+                    type: 'text',
+                    placeholder: '',
+                    name: 'email',
+                    value: ''
+                },
+                password: {
+                    elementType: 'input',
+                    label: 'Password',
+                    type: 'password',
+                    placeholder: '',
+                    name: 'password',
+                    value: ''
+                }
+            }
         }
-
-        this.schema = ()=> schema(this.state)
     }
 
     isAuth()
@@ -28,12 +41,18 @@ class LoginForm extends React.Component
 
     handleInputChange(event)
     {
-        this.setState({ [event.target.name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
     }
 
     handleFormSubmit()
     {
-        this.props.onLogin(this.state.email, this.state.password)
+        this.props.onLogin(this.state.form.email.value, this.state.form.password.value)
     }
 
     displayErrorBanner()
@@ -43,14 +62,19 @@ class LoginForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             return (
-                <FormInput key={ 'input_' + index }
-                           label={ input.label }
-                           value={ input.value }
-                           name={ input.name }
-                           type={ input.type }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -72,17 +96,10 @@ class LoginForm extends React.Component
                     You have the wrong credentials
                 </Alert>
 
-                <div className="card shadow">
-                    <div className="card-body">
-                        { this.createFormInputs() }
-
-                        <div className="form-group">
-                            <button type="submit"
-                                    className="btn btn-primary"
-                                    onClick={ ()=> this.handleFormSubmit() }>Submit</button>
-                        </div>
-                    </div>
-                </div>
+                { this.createFormInputs() }
+                <FormButton submit={ ()=> this.handleFormSubmit() }>
+                    Login
+                </FormButton>
             </div>
         )
     }

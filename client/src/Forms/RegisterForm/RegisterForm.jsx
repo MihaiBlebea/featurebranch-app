@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 
-import { schema } from './schema'
 import * as actions from './../../store/actions'
-import { FormInput, Alert } from './../../Components'
+import { FormElement, Alert, FormButton } from './../../Components'
 
 
 class RegisterForm extends React.Component
@@ -14,16 +13,57 @@ class RegisterForm extends React.Component
     {
         super()
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            password: '',
-            passwordAgain: ''
+            form: {
+                firstName: {
+                    elementType: 'input',
+                    label: 'First name',
+                    type: 'text',
+                    placeholder: 'Your first name',
+                    name: 'firstName',
+                    value: ''
+                },
+                lastName: {
+                    elementType: 'input',
+                    label: 'Last name',
+                    type: 'text',
+                    placeholder: 'Your last name',
+                    name: 'lastName',
+                    value: ''
+                },
+                email: {
+                    elementType: 'input',
+                    label: 'Your email',
+                    type: 'email',
+                    placeholder: 'Your email address',
+                    name: 'email',
+                    value: ''
+                },
+                phone: {
+                    elementType: 'input',
+                    label: 'Phone number',
+                    type: 'text',
+                    placeholder: 'Your phone',
+                    name: 'phone',
+                    value: ''
+                },
+                password: {
+                    elementType: 'input',
+                    label: 'New password',
+                    type: 'password',
+                    placeholder: 'Choose a new password',
+                    name: 'password',
+                    value: ''
+                },
+                passwordAgain: {
+                    elementType: 'input',
+                    label: 'Repeat the new password',
+                    type: 'password',
+                    placeholder: 'Repeat your password',
+                    name: 'passwordAgain',
+                    value: ''
+                }
+            }
         }
-
-        this.schema = ()=> schema(this.state, this.props)
-        this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     isAuth()
@@ -33,22 +73,31 @@ class RegisterForm extends React.Component
 
     handleInputChange(event)
     {
-        let name = event.target.name
-        this.setState({ [name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
     }
 
     passwordConfirmationMatch()
     {
-        return (this.state.password === this.state.passwordAgain) ? null : 'Passwords do not match';
+        if(this.state.form.password.value !== this.state.form.passwordAgain.value)
+        {
+            return 'Passwords do not match'
+        }
+        return null
     }
 
     handleFormSubmit()
     {
-        this.props.onRegister(this.state.firstName,
-                              this.state.lastName,
-                              this.state.email,
-                              this.state.phone,
-                              this.state.password)
+        this.props.onRegister(this.state.form.firstName.value,
+                              this.state.form.lastName.value,
+                              this.state.form.email.value,
+                              this.state.form.phone.value,
+                              this.state.form.password.value)
     }
 
     displayErrorBanner()
@@ -66,15 +115,20 @@ class RegisterForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             return (
-                <FormInput key={ 'input_' + index }
-                           label={ input.label }
-                           value={ input.value }
-                           name={ input.name }
-                           type={ input.type }
-                           error={ (input.name === 'passwordAgain') ? this.passwordConfirmationMatch() : input.error }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             error={ (input.id === 'passwordAgain') ? this.passwordConfirmationMatch() : this.props.errors[input.id]}
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -96,19 +150,12 @@ class RegisterForm extends React.Component
                     Please fill all the required fields
                 </Alert>
 
-                <div className="card shadow">
-                    <div className="card-body">
+                { this.createFormInputs() }
 
-                        { this.createFormInputs() }
-
-                        <div className="form-group">
-                            <button type="submit"
-                                    disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }
-                                    className="btn btn-primary"
-                                    onClick={ ()=> this.handleFormSubmit() }>Submit</button>
-                        </div>
-                    </div>
-                </div>
+                <FormButton submit={ ()=> this.handleFormSubmit() }
+                            disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }>
+                    Register
+                </FormButton>
             </div>
         )
     }

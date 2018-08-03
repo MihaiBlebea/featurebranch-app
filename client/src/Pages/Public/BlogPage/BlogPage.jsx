@@ -56,14 +56,13 @@ class BlogPage extends React.Component
     render()
     {
         return (
-            <div>
-                <DefaultLayout>
-                    <TitleMain>Blog Page</TitleMain>
-                    <div className="row">
-                        { this.createCategories() }
-                    </div>
-                </DefaultLayout>
-            </div>
+            <DefaultLayout>
+                <TitleMain>Blog Page</TitleMain>
+                <div className="row">
+                    { this.createCategories() }
+                </div>
+            </DefaultLayout>
+
         )
     }
 }

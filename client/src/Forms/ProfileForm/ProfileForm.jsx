@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import axios from 'axios'
-import { schema } from './schema'
-import { FormImageSelect, FormInput } from './../../Components'
+
+import { FormElement, FormButton } from './../../Components'
 
 
 class ProfileForm extends React.Component
@@ -12,14 +11,70 @@ class ProfileForm extends React.Component
     {
         super(props)
         this.state = {
-            image: null,
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            description: '',
-            password: '',
-            passwordAgain: '',
+            form: {
+                image: {
+                    elementType: 'image',
+                    label: 'Select profile picture',
+                    name: 'image',
+                    value: ''
+                },
+                firstName: {
+                    elementType: 'input',
+                    label: 'First name',
+                    type: 'text',
+                    placeholder: 'Your first name',
+                    name: 'firstName',
+                    value: ''
+                },
+                lastName: {
+                    elementType: 'input',
+                    label: 'Last name',
+                    type: 'text',
+                    placeholder: 'Your last name',
+                    name: 'lastName',
+                    value: ''
+                },
+                email: {
+                    elementType: 'input',
+                    label: 'Your email',
+                    type: 'email',
+                    placeholder: 'Your email address',
+                    name: 'email',
+                    value: ''
+                },
+                phone: {
+                    elementType: 'input',
+                    label: 'Phone number',
+                    type: 'text',
+                    placeholder: 'Your phone',
+                    name: 'phone',
+                    value: ''
+                },
+                description: {
+                    elementType: 'textarea',
+                    label: 'Write a short description',
+                    type: 'text',
+                    placeholder: 'Your description',
+                    name: 'description',
+                    value: ''
+                },
+                password: {
+                    elementType: 'input',
+                    label: 'New password',
+                    type: 'password',
+                    placeholder: 'Choose a new password',
+                    name: 'password',
+                    value: ''
+                },
+                passwordAgain: {
+                    elementType: 'input',
+                    label: 'Repeat the new password',
+                    type: 'password',
+                    placeholder: 'Repeat your password',
+                    name: 'passwordAgain',
+                    value: ''
+                }
+            },
 
             errors: {
                 firstName: null,
@@ -30,7 +85,6 @@ class ProfileForm extends React.Component
                 password: null,
             }
         }
-        this.schema = ()=> schema(this.state)
     }
 
     componentDidMount()
@@ -59,7 +113,13 @@ class ProfileForm extends React.Component
 
     handleInputChange(event)
     {
-        this.setState({ [event.target.name]: event.target.value })
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[event.target.name] }
+        updatedElement.value = event.target.value
+        updatedForm[event.target.name] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
     }
 
     handleFormSubmit()
@@ -92,16 +152,20 @@ class ProfileForm extends React.Component
 
     createFormInputs()
     {
-        return this.schema().map((input, index)=> {
-            let Component = input.component || FormInput
+        let formArray = []
+        for(let key in this.state.form)
+        {
+            formArray.push({
+                ...this.state.form[key],
+                id: key
+            })
+        }
+        return formArray.map((input, index)=> {
             return (
-                <Component key={ 'input_' + index }
-                           label={ input.label }
-                           value={ input.value }
-                           name={ input.name }
-                           type={ input.type }
-                           error={ (input.name === 'passwordAgain') ? this.passwordConfirmationMatch() : input.error }
-                           onInputChange={ (event)=> this.handleInputChange(event) } />
+                <FormElement key={ 'input_' + index }
+                             { ...input }
+                             error={ this.state.errors[input.id] }
+                             onInputChange={ (event)=> this.handleInputChange(event) }/>
             )
         })
     }
@@ -109,20 +173,13 @@ class ProfileForm extends React.Component
     render()
     {
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <FormImageSelect imageUrl={ this.state.image ? this.state.image.url : null }
-                                     onSelectImage={ (image)=> this.handleSelectImage(image) }/>
+            <div>
+                { this.createFormInputs() }
 
-                    { this.createFormInputs() }
-
-                    <div className="form-group">
-                        <button type="submit"
-                                disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }
-                                className="btn btn-primary"
-                                onClick={ ()=> this.handleFormSubmit() }>Submit</button>
-                    </div>
-                </div>
+                <FormButton submit={ ()=> this.handleFormSubmit() }
+                            disabled={ (this.passwordConfirmationMatch() !== null) ? true : false }>
+                    Update
+                </FormButton>
             </div>
         )
     }

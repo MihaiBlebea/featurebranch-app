@@ -13,16 +13,17 @@ export const register = (firstName, lastName, email, phone, password)=> {
             phone: phone,
             password: password
         }
-        axios.post(process.env.REACT_APP_API_ROOT + 'user/signup', payload).then((result)=> {
-            if(result.data.errors === undefined)
+        axios.post('user/signup', payload).then((result)=> {
+            if(result.status === 200)
             {
                 dispatch(registerSuccess(result.data.token, result.data.expire, result.data.user._id))
                 dispatch(fetchUser(result.data.user._id, result.data.token))
-            } else {
-                dispatch(registerFail(result.data.errors))
             }
         }).catch((error)=> {
-            console.log(error)
+            if(error.response.status === 400)
+            {
+                dispatch(registerFail(error.response.data.errors))
+            }
         })
     }
 }
@@ -47,6 +48,7 @@ export const registerSuccess = (token, expireIn, userId)=> {
 }
 
 export const registerFail = (errors)=> {
+    console.log('ERRORS', errors)
     return {
         type: type.REGISTER_FAIL,
         errors: {

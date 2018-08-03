@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import axios from 'axios'
+
 import { TitleMain, CardAuthor, MarkdownPreview } from './../../../Components'
 import { CommentForm } from './../../../Forms'
 import { DefaultLayout } from './../../../Layouts'
@@ -122,25 +122,9 @@ class PostPage extends React.Component
     {
         return (
             <div>
-                <DefaultLayout col={ 8 } horizontalCenter>
-                    <div className="mb-5">
-                        { this.createCardAuthor() }
-                    </div>
-
+                <DefaultLayout>
+                    { this.createCardAuthor() }
                     <TitleMain>{ this.createPostTitle() }</TitleMain>
-
-                    <div className="mb-5">
-                        <img className="w-100 mb-2" src={ this.createPostImage() } alt="post-main" />
-                        <div className="row small">
-                            <div className="col-md-6">
-                                { this.createAuthorFullName() } | { this.createPublishDate() }
-                            </div>
-                            <div className="col">
-                                <span className="float-md-right">{ this.createCommentsCount() } comments</span>
-                            </div>
-                        </div>
-                    </div>
-
                     <MarkdownPreview markdown={ this.createPostContent() } />
                 </DefaultLayout>
 

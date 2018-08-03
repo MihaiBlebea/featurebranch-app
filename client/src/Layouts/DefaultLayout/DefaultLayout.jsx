@@ -3,23 +3,10 @@ import PropTypes from 'prop-types';
 
 const DefaultLayout = (props)=> {
     return (
-        <div className="container">
-            <div className="my-5">
-                <div className={ 'row' + (props.horizontalCenter ? ' justify-content-center' : '') }>
-                    <div className={ 'col-md-' + (props.col || 12)  }>
-                        { props.children }
-                    </div>
-                </div>
-            </div>
+        <div className="container mx-auto mb-20">
+            { props.children }
         </div>
     )
-}
-
-DefaultLayout.propTypes = {
-    col:              PropTypes.number,
-    marginTop:        PropTypes.number,
-    marginBottom:     PropTypes.number,
-    horizontalCenter: PropTypes.bool,
 }
 
 export default DefaultLayout

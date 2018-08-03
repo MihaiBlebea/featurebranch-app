@@ -1,15 +1,18 @@
 import React from 'react'
 
-import { TitleMain } from './../../../Components'
+import { TitleMain, CardDefault } from './../../../Components'
 import { ProfileForm } from './../../../Forms'
+import { DefaultLayout } from './../../../Layouts'
 
 
 const ProfilePage = ()=> {
     return (
-        <div className="container mx-auto">
+        <DefaultLayout>
             <TitleMain>Profile</TitleMain>
-            <ProfileForm />
-        </div>
+            <CardDefault>
+                <ProfileForm />
+            </CardDefault>
+        </DefaultLayout>
     )
 }
 

@@ -68,12 +68,10 @@ class CategoryPage extends React.Component
     render()
     {
         return (
-            <div>
-                <DefaultLayout col={ 6 } horizontalCenter>
-                        <TitleMain>Category Page</TitleMain>
-                        { this.createPosts() }
-                </DefaultLayout>
-            </div>
+            <DefaultLayout>
+                <TitleMain>Category Page</TitleMain>
+                { this.createPosts() }
+            </DefaultLayout>
         )
     }
 }

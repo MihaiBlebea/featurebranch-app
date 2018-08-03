@@ -3,6 +3,8 @@ import CardHorizontal from './CardHorizontal/CardHorizontal'
 import CardAuthor from './CardAuthor/CardAuthor'
 import CardCategory from './CardCategory/CardCategory'
 import CardComment from './CardComment/CardComment'
+import CardDefault from './CardDefault/CardDefault'
+import CardPost from './CardPost/CardPost'
 
 
 export {
@@ -10,5 +12,7 @@ export {
     CardHorizontal,
     CardAuthor,
     CardCategory,
-    CardComment
+    CardComment,
+    CardDefault,
+    CardPost
 }

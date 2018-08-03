@@ -52,7 +52,7 @@ class ManagePostsPage extends React.Component
         {
             return this.state.posts.map((post, index)=> {
                 return (
-                    <div className="col-md-4 mb-2" key={ `card-post-${index}` }>
+                    <div className="w-1/3 mb-4 h-12 px-2" key={ `card-post-${index}` }>
                         <CardPost imageUrl={ (post.main_image) ? post.main_image.url : null }
                                   title={ post.title }
                                   slug={ post.slug }
@@ -74,7 +74,7 @@ class ManagePostsPage extends React.Component
         return (
             <div className="container mx-auto">
                 <TitleMain>Manage posts</TitleMain>
-                <div className="row">
+                <div class="flex flex-wrap -mx-2">
                     { this.createPosts() }
                 </div>
             </div>

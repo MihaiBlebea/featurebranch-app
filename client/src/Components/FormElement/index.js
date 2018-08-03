@@ -5,6 +5,8 @@ import FormSelect from './FormSelect/FormSelect'
 import FormImage from './FormImage/FormImage'
 import FormButton from './FormButton/FormButton'
 import FormMarkdown from './FormMarkdown/FormMarkdown'
+import FormUpload from './FormUpload/FormUpload'
+
 
 export {
     FormElement,
@@ -13,5 +15,6 @@ export {
     FormSelect,
     FormImage,
     FormButton,
-    FormMarkdown
+    FormMarkdown,
+    FormUpload
 }

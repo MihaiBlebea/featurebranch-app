@@ -1,9 +1,12 @@
 import React from 'react'
-import Modal from 'react-bootstrap4-modal';
 import PropTypes from 'prop-types';
 import axios from 'axios'
 
-import { ImagePreview, ImageGallery } from './../../index'
+import {
+    ImagePreview,
+    ImageGallery,
+    ButtonDefault,
+    ModalDefault } from './../../index'
 
 
 class FormImageSelect extends React.Component
@@ -21,17 +24,6 @@ class FormImageSelect extends React.Component
     componentDidUpdate()
     {
         // this.fetchPreviewImage(this.props.value)
-    }
-
-    fetchPreviewImage(id)
-    {
-        axios.get('image/id/' + id).then((result)=> {
-            this.setState({
-                imagePreviewUrl: result.data.url
-            })
-        }).catch((error)=> {
-            console.log(error)
-        })
     }
 
     createImagePreview()
@@ -70,36 +62,36 @@ class FormImageSelect extends React.Component
         })
     }
 
+    createGalleryModal()
+    {
+        if(this.state.isOpen)
+        {
+            return (
+                <ModalDefault close={ ()=> this.toggleModal() }>
+                    <ImageGallery onSelectImage={ (image)=> this.handleImageSelect(image) } />
+
+                    <ButtonDefault click={ ()=> this.toggleModal() }>
+                        Cancel
+                    </ButtonDefault>
+                    <ButtonDefault click={ ()=> this.handleSave() }>
+                        Save
+                    </ButtonDefault>
+
+                </ModalDefault>
+            )
+        }
+        return null
+    }
+
     render()
     {
         return (
             <div>
-                <div className="form-group">
-                    <button className="btn btn-primary" onClick={ ()=> this.toggleModal() }>
-                        Select image
-                    </button>
-                </div>
-
+                <ButtonDefault click={ ()=> this.toggleModal() }>
+                    Select image
+                </ButtonDefault>
                 { this.createImagePreview() }
-
-                <Modal visible={ this.state.isOpen }
-                       dialogClassName="modal-dialog-centered modal-lg"
-                       onClickBackdrop={ ()=> this.toggleModal() }>
-                    <div className="modal-header">
-                        <h5 className="modal-title">Select an image</h5>
-                    </div>
-                    <div className="modal-body">
-                        <ImageGallery onSelectImage={ (image)=> this.handleImageSelect(image) } />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={ ()=> this.toggleModal() }>
-                            Cancel
-                        </button>
-                        <button type="button" className="btn btn-primary" onClick={ ()=> this.handleSave() }>
-                            Save
-                        </button>
-                    </div>
-                </Modal>
+                { this.createGalleryModal() }
             </div>
         )
     }

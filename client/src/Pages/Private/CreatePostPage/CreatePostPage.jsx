@@ -15,11 +15,8 @@ const CreatePostPage = (props)=> {
     return (
         <div className="container mx-auto">
             <TitleMain>Post Page</TitleMain>
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <PostForm editPost={ parseQueryParams() }/>
-                </div>
-            </div>
+
+            <PostForm editPost={ parseQueryParams() }/>
         </div>
     )
 }

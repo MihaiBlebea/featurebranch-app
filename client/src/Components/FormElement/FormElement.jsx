@@ -6,7 +6,8 @@ import {
     FormTextarea,
     FormSelect,
     FormImage,
-    FormMarkdown } from './index'
+    FormMarkdown,
+    FormUpload } from './index'
 
 
 const FormElement = (props)=> {
@@ -28,6 +29,9 @@ const FormElement = (props)=> {
             break
         case('markdown'):
             formElement = <FormMarkdown { ...props } />
+            break
+        case('upload'):
+            formElement = <FormUpload { ...props } />
             break
         default:
             formElement = <FormInput { ...props } />

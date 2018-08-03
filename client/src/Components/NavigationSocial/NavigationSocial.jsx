@@ -4,7 +4,7 @@ import { Icon } from 'react-fa'
 import random from 'randomstring'
 
 
-const ButtonSocial = (props)=> {
+const NavigationSocial = (props)=> {
     const createSocialButtons = ()=> {
         let labels = Object.keys(props)
         let urls = Object.values(props)
@@ -12,8 +12,8 @@ const ButtonSocial = (props)=> {
         for(let i = 0; i < urls.length; i++)
         {
             result.push(
-                <li className="nav-item" key={ random.generate(6) }>
-                    <a href={ urls[i] } className="nav-link text-white">
+                <li className="mr-6" key={ random.generate(6) }>
+                    <a href={ urls[i] } className="text-blue hover:text-blue-darker">
                         <Icon name={ labels[i] } size="lg" />
                     </a>
                 </li>
@@ -23,13 +23,13 @@ const ButtonSocial = (props)=> {
     }
 
     return (
-        <ul className="nav">
+        <ul className="list-reset flex">
             { createSocialButtons() }
         </ul>
     )
 }
 
-ButtonSocial.propTypes = {
+NavigationSocial.propTypes = {
     facebook: PropTypes.string,
     twitter:  PropTypes.string,
     linkedin: PropTypes.string,
@@ -37,4 +37,4 @@ ButtonSocial.propTypes = {
 }
 
 
-export default ButtonSocial
+export default NavigationSocial

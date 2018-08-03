@@ -1,14 +1,16 @@
 import React from 'react'
 import { RegisterForm } from './../../../Forms'
-import { TitleMain } from './../../../Components'
+import { TitleMain, CardDefault } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
 
 const RegisterPage = ()=> {
     return (
-        <DefaultLayout col={ 6 } horizontalCenter>
+        <DefaultLayout>
             <TitleMain>Register</TitleMain>
-            <RegisterForm />
+            <CardDefault>
+                <RegisterForm />
+            </CardDefault>
         </DefaultLayout>
     )
 }
