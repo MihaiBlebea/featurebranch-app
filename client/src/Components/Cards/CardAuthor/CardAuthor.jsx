@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 
 const CardAuthor = (props)=> {
     return (
-        <div className="flex items-center">
+        <div className="flex items-center border border-grey-light p-5">
             <img className="w-10 h-10 rounded-full mr-4"
-                 src={ props.image }
+                 src={ props.imageUrl }
                  alt="card-author" />
-            <div className="text-sm">
-                <p className="text-black leading-none">{ props.title }</p>
+            <div>
+                <p className="text-black leading-none mb-1"><strong>{ props.title }</strong></p>
                 <p className="text-grey-dark">{ props.subtitle }</p>
             </div>
         </div>
@@ -17,8 +17,8 @@ const CardAuthor = (props)=> {
 }
 
 CardAuthor.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string,
+    imageUrl: PropTypes.string.isRequired,
+    title:    PropTypes.string.isRequired,
     subtitle: PropTypes.string
 }
 

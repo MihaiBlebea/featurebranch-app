@@ -9,7 +9,6 @@ import { FormElement, FormButton, FormUpload } from './FormElement'
 
 import Alert from './Alert/Alert'
 
-// import ModalConfirmation from './ModalConfirmation/ModalConfirmation'
 import { ModalDefault, ModalConfirmation } from './Modals'
 
 import ImagePreview from './ImagePreview/ImagePreview'
@@ -22,7 +21,10 @@ import {
     CardPost,
     CardStacked,
     CardImage,
-    CardComment } from './Cards'
+    CardComment,
+    CardHorizontal,
+    CardRow,
+    CardManageContent } from './Cards'
 
 import Footer from './Footer/Footer'
 
@@ -44,10 +46,13 @@ export {
     FormButton,
 
     Alert,
+
     ModalConfirmation,
     ModalDefault,
+
     ImagePreview,
     ImageGallery,
+
     CardImage,
     CardCategory,
     CardPost,
@@ -55,6 +60,10 @@ export {
     CardAuthor,
     CardDefault,
     CardStacked,
+    CardHorizontal,
+    CardRow,
+    CardManageContent,
+
     Footer,
     ButtonDefault,
     MarkdownPreview

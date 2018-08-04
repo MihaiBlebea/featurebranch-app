@@ -6,7 +6,7 @@ const CardHorizontal = (props)=> {
     return (
         <div className="w-md w-full lg:flex">
             <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                 style={{ backgroundImage: "url('" + props.image  + "')" }}>
+                 style={{ backgroundImage: "url('" + props.imageUrl  + "')" }}>
             </div>
             <div className="w-full border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                 <div className="mb-8">
@@ -19,8 +19,8 @@ const CardHorizontal = (props)=> {
 }
 
 CardHorizontal.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string
+    imageUrl: PropTypes.string.isRequired,
+    title:    PropTypes.string
 }
 
 export default CardHorizontal

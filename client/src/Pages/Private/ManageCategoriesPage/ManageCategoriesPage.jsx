@@ -2,7 +2,8 @@ import React from 'react'
 import axios from 'axios'
 
 import { DefaultLayout } from './../../../Layouts'
-import { CardCategory, TitleMain } from './../../../Components'
+import { TitleMain, CardManageContent } from './../../../Components'
+
 
 class ManageCategoriesPage extends React.Component
 {
@@ -49,12 +50,15 @@ class ManageCategoriesPage extends React.Component
         {
             return this.state.categories.map((category, index)=> {
                 return (
-                    <div className="w-1/2 mb-4 h-12 px-2" key={ 'card_category_' + index }>
-                        <CardCategory id={ index }
-                                      imageUrl={ category.main_image.url }
-                                      title={ category.title }
-                                      postsCount={ category.posts.length }
-                                      delete={ ()=> this.handleDeleteCard(index) } />
+                    <div className="w-1/2 mb-4 px-2 mb-5" key={ 'card_category_' + index }>
+                        <CardManageContent edit={ ()=> this.handleDeleteCard(index) }
+                                           delete={ ()=> this.handleDeleteCard(index) }>
+
+                            <div className="inline-flex">
+                                <div className="mr-3">{ category.title }</div>
+                                <div className="mr-3">{ category.posts.length } posts</div>
+                            </div>
+                        </CardManageContent>
                     </div>
                 )
             })
@@ -66,7 +70,7 @@ class ManageCategoriesPage extends React.Component
     {
         return (
             <DefaultLayout>
-                <TitleMain>Manage posts</TitleMain>
+                <TitleMain>Manage categories</TitleMain>
                 <div className="flex flex-wrap -mx-2">
                     { this.createCategoryCards() }
                 </div>

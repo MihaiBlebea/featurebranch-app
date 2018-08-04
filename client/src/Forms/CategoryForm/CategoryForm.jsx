@@ -75,10 +75,10 @@ class CategoryForm extends React.Component
     handleFormSubmit()
     {
         let payload = {
-            title: this.state.form.title.value,
-            slug: this.state.form.slug.value,
+            title:       this.state.form.title.value,
+            slug:        this.state.form.slug.value,
             description: this.state.form.description.value,
-            main_image: this.state.form.image.value
+            main_image:  this.state.form.image.value
         }
         axios.post('category/save', payload).then((result)=> {
             if(result.status === 200)
@@ -87,7 +87,7 @@ class CategoryForm extends React.Component
                 this.props.onNewCategory()
             }
         }).catch((error)=> {
-            if(error.response.status === 400)
+            if(error.status === 400)
             {
                 this.setState({
                     errors: {

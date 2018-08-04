@@ -23,10 +23,9 @@ const CardImage = (props)=> {
 }
 
 CardImage.propTypes = {
-    select:     PropTypes.func.isRequired,
-    delete:     PropTypes.func.isRequired,
-    imageUrl:   PropTypes.string.isRequired,
-    isSelected: PropTypes.bool.isRequired
+    select:   PropTypes.func.isRequired,
+    delete:   PropTypes.func.isRequired,
+    imageUrl: PropTypes.string.isRequired
 }
 
 export default CardImage

@@ -43,7 +43,7 @@ class FormImageSelect extends React.Component
     handleSave()
     {
         this.toggleModal()
-        this.props.onInputChange({ target: { name: this.props.name, value: this.state.selectedImg.id }})
+        this.props.onInputChange({ target: { name: this.props.name, value: this.state.selectedImg._id }})
     }
 
     toggleModal()

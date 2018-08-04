@@ -102,7 +102,6 @@ class ImageGallery extends React.Component
 }
 
 ImageGallery.propTypes = {
-    context: PropTypes.string.isRequired,
     select:  PropTypes.func.isRequired
 }
 

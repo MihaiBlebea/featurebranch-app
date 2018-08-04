@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardComment } from './../../../Components'
+import { TitleMain, CardManageContent } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
 
@@ -55,11 +55,13 @@ class ManageCommentsPage extends React.Component
             return this.state.comments.map((comment, index)=> {
                 return (
                     <div className="mb-3" key={ 'comment_' + index }>
-                        <CardComment author={ 'Serban' }
-                                     subject={ comment.title }
-                                     content={ comment.content }
-                                     isApproved={ comment.isApproved }
-                                     onApproveChange={ ()=> this.handleApproveStatus(comment) }/>
+                        <CardManageContent delete={ ()=> this.handleApproveStatus(index) }>
+
+                            <div className="inline-flex">
+                                <div className="mr-3">{ comment.subject }</div>
+                                <div className="mr-3">{ comment.author } comments</div>
+                            </div>
+                        </CardManageContent>
                     </div>
                 )
             })

@@ -11,9 +11,9 @@
         "marked-plaintext": "0.0.2",
         "moment": "^2.22.2",
         "randomstring": "^1.1.5",
-        "react": "^16.4.1",
+        "react": "^16.4.2",
         "react-bootstrap4-modal": "^1.4.0",
-        "react-dom": "^16.4.1",
+        "react-dom": "^16.4.2",
         "react-fa": "^5.0.0",
         "react-loading": "^2.0.3",
         "react-redux": "^5.0.7",
@@ -24,10 +24,15 @@
         "tailwindcss": "^0.6.4"
     },
     "scripts": {
-        "tailwind:css":"tailwind build src/css/tailwind.src.css -c  tailwind.js -o src/css/tailwind.css",
+        "tailwind:css": "tailwind build src/css/tailwind.src.css -c  tailwind.js -o src/css/tailwind.css",
         "start": "npm run tailwind:css && react-scripts start",
         "build": "npm run tailwind:css && react-scripts build",
         "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "storybook": "npm run tailwind:css && start-storybook -p 9001 -c .storybook"
+    },
+    "devDependencies": {
+        "@storybook/react": "^3.4.10",
+        "storybook-react-router": "^1.0.1"
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardPost } from './../../../Components'
+import { TitleMain, CardManageContent } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
 
@@ -35,6 +35,16 @@ class ManagePostsPage extends React.Component
         })
     }
 
+    handlePostPreview(post)
+    {
+        this.props.history.push('/admin/preview/' + post.slug)
+    }
+
+    handleEditPost(post)
+    {
+        this.props.history.push('/admin/post?edit=' + post.id)
+    }
+
     handlePostDelete(post)
     {
         axios.delete('post/delete/' + post._id).then((result)=> {
@@ -53,16 +63,16 @@ class ManagePostsPage extends React.Component
         {
             return this.state.posts.map((post, index)=> {
                 return (
-                    <div className="w-1/3 mb-4 h-12 px-2" key={ 'card_post_' + index }>
-                        <CardPost imageUrl={ (post.main_image) ? post.main_image.url : null }
-                                  title={ post.title }
-                                  slug={ post.slug }
-                                  id={ post._id }
-                                  content={ post.content }
-                                  author={ post.author.first_name + ' ' + post.author.last_name }
-                                  publishDate={ '20.08.2018' }
-                                  commentsCount={ post.comments.length }
-                                  onDelete={ ()=> this.handlePostDelete(post) } />
+                    <div className="w-1/2 mb-4 h-12 px-2" key={ 'card_post_' + index }>
+                        <CardManageContent view={ ()=> this.handlePostPreview(post) }
+                                           edit={ ()=> this.handleEditPost(post) }
+                                           delete={ ()=> this.handlePostDelete(index) }>
+
+                            <div className="inline-flex">
+                                <div className="mr-3">{ post.title }</div>
+                                <div className="mr-3">{ post.comments.length } comments</div>
+                            </div>
+                        </CardManageContent>
                     </div>
                 )
             })
