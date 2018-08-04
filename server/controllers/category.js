@@ -34,6 +34,14 @@ router.get('/:slug', (request, response)=> {
     })
 })
 
+router.get('/id/:id', (request, response)=> {
+    Category.findOne({ _id: request.params.id }).then((category)=> {
+        response.status(200).json(category)
+    }).catch((error)=> {
+        response.status(400).json(error)
+    })
+})
+
 router.delete('/delete/:id', auth, (request, response)=> {
     Category.deleteOne({ _id: request.params.id }).then((result)=> {
         response.status(200).send()

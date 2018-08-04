@@ -93,24 +93,23 @@ class PostForm extends React.Component
     {
         this.fetchAuthors()
         this.fetchCategories()
-        if(this.props.editPost !== undefined)
+        if(this.props.editId)
         {
-            this.handleEditPost(this.props.editPost)
+            this.handleEditPost(this.props.editId)
         }
     }
 
     handleEditPost(id)
     {
         axios.get('post/id/' + id).then((result)=> {
-            console.log(result.data)
             this.setState({
-                title:       result.data.title,
-                slug:        result.data.slug,
-                content:     result.data.content,
-                author:      result.data.author._id,
-                image:       result.data.main_image,
-                category:    result.data.category,
-                isPublished: result.data.is_published,
+                title:       this.updateValueInState('title', result.data.title),
+                slug:        this.updateValueInState('slug', result.data.slug),
+                content:     this.updateValueInState('content', result.data.content),
+                author:      this.updateValueInState('author', result.data.author._id),
+                image:       this.updateValueInState('image', result.data.main_image),
+                category:    this.updateValueInState('category', result.data.category),
+                isPublished: this.updateValueInState('isPublished', result.data.is_published),
                 publishDate: null,
             })
         }).catch((error)=> {
@@ -140,6 +139,17 @@ class PostForm extends React.Component
         })
     }
 
+    updateValueInState(key, value)
+    {
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[key] }
+        updatedElement.value = value
+        updatedForm[key] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
+    }
+
     handleRedirect()
     {
         this.props.history.push('/admin/posts')
@@ -147,7 +157,7 @@ class PostForm extends React.Component
 
     handleFormSubmit()
     {
-        let url = (this.props.editPost === undefined) ? 'post/save' : 'post/update/' + this.props.editPost
+        let url = (this.props.editId) ? 'post/update/' + this.props.editPost : 'post/save'
         let payload = {
             title:        this.state.form.title.value,
             slug:         this.state.form.slug.value,
@@ -241,7 +251,7 @@ class PostForm extends React.Component
 }
 
 PostForm.propTypes = {
-    editPost: PropTypes.string
+    editId: PropTypes.string
 }
 
 

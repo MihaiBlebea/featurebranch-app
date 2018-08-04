@@ -11,11 +11,7 @@ class ManagePostsPage extends React.Component
     {
         super()
         this.state = {
-            posts: null,
-            confirmation: {
-                openModal: false,
-                postId: null
-            }
+            posts: null
         }
     }
 
@@ -42,7 +38,7 @@ class ManagePostsPage extends React.Component
 
     handleEditPost(post)
     {
-        this.props.history.push('/admin/post?edit=' + post.id)
+        this.props.history.push('/admin/post?edit=' + post._id)
     }
 
     handlePostDelete(post)

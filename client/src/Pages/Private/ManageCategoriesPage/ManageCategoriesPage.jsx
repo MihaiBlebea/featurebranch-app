@@ -20,9 +20,8 @@ class ManageCategoriesPage extends React.Component
         this.fetchCategories()
     }
 
-    handleDeleteCard(index)
+    handleDeleteCard(category)
     {
-        let category = this.state.categories[index]
         axios.delete('category/delete/' + category._id).then((result)=> {
             if(result.status === 200)
             {
@@ -31,6 +30,11 @@ class ManageCategoriesPage extends React.Component
         }).catch((error)=> {
             console.log(error)
         })
+    }
+
+    handleEditCategory(category)
+    {
+        this.props.history.push('/admin/category?edit=' + category._id)
     }
 
     fetchCategories()
@@ -51,8 +55,8 @@ class ManageCategoriesPage extends React.Component
             return this.state.categories.map((category, index)=> {
                 return (
                     <div className="w-1/2 mb-4 px-2 mb-5" key={ 'card_category_' + index }>
-                        <CardManageContent edit={ ()=> this.handleDeleteCard(index) }
-                                           delete={ ()=> this.handleDeleteCard(index) }>
+                        <CardManageContent edit={ ()=> this.handleEditCategory(category) }
+                                           delete={ ()=> this.handleDeleteCard(category) }>
 
                             <div className="inline-flex">
                                 <div className="mr-3">{ category.title }</div>

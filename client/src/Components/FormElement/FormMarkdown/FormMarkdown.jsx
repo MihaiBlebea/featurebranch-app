@@ -17,11 +17,6 @@ class FormMarkdown extends React.Component
     componentDidMount()
     {
         this.setState({ content: this.props.value })
-        let content = localStorage.getItem('content')
-        if(content !== null)
-        {
-            this.setState({ content: content })
-        }
     }
 
     handleInputChange(event)
@@ -29,7 +24,6 @@ class FormMarkdown extends React.Component
         this.setState({ content: event.target.value })
         this.autoResizeTextarea()
         this.props.onInputChange(event)
-        localStorage.setItem('content', this.props.value)
     }
 
     autoResizeTextarea()

@@ -30,11 +30,8 @@ const CardManageContent = (props)=> {
 }
 
 CardManageContent.propTypes = {
-    title:      PropTypes.string.isRequried,
-    postsCount: PropTypes.string.isRequried,
-    view:       PropTypes.func,
-    edit:       PropTypes.func,
-    delete:     PropTypes.func.isRequried
+    view:   PropTypes.func,
+    edit:   PropTypes.func
 }
 
 export default withDeleteConfirmation(CardManageContent)

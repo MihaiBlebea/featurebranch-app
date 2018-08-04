@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 import { FormElement, FormButton } from './../../Components'
 import { withErrorValidation } from './../../HOC'
@@ -54,6 +55,14 @@ class CategoryForm extends React.Component
         this.initialState = this.state
     }
 
+    componentDidMount()
+    {
+        if(this.props.editId)
+        {
+            this.handleEditCategory(this.props.editId)
+        }
+    }
+
     handleInputChange(event)
     {
         const updatedForm = { ...this.state.form }
@@ -62,6 +71,31 @@ class CategoryForm extends React.Component
         updatedForm[event.target.name] = updatedElement
         this.setState({
             form: updatedForm
+        })
+    }
+
+    updateValueInState(key, value)
+    {
+        const updatedForm = { ...this.state.form }
+        const updatedElement = { ...updatedForm[key] }
+        updatedElement.value = value
+        updatedForm[key] = updatedElement
+        this.setState({
+            form: updatedForm
+        })
+    }
+
+    handleEditCategory(id)
+    {
+        axios.get('category/id/' + id).then((result)=> {
+            this.setState({
+                title:       this.updateValueInState('title', result.data.title),
+                slug:        this.updateValueInState('slug', result.data.slug),
+                description: this.updateValueInState('description', result.data.description),
+                image:       this.updateValueInState('image', result.data.main_image),
+            })
+        }).catch((error)=> {
+            console.log(error)
         })
     }
 
@@ -131,6 +165,8 @@ class CategoryForm extends React.Component
     }
 }
 
-
+CategoryForm.propTypes = {
+    editId: PropTypes.string
+}
 
 export default withErrorValidation(CategoryForm)
