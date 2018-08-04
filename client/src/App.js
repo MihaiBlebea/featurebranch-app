@@ -60,6 +60,7 @@ class App extends React.Component
                 <Route exact path="/blog" component={ BlogPage } />
                 <Route exact path="/blog/:category" component={ CategoryPage } />
                 <Route path="/blog/:category/:post" component={ PostPage } />
+                <Route path="/post/:post" component={ PostPage } />
                 <Route path="/about" component={ AboutPage } />
                 <Route path="/contact" component={ ContactPage } />
                 <Route path="/register" component={ RegisterPage } />

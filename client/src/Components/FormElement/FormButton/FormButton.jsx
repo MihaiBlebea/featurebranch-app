@@ -7,7 +7,7 @@ const FormButton = (props)=> {
         <div className="mt-4">
             <button type="submit"
                     disabled={ props.disabled }
-                    className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                    className="btn-blue"
                     onClick={ props.submit }>{ props.button || 'Submit' }</button>
         </div>
     )
