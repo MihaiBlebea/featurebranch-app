@@ -1,7 +1,8 @@
 import React from 'react'
-
 import axios from 'axios'
+
 import { TitleMain, CardPost } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 class ManagePostsPage extends React.Component
@@ -52,7 +53,7 @@ class ManagePostsPage extends React.Component
         {
             return this.state.posts.map((post, index)=> {
                 return (
-                    <div className="w-1/3 mb-4 h-12 px-2" key={ `card-post-${index}` }>
+                    <div className="w-1/3 mb-4 h-12 px-2" key={ 'card_post_' + index }>
                         <CardPost imageUrl={ (post.main_image) ? post.main_image.url : null }
                                   title={ post.title }
                                   slug={ post.slug }
@@ -72,12 +73,12 @@ class ManagePostsPage extends React.Component
     render()
     {
         return (
-            <div className="container mx-auto">
+            <DefaultLayout>
                 <TitleMain>Manage posts</TitleMain>
-                <div class="flex flex-wrap -mx-2">
+                <div className="flex flex-wrap -mx-2">
                     { this.createPosts() }
                 </div>
-            </div>
+            </DefaultLayout>
         )
     }
 }

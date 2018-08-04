@@ -14,8 +14,9 @@ import {
     LoginPage,
     DashboardPage,
     ProfilePage,
-    CreateCategoryPage,
-    CreatePostPage,
+    NewCategoryPage,
+    NewPostPage,
+    ManageCategoriesPage,
     ManagePostsPage,
     ManageImagesPage,
     ManageCommentsPage } from './Pages'
@@ -38,9 +39,10 @@ class App extends React.Component
             <Switch>
                 <Route path="/admin/dashboard" component={ DashboardPage } />
                 <Route path="/admin/profile" component={ ProfilePage } />
-                <Route path="/admin/category" component={ CreateCategoryPage } />
+                <Route path="/admin/category" component={ NewCategoryPage } />
+                <Route path="/admin/categories" component={ ManageCategoriesPage } />
                 <Route path="/admin/posts" component={ ManagePostsPage } />
-                <Route path="/admin/post" component={ CreatePostPage } />
+                <Route path="/admin/post" component={ NewPostPage } />
                 <Route path="/admin/images" component={ ManageImagesPage } />
                 <Route path="/admin/comments" component={ ManageCommentsPage } />
                 <Route path="/admin/preview/:post" component={ PostPage } />

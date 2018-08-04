@@ -5,7 +5,7 @@ import CardCategory from './CardCategory/CardCategory'
 import CardComment from './CardComment/CardComment'
 import CardDefault from './CardDefault/CardDefault'
 import CardPost from './CardPost/CardPost'
-
+import CardImage from './CardImage/CardImage'
 
 export {
     CardStacked,
@@ -14,5 +14,6 @@ export {
     CardCategory,
     CardComment,
     CardDefault,
-    CardPost
+    CardPost,
+    CardImage
 }

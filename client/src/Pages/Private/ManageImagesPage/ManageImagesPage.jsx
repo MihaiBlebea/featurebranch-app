@@ -1,13 +1,15 @@
 import React from 'react'
+
 import { TitleMain, ImageGallery } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 const ManageImagesPage = ()=> {
     return (
-        <div className="container mx-auto">
+        <DefaultLayout>
             <TitleMain>Manage images</TitleMain>
             <ImageGallery />
-        </div>
+        </DefaultLayout>
     )
 }
 

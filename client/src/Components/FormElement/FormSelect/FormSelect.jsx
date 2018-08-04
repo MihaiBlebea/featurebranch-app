@@ -20,7 +20,7 @@ const FormSelect = (props)=> {
     return (
         <select value={ props.value }
                 name={ props.name }
-                className={ "form-control " + (props.error ? "is-invalid" : "") }
+                className={ "block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline " + (props.error ? "is-invalid" : "") }
                 onChange={ props.onInputChange }>
             <option value='default' disabled>{ props.placeholder || defaultPlaceholder }</option>
             { createOptions() }

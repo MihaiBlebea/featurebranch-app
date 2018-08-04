@@ -1,7 +1,7 @@
 import React from 'react'
-
 import axios from 'axios'
-import { TitleMain, CardFrontCategory } from './../../../Components'
+
+import { TitleMain, CardCategory } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
 
@@ -43,9 +43,9 @@ class BlogPage extends React.Component
             return this.state.categories.map((category, index)=> {
                 return (
                     <div className="col-md-4" key={ 'category-card-' + index }>
-                        <CardFrontCategory imageUrl={ category.main_image.url }
-                                           title={ category.title }
-                                           onClickAction={ ()=> this.handleClickAction(category) } />
+                        <CardCategory imageUrl={ category.main_image.url }
+                                      title={ category.title }
+                                      click={ ()=> this.handleClickAction(category) } />
                     </div>
                 )
             })

@@ -16,43 +16,34 @@ class FormImageSelect extends React.Component
         super(props)
         this.state = {
             isOpen: false,
-            selectedImgId: null,
-            imagePreviewUrl: null
+            selectedImg: null,
         }
-    }
-
-    componentDidUpdate()
-    {
-        // this.fetchPreviewImage(this.props.value)
     }
 
     createImagePreview()
     {
-        if(this.state.imagePreviewUrl !== null)
+        if(this.state.selectedImg !== null)
         {
             return (
-                <div className="form-group">
-                    <div className="row col-md-6">
-                        <ImagePreview url={ this.state.imagePreviewUrl } />
-                    </div>
+                <div className="mt-5 max-w-sm">
+                    <ImagePreview url={ this.state.selectedImg.url } />
                 </div>
             )
         }
         return null
     }
 
-    handleImageSelect(id)
+    handleImageSelect(image)
     {
         this.setState({
-            selectedImgId: id
-        })
+            selectedImg: image
+        }, ()=> this.handleSave())
     }
 
     handleSave()
     {
         this.toggleModal()
-        this.fetchPreviewImage(this.state.selectedImgId)
-        this.props.onInputChange({ target: { name: this.props.name, value: this.state.selectedImgId }})
+        this.props.onInputChange({ target: { name: this.props.name, value: this.state.selectedImg.id }})
     }
 
     toggleModal()
@@ -68,14 +59,15 @@ class FormImageSelect extends React.Component
         {
             return (
                 <ModalDefault close={ ()=> this.toggleModal() }>
-                    <ImageGallery onSelectImage={ (image)=> this.handleImageSelect(image) } />
+                    <ImageGallery select={ (image)=> this.handleImageSelect(image) } />
 
-                    <ButtonDefault click={ ()=> this.toggleModal() }>
-                        Cancel
-                    </ButtonDefault>
-                    <ButtonDefault click={ ()=> this.handleSave() }>
-                        Save
-                    </ButtonDefault>
+                    <div className="inline-flex justify-center mt-6 -mx-2">
+                        <div className="px-2">
+                            <ButtonDefault click={ ()=> this.toggleModal() }>
+                                Cancel
+                            </ButtonDefault>
+                        </div>
+                    </div>
 
                 </ModalDefault>
             )

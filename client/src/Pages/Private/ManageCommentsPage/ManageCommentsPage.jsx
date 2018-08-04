@@ -1,7 +1,8 @@
 import React from 'react'
-
 import axios from 'axios'
+
 import { TitleMain, CardComment } from './../../../Components'
+import { DefaultLayout } from './../../../Layouts'
 
 
 class ManageCommentsPage extends React.Component
@@ -69,10 +70,10 @@ class ManageCommentsPage extends React.Component
     render()
     {
         return (
-            <div className="container mx-auto">
+            <DefaultLayout>
                 <TitleMain>Manage comments</TitleMain>
                 { this.createCommentCards() }
-            </div>
+            </DefaultLayout>
         )
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from 'react-fa'
+import PropTypes from 'prop-types'
 
 import { CardHorizontal } from './../index'
 import { ModalConfirmation } from './../../index'
@@ -27,7 +28,9 @@ class CardCategory extends React.Component
         if(this.state.isOpen)
         {
             return (
-                <ModalConfirmation close={ ()=> this.toggleModal() }>
+                <ModalConfirmation close={ ()=> this.toggleModal() }
+                                   cancel={ ()=> this.toggleModal() }
+                                   confirm={ this.props.delete }>
                     You are about to delete { this.props.title }. Are you sure you want to continue?
                 </ModalConfirmation>
             )
@@ -39,14 +42,12 @@ class CardCategory extends React.Component
     {
         return (
             <div>
-                <CardHorizontal image={ this.props.image.url } title={ this.props.title }>
+                <CardHorizontal image={ this.props.imageUrl } title={ this.props.title }>
                     <p>{ this.props.postsCount } posts</p>
-                    <button className="btn btn-secondary btn-sm mr-2"
-                            style={{ cursor: 'pointer' }}>
+                    <button className="cursor-pointer">
                         <Icon name="edit" />
                     </button>
-                    <button className="btn btn-danger btn-sm"
-                            style={{ cursor: 'pointer' }}
+                    <button className="cursor-pointer"
                             onClick={ ()=> this.toggleModal() }>
                         <Icon name="trash" />
                     </button>
@@ -56,6 +57,12 @@ class CardCategory extends React.Component
             </div>
         )
     }
+}
+
+CardCategory.propTypes = {
+    imageUrl:   PropTypes.string.isRequired,
+    title:      PropTypes.string,
+    postsCount: PropTypes.number
 }
 
 export default CardCategory

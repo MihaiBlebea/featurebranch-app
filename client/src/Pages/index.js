@@ -11,8 +11,9 @@ import {
 import {
     DashboardPage,
     ProfilePage,
-    CreateCategoryPage,
-    CreatePostPage,
+    NewCategoryPage,
+    ManageCategoriesPage,
+    NewPostPage,
     ManagePostsPage,
     ManageImagesPage,
     ManageCommentsPage } from './Private'
@@ -24,13 +25,14 @@ export {
     ContactPage,
     BlogPage,
     CategoryPage,
+    ManageCategoriesPage,
     PostPage,
     RegisterPage,
     LoginPage,
     DashboardPage,
     ProfilePage,
-    CreateCategoryPage,
-    CreatePostPage,
+    NewCategoryPage,
+    NewPostPage,
     ManagePostsPage,
     ManageImagesPage,
     ManageCommentsPage

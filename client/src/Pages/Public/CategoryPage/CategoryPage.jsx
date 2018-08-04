@@ -2,7 +2,7 @@ import React from 'react'
 import random from 'randomstring'
 
 import axios from 'axios'
-import { TitleMain, CardFrontPost } from './../../../Components'
+import { TitleMain, CardPost } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
 
 
@@ -51,13 +51,13 @@ class CategoryPage extends React.Component
             return this.state.posts.map((post, index)=> {
                 return (
                     <div className="mb-4" key={ random.generate(6) }>
-                        <CardFrontPost imageUrl={ post.main_image.url }
-                                       title={ post.title }
-                                       content={ post.content }
-                                       author={ post.author.first_name + ' ' + post.author.last_name }
-                                       publishDate={ '20.08.2018' }
-                                       commentsCount={ post.comments.length }
-                                       onClickAction={ ()=> this.handleClickAction(post) }/>
+                        <CardPost imageUrl={ post.main_image.url }
+                                  title={ post.title }
+                                  content={ post.content }
+                                  author={ post.author.first_name + ' ' + post.author.last_name }
+                                  publishDate={ '20.08.2018' }
+                                  commentsCount={ post.comments.length }
+                                  onClickAction={ ()=> this.handleClickAction(post) }/>
                     </div>
                 )
             })

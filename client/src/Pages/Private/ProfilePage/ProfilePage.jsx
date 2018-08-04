@@ -9,9 +9,11 @@ const ProfilePage = ()=> {
     return (
         <DefaultLayout>
             <TitleMain>Profile</TitleMain>
-            <CardDefault>
-                <ProfileForm />
-            </CardDefault>
+            <div className="flex flex-wrap">
+                <div className="w-2/3 ml-auto mx-auto">
+                    <ProfileForm />
+                </div>
+            </div>
         </DefaultLayout>
     )
 }

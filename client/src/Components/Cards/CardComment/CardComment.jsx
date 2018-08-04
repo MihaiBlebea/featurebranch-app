@@ -1,46 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { ButtonDefault, CardDefault } from './../../index'
+
 
 const CardComment = (props)=> {
     const toggleApproveButton = ()=> {
-        if(!props.isApproved)
-        {
-            return (
-                <button className="btn btn-success"
-                        onClick={ props.onApproveChange }>Approve</button>
-            )
-        } else {
-            return (
-                <button className="btn btn-danger"
-                        onClick={ props.onApproveChange }>Disapprove</button>
-            )
-        }
+        return (
+            <ButtonDefault click={ props.onApproveChange }>
+                { (!props.isApproved) ? 'Approve' : 'Disapprove' }
+            </ButtonDefault>
+        )
     }
 
     return (
-        <div className="card">
-            <div className="card-body">
-                <div className='row'>
-                    <div className="col-md-4">
-                        <p>Author name</p>
-                    </div>
-                    <div className="col">
-                        <strong>{ props.subject }</strong>
-                        <p>{ props.content }</p>
-                        { toggleApproveButton() }
-                    </div>
-                </div>
-            </div>
-        </div>
+        <CardDefault>
+            <strong>{ props.subject }</strong>
+            <p>{ props.content }</p>
+            { toggleApproveButton() }
+        </CardDefault>
     )
 }
 
 CardComment.propTypes = {
-    author: PropTypes.string.isRequired,
-    subject: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    isApproved: PropTypes.bool.isRequired,
+    author:          PropTypes.string.isRequired,
+    subject:         PropTypes.string.isRequired,
+    content:         PropTypes.string.isRequired,
+    isApproved:      PropTypes.bool.isRequired,
     onApproveChange: PropTypes.func.isRequired,
 }
 

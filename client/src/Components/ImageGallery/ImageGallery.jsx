@@ -15,6 +15,7 @@ class ImageGallery extends React.Component
             selected: null
         }
     }
+
     componentDidMount()
     {
         this.fetchImages()
@@ -31,13 +32,12 @@ class ImageGallery extends React.Component
         })
     }
 
-    handleSelectImage(index)
+    handleSelectImage(image)
     {
-        let selected = this.state.images[index]
         this.setState({
-            selected: selected
+            selected: image
         })
-        this.props.onSelectImage(selected._id)
+        this.props.select(image)
     }
 
     handleImageUpload(event)
@@ -51,9 +51,8 @@ class ImageGallery extends React.Component
         })
     }
 
-    handleImageDelete(index)
+    handleImageDelete(image)
     {
-        let image = this.state.images[index]
         axios.delete('image/delete/' + image._id).then((result)=> {
             if(result.status === 200)
             {
@@ -75,11 +74,11 @@ class ImageGallery extends React.Component
         {
             return this.state.images.map((image, index)=> {
                 return (
-                    <div className="col-md-4 mb-2" key={ `image_gallery_${index}` }>
+                    <div className="w-1/3 mb-4 px-2" key={ 'card_image_' + index }>
                         <CardImage isSelected={ this.isSelected(image) }
-                                   url={ image.url }
-                                   handleSelected={ ()=> this.handleSelectImage(index) }
-                                   handleDelete={ ()=> this.handleImageDelete(index) } />
+                                   imageUrl={ image.url }
+                                   select={ ()=> this.handleSelectImage(image) }
+                                   delete={ ()=> this.handleImageDelete(image) } />
                     </div>
                 )
             })
@@ -91,10 +90,10 @@ class ImageGallery extends React.Component
     {
         return (
             <div>
-                <div className="mb-2">
+                <div className="mb-8">
                     <FormUpload onInputChange={ (event)=> this.handleImageUpload(event) } />
                 </div>
-                <div className="row">
+                <div className="flex flex-wrap -mx-2">
                     { this.createImageGallery() }
                 </div>
             </div>
@@ -103,7 +102,8 @@ class ImageGallery extends React.Component
 }
 
 ImageGallery.propTypes = {
-    onSelectImage: PropTypes.func.isRequired
+    context: PropTypes.string.isRequired,
+    select:  PropTypes.func.isRequired
 }
 
 export default ImageGallery
