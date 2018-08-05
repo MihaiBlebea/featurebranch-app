@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import axios from 'axios'
 
-import { FormElement, FormButton } from './../../Components'
+import { FormElement, FormButton, ButtonDefault } from './../../Components'
 import { withErrorValidation } from './../../HOC'
 
 
@@ -115,21 +115,25 @@ class CommentForm extends React.Component
 
     createForm()
     {
-        return (
-            <div>
-                { this.createFormInputs() }
-                <FormButton submit={ ()=> this.handleFormSubmit() } button="Post" />
-            </div>
-        )
+        if(this.state.isOpen)
+        {
+            return (
+                <div>
+                    { this.createFormInputs() }
+                    <FormButton submit={ ()=> this.handleFormSubmit() } button="Post" />
+                </div>
+            )
+        }
+        return null
     }
 
     createControlPanel()
     {
         return (
-            <div>
-                <button className="btn btn-primary"
-                        onClick={ ()=> this.toggleOpenState() }>Leave a comment</button>
-            </div>
+            <ButtonDefault className="btn btn-primary"
+                           click={ ()=> this.toggleOpenState() }>
+                { this.state.isOpen ? 'Cancel' : 'Leave a comment' }
+            </ButtonDefault>
         )
     }
 
@@ -137,7 +141,10 @@ class CommentForm extends React.Component
     {
         return (
             <div>
-                { (this.state.isOpen === false) ? this.createControlPanel() : this.createForm() }
+                <div className="mb-10">
+                    { this.createControlPanel() }
+                    { this.createForm() }
+                </div>
             </div>
         )
     }

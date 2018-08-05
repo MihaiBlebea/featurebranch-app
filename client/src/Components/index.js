@@ -9,7 +9,7 @@ import { FormElement, FormButton, FormUpload } from './FormElement'
 
 import Alert from './Alert/Alert'
 
-import { ModalDefault, ModalConfirmation } from './Modals'
+import { ModalDefault, ModalConfirmation, ModalLead } from './Modals'
 
 import ImagePreview from './ImagePreview/ImagePreview'
 import ImageGallery from './ImageGallery/ImageGallery'
@@ -32,6 +32,7 @@ import ButtonDefault from './ButtonDefault/ButtonDefault'
 
 import MarkdownPreview from './MarkdownPreview/MarkdownPreview'
 
+import BlogContent from './BlogContent/BlogContent'
 
 export {
     NavigationMain,
@@ -49,7 +50,8 @@ export {
 
     ModalConfirmation,
     ModalDefault,
-
+    ModalLead,
+    
     ImagePreview,
     ImageGallery,
 
@@ -66,5 +68,6 @@ export {
 
     Footer,
     ButtonDefault,
-    MarkdownPreview
+    MarkdownPreview,
+    BlogContent
 }

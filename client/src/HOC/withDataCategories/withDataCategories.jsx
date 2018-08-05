@@ -31,7 +31,9 @@ const withDataCategories = (Component)=> {
 
         render()
         {
-            return <Component { ...this.props } categories={ this.state.categories } />
+            return <Component { ...this.props }
+                              categories={ this.state.categories }
+                              refreshCategories={ ()=> this.fetchCategories() }/>
         }
     }
 }

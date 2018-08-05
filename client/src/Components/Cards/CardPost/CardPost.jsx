@@ -10,7 +10,8 @@ const CardPost = (props)=> {
     }
 
     return (
-        <CardStacked imageUrl={ props.imageUrl }>
+        <CardStacked imageUrl={ props.imageUrl }
+                     click={ props.click }>
             <h3>{ props.title }</h3>
             <p>{ createExcerpt(props.content) }</p>
             <hr />
@@ -29,11 +30,10 @@ const CardPost = (props)=> {
 CardPost.propTypes = {
     imageUrl:      PropTypes.string.isRequired,
     title:         PropTypes.string.isRequired,
-    id:            PropTypes.string.isRequired,
     slug:          PropTypes.string.isRequired,
-    onDelete:      PropTypes.func.isRequired,
     author:        PropTypes.string.isRequired,
     publishDate:   PropTypes.string.isRequired,
+    click:         PropTypes.func.isRequired,
     content:       PropTypes.string,
     commentsCount: PropTypes.number
 }

@@ -2,9 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
-import { TitleMain, CardAuthor, MarkdownPreview } from './../../../Components'
+import {
+    TitleMain,
+    CardAuthor,
+    MarkdownPreview,
+    CardComment } from './../../../Components'
 import { CommentForm } from './../../../Forms'
-import { DefaultLayout } from './../../../Layouts'
+import { DefaultLayout, CentralContent } from './../../../Layouts'
 
 
 class PostPage extends React.Component
@@ -62,7 +66,23 @@ class PostPage extends React.Component
 
     createCardAuthor()
     {
-        return (this.state.post) ? <CardAuthor name={ this.createAuthorFullName() } /> : null
+        if(this.state.post)
+        {
+            return (
+                <CardAuthor title={ this.createAuthorFullName() } />
+            )
+        }
+        return null
+    }
+
+    createMainImage()
+    {
+        if(this.state.post)
+        {
+            return (
+                <img src={ this.state.post.main_image.url } alt="main" />
+            )
+        }
     }
 
     createPostComments()
@@ -73,12 +93,10 @@ class PostPage extends React.Component
                 if(comment.isApproved === true)
                 {
                     return (
-                        <div className="card mb-3" key={ 'comment_' + index }>
-                            <div className="card-body">
-                                <strong>{ comment.title }</strong>
-                                <p>{ comment.content }</p>
-                            </div>
-                        </div>
+                        <CardComment author={ comment.author }
+                                     subject={ comment.title }>
+                            { comment.content }
+                        </CardComment>
                     )
                 }
                 return null
@@ -122,26 +140,28 @@ class PostPage extends React.Component
     {
         return (
             <div>
-                <DefaultLayout>
+                <CentralContent>
                     { this.createCardAuthor() }
                     <TitleMain>{ this.createPostTitle() }</TitleMain>
-                    <MarkdownPreview markdown={ this.createPostContent() } />
-                </DefaultLayout>
-
-                <div className="bg-light">
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-md-8">
-                                <div className="card card-body mt-4">
-                                    { this.createCommentForm() }
-                                </div>
-                                <hr />
-                                <div className="mb-5">
-                                    { this.createPostComments() }
-                                </div>
+                    { this.createMainImage() }
+                    <div className="mt-2 mb-10">
+                        <div className="flex flex-wrap justify-center">
+                            <div className="w-1/2">
+                                { this.createAuthorFullName() } | { this.createPublishDate() }
+                            </div>
+                            <div className="w-1/2">
+                                <span className="float-right">{ this.createCommentsCount() } comments</span>
                             </div>
                         </div>
                     </div>
+                    <MarkdownPreview markdown={ this.createPostContent() } />
+                </CentralContent>
+
+                <div className="bg-smoke">
+                    <CentralContent>
+                        { this.createCommentForm() }
+                        { this.createPostComments() }
+                    </CentralContent>
                 </div>
             </div>
         )

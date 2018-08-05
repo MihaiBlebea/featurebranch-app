@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const MainHero = (props)=> {
     return (
         <div className={ 'bg-' + (props.bgColor || 'orange') }>
-            <div className="container mx-auto flex flex-col py-32">
+            <div className="container mx-auto flex flex-col pt-24">
                 { props.children }
             </div>
         </div>

@@ -1,18 +1,18 @@
 import React from 'react'
 
 import { TitleMain, CardDefault } from './../../../Components'
-import { DefaultLayout } from './../../../Layouts'
+import { CentralContent } from './../../../Layouts'
 import { ContactForm } from './../../../Forms'
 
 
 const ContactPage = ()=> {
     return (
-        <DefaultLayout>
+        <CentralContent>
             <TitleMain>Contact Page</TitleMain>
             <CardDefault>
                 <ContactForm />
             </CardDefault>
-        </DefaultLayout>
+        </CentralContent>
     )
 }
 

@@ -24,7 +24,7 @@ const CardComment = (props)=> {
                     <strong className="mr-1">{ props.subject }</strong>
                     <span className="text-sm"> - { props.author }</span>
                 </p>
-                <p className="text-grey-dark">{ props.content }</p>
+                <p className="text-grey-dark">{ props.children }</p>
             </div>
         </CardDefault>
     )
@@ -33,7 +33,6 @@ const CardComment = (props)=> {
 CardComment.propTypes = {
     author:   PropTypes.string.isRequired,
     subject:  PropTypes.string.isRequired,
-    content:  PropTypes.string.isRequired,
     imageUrl: PropTypes.string,
 }
 

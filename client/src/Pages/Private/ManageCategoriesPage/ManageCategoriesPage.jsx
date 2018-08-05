@@ -1,62 +1,37 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 import { DefaultLayout } from './../../../Layouts'
 import { TitleMain, CardManageContent } from './../../../Components'
+import { withDataCategories } from './../../../HOC'
 
 
-class ManageCategoriesPage extends React.Component
-{
-    constructor()
-    {
-        super()
-        this.state = {
-            categories: null
-        }
-    }
-
-    componentDidMount()
-    {
-        this.fetchCategories()
-    }
-
-    handleDeleteCard(category)
-    {
+const ManageCategoriesPage = (props)=> {
+    const handleDeleteCard = (category)=> {
         axios.delete('category/delete/' + category._id).then((result)=> {
             if(result.status === 200)
             {
-                this.fetchCategories()
+                props.refreshCategories()
             }
         }).catch((error)=> {
             console.log(error)
         })
     }
 
-    handleEditCategory(category)
-    {
-        this.props.history.push('/admin/category?edit=' + category._id)
+    const handleEditCategory = (category)=> {
+        props.history.push('/admin/category?edit=' + category._id)
     }
 
-    fetchCategories()
+    const createCategoryCards = ()=>
     {
-        axios.get('category/all').then((result)=> {
-            this.setState({
-                categories: result.data
-            })
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
-
-    createCategoryCards()
-    {
-        if(this.state.categories !== null)
+        if(props.categories !== null)
         {
-            return this.state.categories.map((category, index)=> {
+            return props.categories.map((category, index)=> {
                 return (
                     <div className="w-1/2 mb-4 px-2 mb-5" key={ 'card_category_' + index }>
-                        <CardManageContent edit={ ()=> this.handleEditCategory(category) }
-                                           delete={ ()=> this.handleDeleteCard(category) }>
+                        <CardManageContent edit={ ()=> handleEditCategory(category) }
+                                           delete={ ()=> handleDeleteCard(category) }>
 
                             <div className="inline-flex">
                                 <div className="mr-3">{ category.title }</div>
@@ -70,17 +45,16 @@ class ManageCategoriesPage extends React.Component
         return null
     }
 
-    render()
-    {
-        return (
-            <DefaultLayout>
-                <TitleMain>Manage categories</TitleMain>
-                <div className="flex flex-wrap -mx-2">
-                    { this.createCategoryCards() }
-                </div>
-            </DefaultLayout>
-        )
-    }
+    return (
+        <DefaultLayout>
+            <TitleMain>Manage categories</TitleMain>
+            <div className="flex flex-wrap -mx-2">
+                { createCategoryCards() }
+            </div>
+        </DefaultLayout>
+    )
 }
 
-export default ManageCategoriesPage
+
+
+export default withDataCategories(ManageCategoriesPage)
