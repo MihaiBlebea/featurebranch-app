@@ -35,5 +35,13 @@ router.get('/approve/:id', auth, (request, response)=> {
     })
 })
 
+router.delete('/delete/:id', auth, (request, response)=> {
+    Comment.deleteOne({ _id: request.params.id }).then((result)=> {
+        response.status(200).json(result)
+    }).catch((error)=> {
+        response.status(400).json(error)
+    })
+})
+
 
 module.exports = router

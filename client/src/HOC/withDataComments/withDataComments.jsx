@@ -2,27 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
-const withDataPosts = (Component)=> {
-    return class WithDataPosts extends React.Component
+const withDataComments = (Component)=> {
+    return class WithDataComments extends React.Component
     {
         constructor(props)
         {
             super(props)
             this.state = {
-                posts: null,
+                comments: null,
             }
         }
 
         componentDidMount()
         {
-            this.fetchPosts()
+            this.fetchComments()
         }
 
-        fetchPosts()
+        fetchComments()
         {
-            axios.get('post/all').then((result)=> {
+            axios.get('comment/all').then((result)=> {
                 this.setState({
-                    posts: result.data
+                    comments: result.data
                 })
             }).catch((error=> {
                 console.log(error)
@@ -32,14 +32,10 @@ const withDataPosts = (Component)=> {
         render()
         {
             return <Component { ...this.props }
-                              posts={ this.state.posts } 
-                              refreshPosts={ ()=> this.fetchPosts() }/>
+                              comments={ this.state.comments }
+                              refreshComments={ ()=> this.fetchComments() }/>
         }
     }
 }
 
-withDataPosts.propTypes = {
-    categoryId: PropTypes.string
-}
-
-export default withDataPosts
+export default withDataComments

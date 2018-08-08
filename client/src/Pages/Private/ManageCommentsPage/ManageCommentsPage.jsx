@@ -1,83 +1,38 @@
 import React from 'react'
 import axios from 'axios'
 
-import { TitleMain, CardManageContent } from './../../../Components'
+import { TitleMain, TableComments, CardDefault } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
+import { withDataComments } from './../../../HOC'
 
 
-class ManageCommentsPage extends React.Component
-{
-    constructor()
-    {
-        super()
-        this.state = {
-            comments: null
-        }
-    }
-
-    componentDidMount()
-    {
-        this.fetchComments()
-    }
-
-    fetchComments()
-    {
-        axios.get('comment/all').then((result)=> {
-            if(result.status === 200)
-            {
-                this.setState({
-                    comments: result.data
-                })
-            }
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
-
-    handleApproveStatus(comment)
-    {
-        let status = !comment.isApproved
-        let url = 'comment/approve/' + comment._id + '?status=' + status
-        axios.get(url).then((result)=> {
-            if(result.status === 200)
-            {
-                this.fetchComments()
-            }
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
-
-    createCommentCards()
-    {
-        if(this.state.comments !== null)
+const ManageCommentsPage = (props)=> {
+    const transformData = (data)=> {
+        if(data)
         {
-            return this.state.comments.map((comment, index)=> {
-                return (
-                    <div className="mb-3" key={ 'comment_' + index }>
-                        <CardManageContent delete={ ()=> this.handleApproveStatus(index) }>
-
-                            <div className="inline-flex">
-                                <div className="mr-3">{ comment.subject }</div>
-                                <div className="mr-3">{ comment.author } comments</div>
-                            </div>
-                        </CardManageContent>
-                    </div>
-                )
+            return data.map((item)=> {
+                return {
+                    _id: item._id,
+                    title: item.title,
+                    content: item.content,
+                    author: item.author,
+                    status: item.isApproved,
+                    post: item.post
+                }
             })
         }
         return null
     }
 
-    render()
-    {
-        return (
-            <DefaultLayout>
-                <TitleMain>Manage comments</TitleMain>
-                { this.createCommentCards() }
-            </DefaultLayout>
-        )
-    }
+    return (
+        <DefaultLayout>
+            <TitleMain>Manage comments</TitleMain>
+            <CardDefault>
+                <TableComments data={ transformData(props.comments) }
+                               refreshComments={ props.refreshComments } />
+            </CardDefault>
+        </DefaultLayout>
+    )
 }
 
-export default ManageCommentsPage
+export default withDataComments(ManageCommentsPage)

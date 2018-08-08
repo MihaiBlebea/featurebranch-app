@@ -34,6 +34,12 @@ import MarkdownPreview from './MarkdownPreview/MarkdownPreview'
 
 import BlogContent from './BlogContent/BlogContent'
 
+import {
+    TableCategory,
+    TablePosts,
+    TableComments} from './Tables'
+
+
 export {
     NavigationMain,
     NavigationSecondary,
@@ -51,7 +57,7 @@ export {
     ModalConfirmation,
     ModalDefault,
     ModalLead,
-    
+
     ImagePreview,
     ImageGallery,
 
@@ -69,5 +75,9 @@ export {
     Footer,
     ButtonDefault,
     MarkdownPreview,
-    BlogContent
+    BlogContent,
+
+    TableCategory,
+    TablePosts,
+    TableComments
 }

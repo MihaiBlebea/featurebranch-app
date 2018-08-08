@@ -103,7 +103,6 @@ class CommentForm extends React.Component
             })
         }
         return formArray.map((input, index)=> {
-            let Component = input.component
             return (
                 <FormElement key={ 'input_' + index }
                              { ...input }

@@ -3,12 +3,13 @@ import withDeleteConfirmation from './withDeleteConfirmation/withDeleteConfirmat
 import withEdit from './withEdit/withEdit'
 import withDataPosts from './withDataPosts/withDataPosts'
 import withDataCategories from './withDataCategories/withDataCategories'
-
+import withDataComments from './withDataComments/withDataComments'
 
 export {
     withErrorValidation,
     withDeleteConfirmation,
     withEdit,
     withDataPosts,
-    withDataCategories
+    withDataCategories,
+    withDataComments
 }

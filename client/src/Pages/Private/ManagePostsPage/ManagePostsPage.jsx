@@ -1,92 +1,36 @@
 import React from 'react'
-import axios from 'axios'
 
-import { TitleMain, CardManageContent } from './../../../Components'
+import { TitleMain, TablePosts, CardDefault } from './../../../Components'
 import { DefaultLayout } from './../../../Layouts'
+import { withDataPosts } from './../../../HOC'
 
 
-class ManagePostsPage extends React.Component
-{
-    constructor()
-    {
-        super()
-        this.state = {
-            posts: null
-        }
-    }
-
-    componentDidMount()
-    {
-        this.fetchPosts()
-    }
-
-    fetchPosts()
-    {
-        axios.get('post/all').then((result)=> {
-            this.setState({
-                posts: result.data
-            })
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
-
-    handlePostPreview(post)
-    {
-        this.props.history.push('/admin/preview/' + post.slug)
-    }
-
-    handleEditPost(post)
-    {
-        this.props.history.push('/admin/post?edit=' + post._id)
-    }
-
-    handlePostDelete(post)
-    {
-        axios.delete('post/delete/' + post._id).then((result)=> {
-            if(result.status === 200)
-            {
-                this.fetchPosts()
-            }
-        }).catch((error)=> {
-            console.log(error)
-        })
-    }
-
-    createPosts()
-    {
-        if(this.state.posts !== null)
+const ManagePostsPage = (props)=> {
+    const transformData = (data)=> {
+        if(data)
         {
-            return this.state.posts.map((post, index)=> {
-                return (
-                    <div className="w-1/2 mb-4 h-12 px-2" key={ 'card_post_' + index }>
-                        <CardManageContent view={ ()=> this.handlePostPreview(post) }
-                                           edit={ ()=> this.handleEditPost(post) }
-                                           delete={ ()=> this.handlePostDelete(index) }>
-
-                            <div className="inline-flex">
-                                <div className="mr-3">{ post.title }</div>
-                                <div className="mr-3">{ post.comments.length } comments</div>
-                            </div>
-                        </CardManageContent>
-                    </div>
-                )
+            return data.map((item)=> {
+                return {
+                    _id: item._id,
+                    title: item.title,
+                    slug: item.slug,
+                    comments: item.comments.length,
+                    author: item.author.first_name + ' ' + item.author.last_name
+                }
             })
         }
         return null
     }
 
-    render()
-    {
-        return (
-            <DefaultLayout>
-                <TitleMain>Manage posts</TitleMain>
-                <div className="flex flex-wrap -mx-2">
-                    { this.createPosts() }
-                </div>
-            </DefaultLayout>
-        )
-    }
+    return (
+        <DefaultLayout>
+            <TitleMain>Manage posts</TitleMain>
+            <CardDefault>
+            <TablePosts data={ transformData(props.posts) }
+                        refreshPosts={ props.refreshPosts } />
+            </CardDefault>
+        </DefaultLayout>
+    )
 }
 
-export default ManagePostsPage
+export default withDataPosts(ManagePostsPage)

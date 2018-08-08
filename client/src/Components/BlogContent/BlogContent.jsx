@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 
 import { withDataPosts, withDataCategories } from './../../HOC'
 import { CardPost, CardCategory } from './../../Components'
@@ -61,4 +62,4 @@ const BlogContent = (props)=> {
     )
 }
 
-export default withDataCategories(withDataPosts(BlogContent))
+export default withRouter(withDataCategories(withDataPosts(BlogContent)))
