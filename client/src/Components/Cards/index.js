@@ -7,7 +7,7 @@ import CardDefault from './CardDefault/CardDefault'
 import CardPost from './CardPost/CardPost'
 import CardImage from './CardImage/CardImage'
 import CardRow from './CardRow/CardRow'
-import CardManageContent from './CardManageContent/CardManageContent'
+
 
 export {
     CardStacked,
@@ -18,6 +18,5 @@ export {
     CardDefault,
     CardPost,
     CardImage,
-    CardRow,
-    CardManageContent
+    CardRow
 }

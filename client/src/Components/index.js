@@ -23,8 +23,7 @@ import {
     CardImage,
     CardComment,
     CardHorizontal,
-    CardRow,
-    CardManageContent } from './Cards'
+    CardRow } from './Cards'
 
 import Footer from './Footer/Footer'
 
@@ -70,7 +69,6 @@ export {
     CardStacked,
     CardHorizontal,
     CardRow,
-    CardManageContent,
 
     Footer,
     ButtonDefault,
